@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+    
+@layer components {
+  .btn-primary {
+    @apply px-4 py-2 rounded-lg text-white bg-green-500 hover:bg-green-600 transition-all duration-200 shadow-sm;
+  }
+
+  .btn-secondary {
+    @apply px-4 py-2 rounded-lg text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 transition-all duration-200 shadow-sm;
+  }
+}
