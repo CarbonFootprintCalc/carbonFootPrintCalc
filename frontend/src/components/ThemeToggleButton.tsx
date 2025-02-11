@@ -12,8 +12,8 @@ const ThemeToggleButton: React.FC = () => {
         p-2 rounded-lg shadow-md
         ${
           isDarkMode
-            ? "bg-gray-700 hover:bg-gray-600"
-            : "bg-gray-200 hover:bg-gray-300"
+            ? "bg-gray-700 hover:bg-gray-600 text-yellow-400"
+            : "bg-white hover:bg-gray-50 text-gray-700"
         }
         transform transition-all duration-200 ease-in-out
         hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
@@ -34,7 +34,7 @@ const ThemeToggleButton: React.FC = () => {
         </svg>
       ) : (
         <svg
-          className="w-5 h-5 text-gray-700"
+          className="w-5 h-5"
           fill="currentColor"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
