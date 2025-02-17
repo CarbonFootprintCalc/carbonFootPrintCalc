@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cfc.cfcbackend.db.mappers.Onroadgasolinech4n2oMapper">
+  <resultMap id="BaseResultMap" type="com.cfc.cfcbackend.db.po.Onroadgasolinech4n2o">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="mobile_combustion_id" jdbcType="INTEGER" property="mobileCombustionId" />
+    <result column="vehicle_type" jdbcType="VARCHAR" property="vehicleType" />
+    <result column="model_year" jdbcType="VARCHAR" property="modelYear" />
+    <result column="ch4_factor_gCh4_per_mile" jdbcType="REAL" property="ch4FactorGch4PerMile" />
+    <result column="n2o_factor_gC2o_per_mile" jdbcType="REAL" property="n2oFactorGc2oPerMile" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, mobile_combustion_id, vehicle_type, model_year, ch4_factor_gCh4_per_mile, n2o_factor_gC2o_per_mile
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from onroadgasolinech4n2o
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from onroadgasolinech4n2o
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cfc.cfcbackend.db.po.Onroadgasolinech4n2o">
+    insert into onroadgasolinech4n2o (id, mobile_combustion_id, vehicle_type, 
+      model_year, ch4_factor_gCh4_per_mile, n2o_factor_gC2o_per_mile
+      )
+    values (#{id,jdbcType=INTEGER}, #{mobileCombustionId,jdbcType=INTEGER}, #{vehicleType,jdbcType=VARCHAR}, 
+      #{modelYear,jdbcType=VARCHAR}, #{ch4FactorGch4PerMile,jdbcType=REAL}, #{n2oFactorGc2oPerMile,jdbcType=REAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cfc.cfcbackend.db.po.Onroadgasolinech4n2o">
+    insert into onroadgasolinech4n2o
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="mobileCombustionId != null">
+        mobile_combustion_id,
+      </if>
+      <if test="vehicleType != null">
+        vehicle_type,
+      </if>
+      <if test="modelYear != null">
+        model_year,
+      </if>
+      <if test="ch4FactorGch4PerMile != null">
+        ch4_factor_gCh4_per_mile,
+      </if>
+      <if test="n2oFactorGc2oPerMile != null">
+        n2o_factor_gC2o_per_mile,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="mobileCombustionId != null">
+        #{mobileCombustionId,jdbcType=INTEGER},
+      </if>
+      <if test="vehicleType != null">
+        #{vehicleType,jdbcType=VARCHAR},
+      </if>
+      <if test="modelYear != null">
+        #{modelYear,jdbcType=VARCHAR},
+      </if>
+      <if test="ch4FactorGch4PerMile != null">
+        #{ch4FactorGch4PerMile,jdbcType=REAL},
+      </if>
+      <if test="n2oFactorGc2oPerMile != null">
+        #{n2oFactorGc2oPerMile,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cfc.cfcbackend.db.po.Onroadgasolinech4n2o">
+    update onroadgasolinech4n2o
+    <set>
+      <if test="mobileCombustionId != null">
+        mobile_combustion_id = #{mobileCombustionId,jdbcType=INTEGER},
+      </if>
+      <if test="vehicleType != null">
+        vehicle_type = #{vehicleType,jdbcType=VARCHAR},
+      </if>
+      <if test="modelYear != null">
+        model_year = #{modelYear,jdbcType=VARCHAR},
+      </if>
+      <if test="ch4FactorGch4PerMile != null">
+        ch4_factor_gCh4_per_mile = #{ch4FactorGch4PerMile,jdbcType=REAL},
+      </if>
+      <if test="n2oFactorGc2oPerMile != null">
+        n2o_factor_gC2o_per_mile = #{n2oFactorGc2oPerMile,jdbcType=REAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cfc.cfcbackend.db.po.Onroadgasolinech4n2o">
+    update onroadgasolinech4n2o
+    set mobile_combustion_id = #{mobileCombustionId,jdbcType=INTEGER},
+      vehicle_type = #{vehicleType,jdbcType=VARCHAR},
+      model_year = #{modelYear,jdbcType=VARCHAR},
+      ch4_factor_gCh4_per_mile = #{ch4FactorGch4PerMile,jdbcType=REAL},
+      n2o_factor_gC2o_per_mile = #{n2oFactorGc2oPerMile,jdbcType=REAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

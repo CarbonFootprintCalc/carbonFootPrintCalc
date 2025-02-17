@@ -1,10 +1,11 @@
 package com.cfc.cfcbackend.controller;
 
 import com.cfc.cfcbackend.service.StationaryCombustionService;
-import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 @RestController
 public class Scope1Controller {
