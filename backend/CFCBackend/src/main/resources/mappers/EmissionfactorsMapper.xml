@@ -16,7 +16,12 @@
     from emissionfactors
     where factor_id = #{factorId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="selectAll" resultType="com.cfc.cfcbackend.db.po.Emissionfactors">
+      select
+      <include refid="Base_Column_List" />
+      from emissionfactors
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from emissionfactors
     where factor_id = #{factorId,jdbcType=INTEGER}
   </delete>
