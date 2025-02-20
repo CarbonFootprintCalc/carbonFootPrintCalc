@@ -1,11 +1,21 @@
 package com.cfc.cfcbackend.service;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
+
+import com.cfc.cfcbackend.db.mappers.StationarycombustionfactorsMapper;
+import com.cfc.cfcbackend.db.po.Stationarycombustionfactors;
 
 @Service
 public class StationaryCombustionService {
-    double NATURAL_GAS_CO2_FACTOR = 0.05444;
+
+    @Resource
+    StationarycombustionfactorsMapper mapper;
+
     public double naturalGasCO2(double quantity) {
-        return quantity * NATURAL_GAS_CO2_FACTOR;
+        Stationarycombustionfactors factor = this.mapper.selectByPrimaryKey(2);
+        System.out.println(factor.toString());
+        return quantity * factor.getCo2FactorKgco2PerMmbtu();
     }
 }
