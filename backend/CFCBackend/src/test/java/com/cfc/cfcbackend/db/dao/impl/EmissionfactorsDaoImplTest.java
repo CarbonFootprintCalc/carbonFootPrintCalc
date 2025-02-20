@@ -1,6 +1,7 @@
 package com.cfc.cfcbackend.db.dao.impl;
 
 import com.cfc.cfcbackend.db.dao.EmissionfactorsDao;
+import com.cfc.cfcbackend.db.po.Emissionfactors;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,6 +24,7 @@ class EmissionfactorsDaoImplTest {
 
     @Test
     void getEmissionfactors() {
+        //Emissionfactors emissionfactors = emissionfactorsDao.getEmissionfactors(1);
         log.info(emissionfactorsDao.getEmissionfactors(1).toString());
     }
 
