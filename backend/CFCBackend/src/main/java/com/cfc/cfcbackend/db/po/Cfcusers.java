@@ -1,5 +1,10 @@
 package com.cfc.cfcbackend.db.po;
 
+import lombok.Builder;
+import lombok.Data;
+
+@Builder
+@Data
 public class Cfcusers {
     private Integer userId;
 

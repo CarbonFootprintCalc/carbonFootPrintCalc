@@ -1,7 +1,11 @@
 package com.cfc.cfcbackend.db.po;
 
-import java.util.Date;
+import lombok.Builder;
+import lombok.Data;
 
+import java.util.Date;
+@Builder
+@Data
 public class Usersessions {
     private Integer sessionId;
 
