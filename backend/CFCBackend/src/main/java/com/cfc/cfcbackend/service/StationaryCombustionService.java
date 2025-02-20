@@ -1,21 +1,51 @@
 package com.cfc.cfcbackend.service;
 
-import javax.annotation.Resource;
-
+import com.cfc.cfcbackend.db.dao.StationarycombustionfactorsDao;
 import org.springframework.stereotype.Service;
 
-import com.cfc.cfcbackend.db.mappers.StationarycombustionfactorsMapper;
-import com.cfc.cfcbackend.db.po.Stationarycombustionfactors;
+import javax.annotation.Resource;
 
 @Service
 public class StationaryCombustionService {
 
     @Resource
-    StationarycombustionfactorsMapper mapper;
+    private StationarycombustionfactorsDao stationarycombustionfactorsDao;
 
-    public double naturalGasCO2(double quantity) {
-        Stationarycombustionfactors factor = this.mapper.selectByPrimaryKey(2);
-        System.out.println(factor.toString());
-        return quantity * factor.getCo2FactorKgco2PerMmbtu();
+    public double CO2PerUnit(double quantity, int factorId) {
+        return quantity * stationarycombustionfactorsDao.selectByPrimaryKey(factorId).getCo2FactorKgco2PerUnit();
+    }
+    public double CH4PerUnit(double quantity, int factorId) {
+        return quantity * stationarycombustionfactorsDao.selectByPrimaryKey(factorId).getCh4FactorGch4PerUnit();
+    }
+    public double N2OPerUnit(double quantity, int factorId) {
+        return quantity * stationarycombustionfactorsDao.selectByPrimaryKey(factorId).getN2oFactorGn2oPerUnit();
+    }
+    public double CO2PerMMBtu(double quantity, int factorId) {
+        return quantity * stationarycombustionfactorsDao.selectByPrimaryKey(factorId).getCo2FactorKgco2PerMmbtu();
+    }
+    public double CH4PerMMBtu(double quantity, int factorId) {
+        return quantity * stationarycombustionfactorsDao.selectByPrimaryKey(factorId).getCh4FactorGch4PerMmbtu();
+    }
+    public double N2OPerMMBtu(double quantity, int factorId) {
+        return quantity * stationarycombustionfactorsDao.selectByPrimaryKey(factorId).getN2oFactorGn2oPerMmbtu();
+    }
+
+    public double CO2PerUnit(double quantity, String factorName) {
+        return quantity * stationarycombustionfactorsDao.selectByFactorName(factorName).getCo2FactorKgco2PerUnit();
+    }
+    public double CH4PerUnit(double quantity, String factorName) {
+        return quantity * stationarycombustionfactorsDao.selectByFactorName(factorName).getCh4FactorGch4PerUnit();
+    }
+    public double N2OPerUnit(double quantity, String factorName) {
+        return quantity * stationarycombustionfactorsDao.selectByFactorName(factorName).getN2oFactorGn2oPerUnit();
+    }
+    public double CO2PerMMBtu(double quantity, String factorName) {
+        return quantity * stationarycombustionfactorsDao.selectByFactorName(factorName).getCo2FactorKgco2PerMmbtu();
+    }
+    public double CH4PerMMBtu(double quantity, String factorName) {
+        return quantity * stationarycombustionfactorsDao.selectByFactorName(factorName).getCh4FactorGch4PerMmbtu();
+    }
+    public double N2OPerMMBtu(double quantity, String factorName) {
+        return quantity * stationarycombustionfactorsDao.selectByFactorName(factorName).getN2oFactorGn2oPerMmbtu();
     }
 }

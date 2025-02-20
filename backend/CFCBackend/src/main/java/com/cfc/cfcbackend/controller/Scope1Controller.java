@@ -20,7 +20,7 @@ public class Scope1Controller {
     @ResponseBody
     @GetMapping("scope1")
     public double scope1() {
-        return stationaryCombustionService.naturalGasCO2(5000);
+        return stationaryCombustionService.CO2PerUnit(5000, "Natural Gas");
     }
 
  

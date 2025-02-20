@@ -24,7 +24,13 @@
     from stationarycombustionfactors
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="selectByFactorName" resultType="com.cfc.cfcbackend.db.po.Stationarycombustionfactors">
+      select
+      <include refid="Base_Column_List" />
+      from stationarycombustionfactors
+      where fuel_type = #{fuel_type,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from stationarycombustionfactors
     where id = #{id,jdbcType=INTEGER}
   </delete>

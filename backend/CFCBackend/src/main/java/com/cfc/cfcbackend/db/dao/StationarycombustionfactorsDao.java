@@ -1,8 +1,8 @@
-package com.cfc.cfcbackend.db.mappers;
+package com.cfc.cfcbackend.db.dao;
 
 import com.cfc.cfcbackend.db.po.Stationarycombustionfactors;
 
-public interface StationarycombustionfactorsMapper {
+public interface StationarycombustionfactorsDao {
     int deleteByPrimaryKey(Integer id);
 
     int insert(Stationarycombustionfactors record);
@@ -11,9 +11,9 @@ public interface StationarycombustionfactorsMapper {
 
     Stationarycombustionfactors selectByPrimaryKey(Integer id);
 
+    Stationarycombustionfactors selectByFactorName(String factorName);
+
     int updateByPrimaryKeySelective(Stationarycombustionfactors record);
 
     int updateByPrimaryKey(Stationarycombustionfactors record);
-
-    Stationarycombustionfactors selectByFactorName(String fuel_type);
 }
