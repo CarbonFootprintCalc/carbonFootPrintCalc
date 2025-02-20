@@ -11,6 +11,8 @@ public interface StationarycombustionfactorsDao {
 
     Stationarycombustionfactors selectByPrimaryKey(Integer id);
 
+    Stationarycombustionfactors selectByFactorName(String factorName);
+
     int updateByPrimaryKeySelective(Stationarycombustionfactors record);
 
     int updateByPrimaryKey(Stationarycombustionfactors record);

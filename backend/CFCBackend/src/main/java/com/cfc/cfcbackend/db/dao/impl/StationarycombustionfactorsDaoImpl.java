@@ -33,6 +33,11 @@ public class StationarycombustionfactorsDaoImpl implements Stationarycombustionf
     }
 
     @Override
+    public Stationarycombustionfactors selectByFactorName(String factorName) {
+        return stationarycombustionfactorsMapper.selectByFactorName(factorName);
+    }
+
+    @Override
     public int updateByPrimaryKeySelective(Stationarycombustionfactors record) {
         return 0;
     }
