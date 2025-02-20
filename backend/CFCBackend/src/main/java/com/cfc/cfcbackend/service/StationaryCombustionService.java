@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 
 @Service
 public class StationaryCombustionService {
-    double NATURAL_GAS_CO2_FACTOR = 0.05444;
+
     @Resource
     private StationarycombustionfactorsDao stationarycombustionfactorsDao;
 
