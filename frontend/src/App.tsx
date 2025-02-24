@@ -31,13 +31,23 @@ const App: React.FC = () => {
           </h2>
 
           <ScopeSection
-            title="Coal and Coke"
-            description="*text describing coal and coke*"
+            title="Fossil Fuels"
+            description="These are fuels like coal, oil, and natural gas. Enter the amount your company burns (in units like ***) from the specific fossil fuel type you use."
           />
 
           <ScopeSection
-            title="Other Wastes - Solid"
-            description="*text describing solid waste*"
+            title="Biomass and Biofuels"
+            description="This group covers fuels derived from living things, such as wood, agricultural leftovers, ethanol, and biodiesel. Report the *** of these fuels if your operations include them."
+          />
+
+          <ScopeSection
+            title="Other Fuels - Solid"
+            description="These are solid materials not considered traditional fossil fuels, such as municipal solid waste, plastics, tires, or solid petroleum coke. Provide the amount burned in your process in ***"
+          />
+
+          <ScopeSection
+            title="Other Fuels - Gaseous"
+            description="These gases are byproducts or specialzed fuels like blast furnace gas, coke oven gas, fuel gas, and propane gas. Input the *** consumed in your operations."
           />
 
           {/* Moved button below ScopeSection components */}
