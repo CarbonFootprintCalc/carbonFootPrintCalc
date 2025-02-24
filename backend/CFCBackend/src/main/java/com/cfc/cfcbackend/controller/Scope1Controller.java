@@ -4,6 +4,7 @@ import com.cfc.cfcbackend.service.StationaryCombustionService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 
@@ -19,8 +20,8 @@ public class Scope1Controller {
     
     @ResponseBody
     @GetMapping("scope1")
-    public double scope1() {
-        return stationaryCombustionService.CO2PerUnit(5000, "Natural Gas");
+    public double scope1(@RequestParam double quantity, @RequestParam String fuelType) {
+        return stationaryCombustionService.CO2PerUnit(quantity, fuelType);
     }
 
  
