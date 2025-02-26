@@ -10,13 +10,31 @@ interface ScopeSectionProps {
 // i think many companies don't know how much "anthracite" they are consuming, but they may know how much coal they are consuming
 // on the flip side you can get a more accurate reading if we do each individual fuel type -ryan
 const fuelOptions: Record<string, string[]> = {
-  "Fossil Fuels": ["Coal Fuels", "Natural Gas and Other Gaseous Fuels", "Petroleum-Based Fuels"],
-  "Biomass and Biofuels": ["Solid Biomass Fuels", "Liquid Biomass Fuels", "Gaseous Biomass Fuels"],
-  "Other Fuels - Solid": ["Municipal Solid Waste", "Petroleum Coke (Solid)", "Plastics", "Tires"],
-  "Other Fuels - Gaseous": ["Blast Furnace Gas", "Coke Oven Gas", "Fuel Gas", "Propane Gas"],
-  };
+  "Fossil Fuels": [
+    "Coal Fuels",
+    "Natural Gas and Other Gaseous Fuels",
+    "Petroleum-Based Fuels",
+  ],
+  "Biomass and Biofuels": [
+    "Solid Biomass Fuels",
+    "Liquid Biomass Fuels",
+    "Gaseous Biomass Fuels",
+  ],
+  "Other Fuels - Solid": [
+    "Municipal Solid Waste",
+    "Petroleum Coke (Solid)",
+    "Plastics",
+    "Tires",
+  ],
+  "Other Fuels - Gaseous": [
+    "Blast Furnace Gas",
+    "Coke Oven Gas",
+    "Fuel Gas",
+    "Propane Gas",
+  ],
+};
 
-  // units need to be looked at, had trouble figuring out exactly what needs to go where
+// units need to be looked at, had trouble figuring out exactly what needs to go where
 const unitOptions: Record<string, string[]> = {
   "Fossil Fuels": ["short tons", "MMBtu"],
   "Biomass and Biofuels": ["Short Tons", "mmBtu", "Gallons"],
@@ -29,15 +47,17 @@ const ScopeSection: React.FC<ScopeSectionProps> = ({ title, description }) => {
     { description: string; fuelType: string; quantity: string; unit: string }[]
   >([]);
 
-  const handleAddSource = (source: {
-    description: string;
-    fuelType: string;
-    quantity: string;
-    unit: string;
-  }) => {
-    setSources((prev) => [...prev, source]);
+  const handleAddSource = (
+    newSources: {
+      description: string;
+      fuelType: string;
+      quantity: string;
+      unit: string;
+    }[]
+  ) => {
+    // Merge all new sources into existing sources
+    setSources((prev) => [...prev, ...newSources]);
   };
-
 
   return (
     <div className="mt-8 p-4 border border-gray-300 rounded-lg shadow-sm bg-white w-[900px] mx-auto">
@@ -58,9 +78,10 @@ const ScopeSection: React.FC<ScopeSectionProps> = ({ title, description }) => {
         </ul>
       )}
       <div className="w-full flex justify-center">
-        <AddSourceForm onAdd={handleAddSource}
-        fuelOptions={fuelOptions[title] ?? []}
-        unitOptions={unitOptions[title] ?? []}
+        <AddSourceForm
+          onAdd={handleAddSource}
+          fuelOptions={fuelOptions[title] ?? []}
+          unitOptions={unitOptions[title] ?? []}
         />
       </div>
     </div>
