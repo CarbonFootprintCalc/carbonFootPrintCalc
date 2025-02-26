@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 
 interface AddSourceFormProps {
-  onAdd: (sources: {description: string; fuelType: string; quantity: string; unit: string }) => void;
+  onAdd: (sources: {description: string; fuelType: string; quantity: string; unit: string }[]) => void;
   fuelOptions: string[];
   unitOptions: string[];
 }
 
 const AddSourceForm: React.FC<AddSourceFormProps> = ({ onAdd, fuelOptions, unitOptions }) => {
   
-  const [rows, setRows] = useState([{ description: "", fuelType: "", quantity: "", units: ""}]);
+  const [rows, setRows] = useState([{ description: "", fuelType: "", quantity: "", unit: ""}]);
 
   
   // handles updates to individual input fields
@@ -79,7 +79,7 @@ const AddSourceForm: React.FC<AddSourceFormProps> = ({ onAdd, fuelOptions, unitO
             >
               <option value="">Select Unit</option>
               {unitOptions.map((unit, i) => (
-                <option key={index} value={i}>{unit}</option>
+                <option key={i} value={unit}>{unit}</option>
               ))}
             </select>
           </div>
