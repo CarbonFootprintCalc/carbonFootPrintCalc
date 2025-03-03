@@ -8,9 +8,10 @@ Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd"
         </commentGenerator>
         <jdbcConnection
                 driverClass="com.mysql.cj.jdbc.Driver"
-                connectionURL="jdbc:mysql://rds-mysql.cre82gg0a05g.us-east-2.rds.amazonaws.com/cfc"
-                userId="CFC"
-                password="CFC12345678!">
+                connectionURL="jdbc:mysql://localhost:3306/cfc-db?
+serverTimezone=UTC"
+                userId="root"
+                password="root">
         </jdbcConnection>
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false" />
@@ -35,14 +36,14 @@ Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd"
             <!-- enableSubPackages:let schema be the suffix of package -->
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
-        <table schema="" tableName="cfcusers"
-               domainObjectName="Cfcusers" enableCountByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               enableUpdateByExample="false" selectByExampleQueryId="false"></table>
-        <table schema="" tableName="usersessions"
-               domainObjectName="Usersessions" enableCountByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               enableUpdateByExample="false" selectByExampleQueryId="false"></table>
+<!--        <table schema="" tableName="cfcusers"-->
+<!--               domainObjectName="Cfcusers" enableCountByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               enableUpdateByExample="false" selectByExampleQueryId="false"></table>-->
+<!--        <table schema="" tableName="usersessions"-->
+<!--               domainObjectName="Usersessions" enableCountByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               enableUpdateByExample="false" selectByExampleQueryId="false"></table>-->
         <table schema="" tableName="emissionfactors"
                domainObjectName="Emissionfactors" enableCountByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
@@ -51,29 +52,29 @@ Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd"
                domainObjectName="Stationarycombustionfactors" enableCountByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false" selectByExampleQueryId="false"></table>
-        <table schema="" tableName="mobilecombustion"
-               domainObjectName="Mobilecombustion" enableCountByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               enableUpdateByExample="false" selectByExampleQueryId="false"></table>
-        <table schema="" tableName="mobilecombustionco2"
-               domainObjectName="Mobilecombustionco2" enableCountByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               enableUpdateByExample="false" selectByExampleQueryId="false"></table>
-        <table schema="" tableName="onroadgasolinech4n2o"
-               domainObjectName="Onroadgasolinech4n2o" enableCountByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               enableUpdateByExample="false" selectByExampleQueryId="false"></table>
-        <table schema="" tableName="onroaddieselaltuelch4n2o"
-               domainObjectName="Onroaddieselaltuelch4n2o" enableCountByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               enableUpdateByExample="false" selectByExampleQueryId="false"></table>
-        <table schema="" tableName="nonroadch4n2o"
-               domainObjectName="Nonroadch4n2o" enableCountByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               enableUpdateByExample="false" selectByExampleQueryId="false"></table>
-        <table schema="" tableName="unitconversions"
-               domainObjectName="Unitconversions" enableCountByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               enableUpdateByExample="false" selectByExampleQueryId="false"></table>
+<!--        <table schema="" tableName="mobilecombustion"-->
+<!--               domainObjectName="Mobilecombustion" enableCountByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               enableUpdateByExample="false" selectByExampleQueryId="false"></table>-->
+<!--        <table schema="" tableName="mobilecombustionco2"-->
+<!--               domainObjectName="Mobilecombustionco2" enableCountByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               enableUpdateByExample="false" selectByExampleQueryId="false"></table>-->
+<!--        <table schema="" tableName="onroadgasolinech4n2o"-->
+<!--               domainObjectName="Onroadgasolinech4n2o" enableCountByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               enableUpdateByExample="false" selectByExampleQueryId="false"></table>-->
+<!--        <table schema="" tableName="onroaddieselaltuelch4n2o"-->
+<!--               domainObjectName="Onroaddieselaltuelch4n2o" enableCountByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               enableUpdateByExample="false" selectByExampleQueryId="false"></table>-->
+<!--        <table schema="" tableName="nonroadch4n2o"-->
+<!--               domainObjectName="Nonroadch4n2o" enableCountByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               enableUpdateByExample="false" selectByExampleQueryId="false"></table>-->
+<!--        <table schema="" tableName="unitconversions"-->
+<!--               domainObjectName="Unitconversions" enableCountByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               enableUpdateByExample="false" selectByExampleQueryId="false"></table>-->
     </context>
 </generatorConfiguration>

@@ -11,41 +11,41 @@ public class StationaryCombustionService {
     @Resource
     private StationarycombustionfactorsDao stationarycombustionfactorsDao;
 
-    public double CO2PerUnit(double quantity, int factorId) {
-        return quantity * stationarycombustionfactorsDao.selectByPrimaryKey(factorId).getCo2FactorKgco2PerUnit();
-    }
-    public double CH4PerUnit(double quantity, int factorId) {
-        return quantity * stationarycombustionfactorsDao.selectByPrimaryKey(factorId).getCh4FactorGch4PerUnit();
-    }
-    public double N2OPerUnit(double quantity, int factorId) {
-        return quantity * stationarycombustionfactorsDao.selectByPrimaryKey(factorId).getN2oFactorGn2oPerUnit();
-    }
-    public double CO2PerMMBtu(double quantity, int factorId) {
-        return quantity * stationarycombustionfactorsDao.selectByPrimaryKey(factorId).getCo2FactorKgco2PerMmbtu();
-    }
-    public double CH4PerMMBtu(double quantity, int factorId) {
-        return quantity * stationarycombustionfactorsDao.selectByPrimaryKey(factorId).getCh4FactorGch4PerMmbtu();
-    }
-    public double N2OPerMMBtu(double quantity, int factorId) {
-        return quantity * stationarycombustionfactorsDao.selectByPrimaryKey(factorId).getN2oFactorGn2oPerMmbtu();
-    }
+//    public double CO2PerUnit(double quantity, int factorId) {
+//        return quantity * stationarycombustionfactorsDao.selectByPrimaryKey(factorId).getCo2unit();
+//    }
+//    public double CH4PerUnit(double quantity, int factorId) {
+//        return quantity * stationarycombustionfactorsDao.selectByPrimaryKey(factorId).getCh4unit();
+//    }
+//    public double N2OPerUnit(double quantity, int factorId) {
+//        return quantity * stationarycombustionfactorsDao.selectByPrimaryKey(factorId).getN2ounit();
+//    }
+//    public double CO2PerMMBtu(double quantity, int factorId) {
+//        return quantity * stationarycombustionfactorsDao.selectByPrimaryKey(factorId).getCo2mmbtu();
+//    }
+//    public double CH4PerMMBtu(double quantity, int factorId) {
+//        return quantity * stationarycombustionfactorsDao.selectByPrimaryKey(factorId).getCh4mmbtu();
+//    }
+//    public double N2OPerMMBtu(double quantity, int factorId) {
+//        return quantity * stationarycombustionfactorsDao.selectByPrimaryKey(factorId).getN2ounit();
+//    }
 
     public double CO2PerUnit(double quantity, String factorName) {
-        return quantity * stationarycombustionfactorsDao.selectByFactorName(factorName).getCo2FactorKgco2PerUnit();
+        return quantity * stationarycombustionfactorsDao.selectByPrimaryKey(factorName).getCo2unit();
     }
     public double CH4PerUnit(double quantity, String factorName) {
-        return quantity * stationarycombustionfactorsDao.selectByFactorName(factorName).getCh4FactorGch4PerUnit();
+        return quantity * stationarycombustionfactorsDao.selectByPrimaryKey(factorName).getCh4unit();
     }
     public double N2OPerUnit(double quantity, String factorName) {
-        return quantity * stationarycombustionfactorsDao.selectByFactorName(factorName).getN2oFactorGn2oPerUnit();
+        return quantity * stationarycombustionfactorsDao.selectByPrimaryKey(factorName).getN2ounit();
     }
     public double CO2PerMMBtu(double quantity, String factorName) {
-        return quantity * stationarycombustionfactorsDao.selectByFactorName(factorName).getCo2FactorKgco2PerMmbtu();
+        return quantity * stationarycombustionfactorsDao.selectByPrimaryKey(factorName).getCo2mmbtu();
     }
     public double CH4PerMMBtu(double quantity, String factorName) {
-        return quantity * stationarycombustionfactorsDao.selectByFactorName(factorName).getCh4FactorGch4PerMmbtu();
+        return quantity * stationarycombustionfactorsDao.selectByPrimaryKey(factorName).getCh4mmbtu();
     }
     public double N2OPerMMBtu(double quantity, String factorName) {
-        return quantity * stationarycombustionfactorsDao.selectByFactorName(factorName).getN2oFactorGn2oPerMmbtu();
+        return quantity * stationarycombustionfactorsDao.selectByPrimaryKey(factorName).getN2ounit();
     }
 }

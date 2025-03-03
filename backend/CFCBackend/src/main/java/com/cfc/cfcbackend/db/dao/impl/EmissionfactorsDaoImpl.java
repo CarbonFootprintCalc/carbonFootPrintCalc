@@ -17,9 +17,4 @@ public class EmissionfactorsDaoImpl implements EmissionfactorsDao {
     public Emissionfactors getEmissionfactors(int id) {
         return mapper.selectByPrimaryKey(id);
     }
-
-    @Override
-    public List<Emissionfactors> getAllEmissionfactors() {
-        return mapper.selectAll();
-    }
 }

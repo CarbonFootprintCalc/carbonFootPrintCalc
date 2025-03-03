@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cfc.cfcbackend.db.mappers.StationarycombustionfactorsMapper">
+  <resultMap id="BaseResultMap" type="com.cfc.cfcbackend.db.po.Stationarycombustionfactors">
+    <id column="fuelType" jdbcType="VARCHAR" property="fueltype" />
+    <result column="CO2mmBtu" jdbcType="REAL" property="co2mmbtu" />
+    <result column="CH4mmBtu" jdbcType="REAL" property="ch4mmbtu" />
+    <result column="N2OmmBtu" jdbcType="REAL" property="n2ommbtu" />
+    <result column="CO2unit" jdbcType="REAL" property="co2unit" />
+    <result column="CH4unit" jdbcType="REAL" property="ch4unit" />
+    <result column="N2Ounit" jdbcType="REAL" property="n2ounit" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    fuelType, CO2mmBtu, CH4mmBtu, N2OmmBtu, CO2unit, CH4unit, N2Ounit
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from stationarycombustionfactors
+    where fuelType = #{fueltype,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from stationarycombustionfactors
+    where fuelType = #{fueltype,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.cfc.cfcbackend.db.po.Stationarycombustionfactors">
+    insert into stationarycombustionfactors (fuelType, CO2mmBtu, CH4mmBtu, 
+      N2OmmBtu, CO2unit, CH4unit, 
+      N2Ounit)
+    values (#{fueltype,jdbcType=VARCHAR}, #{co2mmbtu,jdbcType=REAL}, #{ch4mmbtu,jdbcType=REAL}, 
+      #{n2ommbtu,jdbcType=REAL}, #{co2unit,jdbcType=REAL}, #{ch4unit,jdbcType=REAL}, 
+      #{n2ounit,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cfc.cfcbackend.db.po.Stationarycombustionfactors">
+    insert into stationarycombustionfactors
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="fueltype != null">
+        fuelType,
+      </if>
+      <if test="co2mmbtu != null">
+        CO2mmBtu,
+      </if>
+      <if test="ch4mmbtu != null">
+        CH4mmBtu,
+      </if>
+      <if test="n2ommbtu != null">
+        N2OmmBtu,
+      </if>
+      <if test="co2unit != null">
+        CO2unit,
+      </if>
+      <if test="ch4unit != null">
+        CH4unit,
+      </if>
+      <if test="n2ounit != null">
+        N2Ounit,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="fueltype != null">
+        #{fueltype,jdbcType=VARCHAR},
+      </if>
+      <if test="co2mmbtu != null">
+        #{co2mmbtu,jdbcType=REAL},
+      </if>
+      <if test="ch4mmbtu != null">
+        #{ch4mmbtu,jdbcType=REAL},
+      </if>
+      <if test="n2ommbtu != null">
+        #{n2ommbtu,jdbcType=REAL},
+      </if>
+      <if test="co2unit != null">
+        #{co2unit,jdbcType=REAL},
+      </if>
+      <if test="ch4unit != null">
+        #{ch4unit,jdbcType=REAL},
+      </if>
+      <if test="n2ounit != null">
+        #{n2ounit,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cfc.cfcbackend.db.po.Stationarycombustionfactors">
+    update stationarycombustionfactors
+    <set>
+      <if test="co2mmbtu != null">
+        CO2mmBtu = #{co2mmbtu,jdbcType=REAL},
+      </if>
+      <if test="ch4mmbtu != null">
+        CH4mmBtu = #{ch4mmbtu,jdbcType=REAL},
+      </if>
+      <if test="n2ommbtu != null">
+        N2OmmBtu = #{n2ommbtu,jdbcType=REAL},
+      </if>
+      <if test="co2unit != null">
+        CO2unit = #{co2unit,jdbcType=REAL},
+      </if>
+      <if test="ch4unit != null">
+        CH4unit = #{ch4unit,jdbcType=REAL},
+      </if>
+      <if test="n2ounit != null">
+        N2Ounit = #{n2ounit,jdbcType=REAL},
+      </if>
+    </set>
+    where fuelType = #{fueltype,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cfc.cfcbackend.db.po.Stationarycombustionfactors">
+    update stationarycombustionfactors
+    set CO2mmBtu = #{co2mmbtu,jdbcType=REAL},
+      CH4mmBtu = #{ch4mmbtu,jdbcType=REAL},
+      N2OmmBtu = #{n2ommbtu,jdbcType=REAL},
+      CO2unit = #{co2unit,jdbcType=REAL},
+      CH4unit = #{ch4unit,jdbcType=REAL},
+      N2Ounit = #{n2ounit,jdbcType=REAL}
+    where fuelType = #{fueltype,jdbcType=VARCHAR}
+  </update>
+</mapper>

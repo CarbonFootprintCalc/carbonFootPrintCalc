@@ -29,6 +29,7 @@
     "typescript": "^5.7.3"
   },
   "dependencies": {
-    "aws-amplify": "^6.12.3"
+    "aws-amplify": "^6.12.3",
+    "axios": "^1.8.1"
   }
 }
