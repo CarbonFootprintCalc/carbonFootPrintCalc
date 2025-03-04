@@ -9,9 +9,9 @@ public interface StationarycombustionfactorsDao {
 
     int insertSelective(Stationarycombustionfactors record);
 
-    Stationarycombustionfactors selectByPrimaryKey(Integer id);
+    Stationarycombustionfactors selectByPrimaryKey(int id);
 
-    Stationarycombustionfactors selectByFactorName(String factorName);
+    Stationarycombustionfactors selectByFuelType(String fuelType);
 
     int updateByPrimaryKeySelective(Stationarycombustionfactors record);
 

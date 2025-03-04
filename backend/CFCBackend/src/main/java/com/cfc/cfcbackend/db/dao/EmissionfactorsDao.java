@@ -6,5 +6,4 @@ import java.util.List;
 
 public interface EmissionfactorsDao {
     Emissionfactors getEmissionfactors(int id);
-    List<Emissionfactors> getAllEmissionfactors();
 }

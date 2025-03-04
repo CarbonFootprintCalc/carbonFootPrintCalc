@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
+
 @RestController
 public class Scope1Controller {
     @Resource

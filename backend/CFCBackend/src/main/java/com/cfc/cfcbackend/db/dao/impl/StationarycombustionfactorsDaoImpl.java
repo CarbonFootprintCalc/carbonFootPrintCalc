@@ -28,13 +28,13 @@ public class StationarycombustionfactorsDaoImpl implements Stationarycombustionf
     }
 
     @Override
-    public Stationarycombustionfactors selectByPrimaryKey(Integer id) {
+    public Stationarycombustionfactors selectByPrimaryKey(int id) {
         return stationarycombustionfactorsMapper.selectByPrimaryKey(id);
     }
 
     @Override
-    public Stationarycombustionfactors selectByFactorName(String factorName) {
-        return stationarycombustionfactorsMapper.selectByFactorName(factorName);
+    public Stationarycombustionfactors selectByFuelType(String fuelType) {
+        return stationarycombustionfactorsMapper.selectByFuelType(fuelType);
     }
 
     @Override

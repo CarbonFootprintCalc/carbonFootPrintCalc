@@ -31,21 +31,21 @@ public class StationaryCombustionService {
     }
 
     public double CO2PerUnit(double quantity, String factorName) {
-        return quantity * stationarycombustionfactorsDao.selectByFactorName(factorName).getCo2FactorKgco2PerUnit();
+        return quantity * stationarycombustionfactorsDao.selectByFuelType(factorName).getCo2FactorKgco2PerUnit();
     }
     public double CH4PerUnit(double quantity, String factorName) {
-        return quantity * stationarycombustionfactorsDao.selectByFactorName(factorName).getCh4FactorGch4PerUnit();
+        return quantity * stationarycombustionfactorsDao.selectByFuelType(factorName).getCh4FactorGch4PerUnit();
     }
     public double N2OPerUnit(double quantity, String factorName) {
-        return quantity * stationarycombustionfactorsDao.selectByFactorName(factorName).getN2oFactorGn2oPerUnit();
+        return quantity * stationarycombustionfactorsDao.selectByFuelType(factorName).getN2oFactorGn2oPerUnit();
     }
     public double CO2PerMMBtu(double quantity, String factorName) {
-        return quantity * stationarycombustionfactorsDao.selectByFactorName(factorName).getCo2FactorKgco2PerMmbtu();
+        return quantity * stationarycombustionfactorsDao.selectByFuelType(factorName).getCo2FactorKgco2PerMmbtu();
     }
     public double CH4PerMMBtu(double quantity, String factorName) {
-        return quantity * stationarycombustionfactorsDao.selectByFactorName(factorName).getCh4FactorGch4PerMmbtu();
+        return quantity * stationarycombustionfactorsDao.selectByFuelType(factorName).getCh4FactorGch4PerMmbtu();
     }
     public double N2OPerMMBtu(double quantity, String factorName) {
-        return quantity * stationarycombustionfactorsDao.selectByFactorName(factorName).getN2oFactorGn2oPerMmbtu();
+        return quantity * stationarycombustionfactorsDao.selectByFuelType(factorName).getN2oFactorGn2oPerMmbtu();
     }
 }

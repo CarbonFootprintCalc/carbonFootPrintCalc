@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import AddSourceForm from "./AddSourceForm";
+import axios from "axios";
 
 interface ScopeSectionProps {
   title: string;
@@ -31,6 +32,7 @@ const fuelOptions: Record<string, string[]> = {
     "Coke Oven Gas",
     "Fuel Gas",
     "Propane Gas",
+    "Natural Gas",
   ],
 };
 
@@ -44,20 +46,32 @@ const unitOptions: Record<string, string[]> = {
 
 const ScopeSection: React.FC<ScopeSectionProps> = ({ title, description }) => {
   const [sources, setSources] = useState<
-    { description: string; fuelType: string; quantity: string; unit: string }[]
+    { description: string; fuelType: string; quantity: string; unit: string; emissions?: number }[]
   >([]);
 
-  const handleAddSource = (
-    newSources: {
-      description: string;
-      fuelType: string;
-      quantity: string;
-      unit: string;
-    }[]
+  const handleAddSource = async (
+      newSources: { description: string; fuelType: string; quantity: string; unit: string }[]
   ) => {
-    // Merge all new sources into existing sources
-    setSources((prev) => [...prev, ...newSources]);
+    const updatedSources = await Promise.all(
+        newSources.map(async (source) => {
+          try {
+            const response = await axios.get("http://localhost:8080/scope1", {
+              params: {
+                quantity: Number(source.quantity),
+                fuelType: source.fuelType,
+              },
+            });
+            return { ...source, emissions: response.data }; // Store emissions in state
+          } catch (error) {
+            console.error("Error fetching emissions data:", error);
+            return { ...source, emissions: undefined }; // Handle error case
+          }
+        })
+    );
+
+    setSources((prev) => [...prev, ...updatedSources]);
   };
+
 
   return (
     <div className="mt-8 p-4 border border-gray-300 rounded-lg shadow-sm bg-white w-[900px] mx-auto">
@@ -65,18 +79,19 @@ const ScopeSection: React.FC<ScopeSectionProps> = ({ title, description }) => {
       <p className="text-gray-600">{description}</p>
 
       {sources.length > 0 && (
-        <ul className="mt-4 space-y-2">
-          {sources.map((source, index) => (
-            <li
-              key={index}
-              className="border border-gray-200 rounded p-2 bg-gray-50"
-            >
-              <strong>{source.description}</strong> - {source.fuelType} -{" "}
-              {source.quantity} {source.unit}
-            </li>
-          ))}
-        </ul>
+          <ul className="mt-4 space-y-2">
+            {sources.map((source, index) => (
+                <li key={index} className="border border-gray-200 rounded p-2 bg-gray-50">
+                  <strong>{source.description}</strong> - {source.fuelType} -{" "}
+                  {source.quantity} {source.unit} -{" "}
+                  {source.emissions !== undefined
+                      ? `CO2 Emissions: ${source.emissions} kg`
+                      : "Calculating..."}
+                </li>
+            ))}
+          </ul>
       )}
+
       <div className="w-full flex justify-center">
         <AddSourceForm
           onAdd={handleAddSource}

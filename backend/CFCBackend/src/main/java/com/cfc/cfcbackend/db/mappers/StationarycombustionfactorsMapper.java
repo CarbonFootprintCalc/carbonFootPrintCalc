@@ -11,9 +11,9 @@ public interface StationarycombustionfactorsMapper {
 
     Stationarycombustionfactors selectByPrimaryKey(Integer id);
 
+    Stationarycombustionfactors selectByFuelType(String fuel_type);
+
     int updateByPrimaryKeySelective(Stationarycombustionfactors record);
 
     int updateByPrimaryKey(Stationarycombustionfactors record);
-
-    Stationarycombustionfactors selectByFactorName(String fuel_type);
 }
