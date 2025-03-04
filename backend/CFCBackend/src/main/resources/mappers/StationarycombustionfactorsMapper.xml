@@ -2,116 +2,161 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cfc.cfcbackend.db.mappers.StationarycombustionfactorsMapper">
   <resultMap id="BaseResultMap" type="com.cfc.cfcbackend.db.po.Stationarycombustionfactors">
-    <id column="fuelType" jdbcType="VARCHAR" property="fueltype" />
-    <result column="CO2mmBtu" jdbcType="REAL" property="co2mmbtu" />
-    <result column="CH4mmBtu" jdbcType="REAL" property="ch4mmbtu" />
-    <result column="N2OmmBtu" jdbcType="REAL" property="n2ommbtu" />
-    <result column="CO2unit" jdbcType="REAL" property="co2unit" />
-    <result column="CH4unit" jdbcType="REAL" property="ch4unit" />
-    <result column="N2Ounit" jdbcType="REAL" property="n2ounit" />
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="factor_id" jdbcType="INTEGER" property="factorId" />
+    <result column="fuel_type" jdbcType="VARCHAR" property="fuelType" />
+    <result column="co2_factor_kgco2_per_mmbtu" jdbcType="REAL" property="co2FactorKgco2PerMmbtu" />
+    <result column="ch4_factor_gch4_per_mmbtu" jdbcType="REAL" property="ch4FactorGch4PerMmbtu" />
+    <result column="n2o_factor_gn2o_per_mmbtu" jdbcType="REAL" property="n2oFactorGn2oPerMmbtu" />
+    <result column="co2_factor_kgco2_per_unit" jdbcType="REAL" property="co2FactorKgco2PerUnit" />
+    <result column="ch4_factor_gch4_per_unit" jdbcType="REAL" property="ch4FactorGch4PerUnit" />
+    <result column="n2o_factor_gn2o_per_unit" jdbcType="REAL" property="n2oFactorGn2oPerUnit" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
   </resultMap>
   <sql id="Base_Column_List">
-    fuelType, CO2mmBtu, CH4mmBtu, N2OmmBtu, CO2unit, CH4unit, N2Ounit
+    id, factor_id, fuel_type, co2_factor_kgco2_per_mmbtu, ch4_factor_gch4_per_mmbtu, 
+    n2o_factor_gn2o_per_mmbtu, co2_factor_kgco2_per_unit, ch4_factor_gch4_per_unit, n2o_factor_gn2o_per_unit, 
+    unit
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from stationarycombustionfactors
-    where fuelType = #{fueltype,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <select id="selectByFuelType" resultType="com.cfc.cfcbackend.db.po.Stationarycombustionfactors">
+    select
+    <include refid="Base_Column_List" />
+    from stationarycombustionfactors
+    where fuel_type = #{fuel_type,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from stationarycombustionfactors
-    where fuelType = #{fueltype,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.cfc.cfcbackend.db.po.Stationarycombustionfactors">
-    insert into stationarycombustionfactors (fuelType, CO2mmBtu, CH4mmBtu, 
-      N2OmmBtu, CO2unit, CH4unit, 
-      N2Ounit)
-    values (#{fueltype,jdbcType=VARCHAR}, #{co2mmbtu,jdbcType=REAL}, #{ch4mmbtu,jdbcType=REAL}, 
-      #{n2ommbtu,jdbcType=REAL}, #{co2unit,jdbcType=REAL}, #{ch4unit,jdbcType=REAL}, 
-      #{n2ounit,jdbcType=REAL})
+    insert into stationarycombustionfactors (id, factor_id, fuel_type, 
+      co2_factor_kgco2_per_mmbtu, ch4_factor_gch4_per_mmbtu, 
+      n2o_factor_gn2o_per_mmbtu, co2_factor_kgco2_per_unit, 
+      ch4_factor_gch4_per_unit, n2o_factor_gn2o_per_unit, unit
+      )
+    values (#{id,jdbcType=INTEGER}, #{factorId,jdbcType=INTEGER}, #{fuelType,jdbcType=VARCHAR}, 
+      #{co2FactorKgco2PerMmbtu,jdbcType=REAL}, #{ch4FactorGch4PerMmbtu,jdbcType=REAL}, 
+      #{n2oFactorGn2oPerMmbtu,jdbcType=REAL}, #{co2FactorKgco2PerUnit,jdbcType=REAL}, 
+      #{ch4FactorGch4PerUnit,jdbcType=REAL}, #{n2oFactorGn2oPerUnit,jdbcType=REAL}, #{unit,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.cfc.cfcbackend.db.po.Stationarycombustionfactors">
     insert into stationarycombustionfactors
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="fueltype != null">
-        fuelType,
+      <if test="id != null">
+        id,
       </if>
-      <if test="co2mmbtu != null">
-        CO2mmBtu,
+      <if test="factorId != null">
+        factor_id,
       </if>
-      <if test="ch4mmbtu != null">
-        CH4mmBtu,
+      <if test="fuelType != null">
+        fuel_type,
       </if>
-      <if test="n2ommbtu != null">
-        N2OmmBtu,
+      <if test="co2FactorKgco2PerMmbtu != null">
+        co2_factor_kgco2_per_mmbtu,
       </if>
-      <if test="co2unit != null">
-        CO2unit,
+      <if test="ch4FactorGch4PerMmbtu != null">
+        ch4_factor_gch4_per_mmbtu,
       </if>
-      <if test="ch4unit != null">
-        CH4unit,
+      <if test="n2oFactorGn2oPerMmbtu != null">
+        n2o_factor_gn2o_per_mmbtu,
       </if>
-      <if test="n2ounit != null">
-        N2Ounit,
+      <if test="co2FactorKgco2PerUnit != null">
+        co2_factor_kgco2_per_unit,
+      </if>
+      <if test="ch4FactorGch4PerUnit != null">
+        ch4_factor_gch4_per_unit,
+      </if>
+      <if test="n2oFactorGn2oPerUnit != null">
+        n2o_factor_gn2o_per_unit,
+      </if>
+      <if test="unit != null">
+        unit,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="fueltype != null">
-        #{fueltype,jdbcType=VARCHAR},
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
       </if>
-      <if test="co2mmbtu != null">
-        #{co2mmbtu,jdbcType=REAL},
+      <if test="factorId != null">
+        #{factorId,jdbcType=INTEGER},
       </if>
-      <if test="ch4mmbtu != null">
-        #{ch4mmbtu,jdbcType=REAL},
+      <if test="fuelType != null">
+        #{fuelType,jdbcType=VARCHAR},
       </if>
-      <if test="n2ommbtu != null">
-        #{n2ommbtu,jdbcType=REAL},
+      <if test="co2FactorKgco2PerMmbtu != null">
+        #{co2FactorKgco2PerMmbtu,jdbcType=REAL},
       </if>
-      <if test="co2unit != null">
-        #{co2unit,jdbcType=REAL},
+      <if test="ch4FactorGch4PerMmbtu != null">
+        #{ch4FactorGch4PerMmbtu,jdbcType=REAL},
       </if>
-      <if test="ch4unit != null">
-        #{ch4unit,jdbcType=REAL},
+      <if test="n2oFactorGn2oPerMmbtu != null">
+        #{n2oFactorGn2oPerMmbtu,jdbcType=REAL},
       </if>
-      <if test="n2ounit != null">
-        #{n2ounit,jdbcType=REAL},
+      <if test="co2FactorKgco2PerUnit != null">
+        #{co2FactorKgco2PerUnit,jdbcType=REAL},
+      </if>
+      <if test="ch4FactorGch4PerUnit != null">
+        #{ch4FactorGch4PerUnit,jdbcType=REAL},
+      </if>
+      <if test="n2oFactorGn2oPerUnit != null">
+        #{n2oFactorGn2oPerUnit,jdbcType=REAL},
+      </if>
+      <if test="unit != null">
+        #{unit,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.cfc.cfcbackend.db.po.Stationarycombustionfactors">
     update stationarycombustionfactors
     <set>
-      <if test="co2mmbtu != null">
-        CO2mmBtu = #{co2mmbtu,jdbcType=REAL},
+      <if test="factorId != null">
+        factor_id = #{factorId,jdbcType=INTEGER},
       </if>
-      <if test="ch4mmbtu != null">
-        CH4mmBtu = #{ch4mmbtu,jdbcType=REAL},
+      <if test="fuelType != null">
+        fuel_type = #{fuelType,jdbcType=VARCHAR},
       </if>
-      <if test="n2ommbtu != null">
-        N2OmmBtu = #{n2ommbtu,jdbcType=REAL},
+      <if test="co2FactorKgco2PerMmbtu != null">
+        co2_factor_kgco2_per_mmbtu = #{co2FactorKgco2PerMmbtu,jdbcType=REAL},
       </if>
-      <if test="co2unit != null">
-        CO2unit = #{co2unit,jdbcType=REAL},
+      <if test="ch4FactorGch4PerMmbtu != null">
+        ch4_factor_gch4_per_mmbtu = #{ch4FactorGch4PerMmbtu,jdbcType=REAL},
       </if>
-      <if test="ch4unit != null">
-        CH4unit = #{ch4unit,jdbcType=REAL},
+      <if test="n2oFactorGn2oPerMmbtu != null">
+        n2o_factor_gn2o_per_mmbtu = #{n2oFactorGn2oPerMmbtu,jdbcType=REAL},
       </if>
-      <if test="n2ounit != null">
-        N2Ounit = #{n2ounit,jdbcType=REAL},
+      <if test="co2FactorKgco2PerUnit != null">
+        co2_factor_kgco2_per_unit = #{co2FactorKgco2PerUnit,jdbcType=REAL},
+      </if>
+      <if test="ch4FactorGch4PerUnit != null">
+        ch4_factor_gch4_per_unit = #{ch4FactorGch4PerUnit,jdbcType=REAL},
+      </if>
+      <if test="n2oFactorGn2oPerUnit != null">
+        n2o_factor_gn2o_per_unit = #{n2oFactorGn2oPerUnit,jdbcType=REAL},
+      </if>
+      <if test="unit != null">
+        unit = #{unit,jdbcType=VARCHAR},
       </if>
     </set>
-    where fuelType = #{fueltype,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.cfc.cfcbackend.db.po.Stationarycombustionfactors">
     update stationarycombustionfactors
-    set CO2mmBtu = #{co2mmbtu,jdbcType=REAL},
-      CH4mmBtu = #{ch4mmbtu,jdbcType=REAL},
-      N2OmmBtu = #{n2ommbtu,jdbcType=REAL},
-      CO2unit = #{co2unit,jdbcType=REAL},
-      CH4unit = #{ch4unit,jdbcType=REAL},
-      N2Ounit = #{n2ounit,jdbcType=REAL}
-    where fuelType = #{fueltype,jdbcType=VARCHAR}
+    set factor_id = #{factorId,jdbcType=INTEGER},
+      fuel_type = #{fuelType,jdbcType=VARCHAR},
+      co2_factor_kgco2_per_mmbtu = #{co2FactorKgco2PerMmbtu,jdbcType=REAL},
+      ch4_factor_gch4_per_mmbtu = #{ch4FactorGch4PerMmbtu,jdbcType=REAL},
+      n2o_factor_gn2o_per_mmbtu = #{n2oFactorGn2oPerMmbtu,jdbcType=REAL},
+      co2_factor_kgco2_per_unit = #{co2FactorKgco2PerUnit,jdbcType=REAL},
+      ch4_factor_gch4_per_unit = #{ch4FactorGch4PerUnit,jdbcType=REAL},
+      n2o_factor_gn2o_per_unit = #{n2oFactorGn2oPerUnit,jdbcType=REAL},
+      unit = #{unit,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

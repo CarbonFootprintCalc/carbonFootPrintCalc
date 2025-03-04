@@ -6,23 +6,43 @@ import lombok.Data;
 @Builder
 @Data
 public class Emissionfactors {
-    private Integer id;
+    private Integer factorId;
 
-    private String factor;
+    private String scope;
 
-    public Integer getId() {
-        return id;
+    private String category;
+
+    private String unit;
+
+    public Integer getFactorId() {
+        return factorId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setFactorId(Integer factorId) {
+        this.factorId = factorId;
     }
 
-    public String getFactor() {
-        return factor;
+    public String getScope() {
+        return scope;
     }
 
-    public void setFactor(String factor) {
-        this.factor = factor == null ? null : factor.trim();
+    public void setScope(String scope) {
+        this.scope = scope == null ? null : scope.trim();
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category == null ? null : category.trim();
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit == null ? null : unit.trim();
     }
 }

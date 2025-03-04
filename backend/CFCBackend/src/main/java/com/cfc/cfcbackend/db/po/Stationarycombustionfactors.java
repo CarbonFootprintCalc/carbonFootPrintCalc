@@ -6,73 +6,103 @@ import lombok.Data;
 @Builder
 @Data
 public class Stationarycombustionfactors {
-    private String fueltype;
+    private Integer id;
 
-    private Float co2mmbtu;
+    private Integer factorId;
 
-    private Float ch4mmbtu;
+    private String fuelType;
 
-    private Float n2ommbtu;
+    private Float co2FactorKgco2PerMmbtu;
 
-    private Float co2unit;
+    private Float ch4FactorGch4PerMmbtu;
 
-    private Float ch4unit;
+    private Float n2oFactorGn2oPerMmbtu;
 
-    private Float n2ounit;
+    private Float co2FactorKgco2PerUnit;
 
-    public String getFueltype() {
-        return fueltype;
+    private Float ch4FactorGch4PerUnit;
+
+    private Float n2oFactorGn2oPerUnit;
+
+    private String unit;
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setFueltype(String fueltype) {
-        this.fueltype = fueltype == null ? null : fueltype.trim();
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public Float getCo2mmbtu() {
-        return co2mmbtu;
+    public Integer getFactorId() {
+        return factorId;
     }
 
-    public void setCo2mmbtu(Float co2mmbtu) {
-        this.co2mmbtu = co2mmbtu;
+    public void setFactorId(Integer factorId) {
+        this.factorId = factorId;
     }
 
-    public Float getCh4mmbtu() {
-        return ch4mmbtu;
+    public String getFuelType() {
+        return fuelType;
     }
 
-    public void setCh4mmbtu(Float ch4mmbtu) {
-        this.ch4mmbtu = ch4mmbtu;
+    public void setFuelType(String fuelType) {
+        this.fuelType = fuelType == null ? null : fuelType.trim();
     }
 
-    public Float getN2ommbtu() {
-        return n2ommbtu;
+    public Float getCo2FactorKgco2PerMmbtu() {
+        return co2FactorKgco2PerMmbtu;
     }
 
-    public void setN2ommbtu(Float n2ommbtu) {
-        this.n2ommbtu = n2ommbtu;
+    public void setCo2FactorKgco2PerMmbtu(Float co2FactorKgco2PerMmbtu) {
+        this.co2FactorKgco2PerMmbtu = co2FactorKgco2PerMmbtu;
     }
 
-    public Float getCo2unit() {
-        return co2unit;
+    public Float getCh4FactorGch4PerMmbtu() {
+        return ch4FactorGch4PerMmbtu;
     }
 
-    public void setCo2unit(Float co2unit) {
-        this.co2unit = co2unit;
+    public void setCh4FactorGch4PerMmbtu(Float ch4FactorGch4PerMmbtu) {
+        this.ch4FactorGch4PerMmbtu = ch4FactorGch4PerMmbtu;
     }
 
-    public Float getCh4unit() {
-        return ch4unit;
+    public Float getN2oFactorGn2oPerMmbtu() {
+        return n2oFactorGn2oPerMmbtu;
     }
 
-    public void setCh4unit(Float ch4unit) {
-        this.ch4unit = ch4unit;
+    public void setN2oFactorGn2oPerMmbtu(Float n2oFactorGn2oPerMmbtu) {
+        this.n2oFactorGn2oPerMmbtu = n2oFactorGn2oPerMmbtu;
     }
 
-    public Float getN2ounit() {
-        return n2ounit;
+    public Float getCo2FactorKgco2PerUnit() {
+        return co2FactorKgco2PerUnit;
     }
 
-    public void setN2ounit(Float n2ounit) {
-        this.n2ounit = n2ounit;
+    public void setCo2FactorKgco2PerUnit(Float co2FactorKgco2PerUnit) {
+        this.co2FactorKgco2PerUnit = co2FactorKgco2PerUnit;
+    }
+
+    public Float getCh4FactorGch4PerUnit() {
+        return ch4FactorGch4PerUnit;
+    }
+
+    public void setCh4FactorGch4PerUnit(Float ch4FactorGch4PerUnit) {
+        this.ch4FactorGch4PerUnit = ch4FactorGch4PerUnit;
+    }
+
+    public Float getN2oFactorGn2oPerUnit() {
+        return n2oFactorGn2oPerUnit;
+    }
+
+    public void setN2oFactorGn2oPerUnit(Float n2oFactorGn2oPerUnit) {
+        this.n2oFactorGn2oPerUnit = n2oFactorGn2oPerUnit;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit == null ? null : unit.trim();
     }
 }
