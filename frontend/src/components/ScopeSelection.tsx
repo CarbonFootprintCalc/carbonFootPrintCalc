@@ -32,7 +32,7 @@ const fuelOptions: Record<string, string[]> = {
     "Coke Oven Gas",
     "Fuel Gas",
     "Propane Gas",
-    "naturalGas",
+    "Natural Gas",
   ],
 };
 
