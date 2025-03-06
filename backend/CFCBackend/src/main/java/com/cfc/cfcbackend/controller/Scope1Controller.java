@@ -22,7 +22,7 @@ public class Scope1Controller {
     }
     
     @ResponseBody
-    @GetMapping("scope1")
+    @GetMapping("/scope1")
     public Map<String, Double> scope1(@RequestParam double quantity, @RequestParam String fuelType) {
         Map<String, Double> scope1Emiss = new HashMap<>(); 
         scope1Emiss.put("CO2", stationaryCombustionService.CO2PerUnit(quantity, fuelType)); 

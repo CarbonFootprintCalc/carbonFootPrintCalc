@@ -24,7 +24,7 @@ const AddSourceForm: React.FC<AddSourceFormProps> = ({
 
   const handleInputChange = (index: number, field: string, value: string) => {
     const updatedRows = [...rows];
-    updatedRows[index][field as keyof (typeof updatedRows)[number]] = value;
+    updatedRows[index][field as keyof (typeof updatedRows)[number]] = field === "quantity" ? Number(value) || 0 : value;
     setRows(updatedRows);
   };
 
