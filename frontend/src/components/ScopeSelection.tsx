@@ -41,13 +41,13 @@ const ScopeSection: React.FC<ScopeSectionProps> = ({ title, description }) => {
       newSources.map(async (source) => {
         try {
           console.log("Sending to backend:", {
-            quantity: Number(source.quantity), // ✅ 强制转换为 `number`
+            quantity: Number(source.quantity), 
             fuelType: source.fuelType,
           });
   
           const response = await axios.get("http://localhost:8080/scope1", {
             params: {
-              quantity: Number(source.quantity), // ✅ 确保 `quantity` 是 `number`
+              quantity: Number(source.quantity), 
               fuelType: source.fuelType,
             },
           });
