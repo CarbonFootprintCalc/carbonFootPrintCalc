@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 @RestController
@@ -20,11 +23,11 @@ public class Scope1Controller {
     
     @ResponseBody
     @GetMapping("scope1")
-    public double[] scope1(@RequestParam double quantity, @RequestParam String fuelType) {
-        double[] scope1Emiss = new double[3];
-        scope1Emiss[0] = stationaryCombustionService.CO2PerUnit(quantity, fuelType);
-        scope1Emiss[1] = stationaryCombustionService.CH4PerUnit(quantity, fuelType);
-        scope1Emiss[2] = stationaryCombustionService.N2OPerUnit(quantity, fuelType);
+    public Map<String, Double> scope1(@RequestParam double quantity, @RequestParam String fuelType) {
+        Map<String, Double> scope1Emiss = new HashMap<>(); 
+        scope1Emiss.put("CO2", stationaryCombustionService.CO2PerUnit(quantity, fuelType)); 
+        scope1Emiss.put("CH4", stationaryCombustionService.CH4PerUnit(quantity, fuelType)); 
+        scope1Emiss.put("N2O", stationaryCombustionService.N2OPerUnit(quantity, fuelType)); 
         return scope1Emiss;
     }
 
