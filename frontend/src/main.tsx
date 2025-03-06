@@ -20,3 +20,4 @@ ReactDOM.createRoot(root).render(
     </ThemeProvider>
   </React.StrictMode>
 );
+
