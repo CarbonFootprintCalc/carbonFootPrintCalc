@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 @RestController
 public class Scope1Controller {
     @Resource
@@ -23,6 +23,7 @@ public class Scope1Controller {
     
     @ResponseBody
     @GetMapping("/scope1")
+    @CrossOrigin(origins = "http://localhost:5173")
     public Map<String, Double> scope1(@RequestParam double quantity, @RequestParam String fuelType) {
         Map<String, Double> scope1Emiss = new HashMap<>(); 
         scope1Emiss.put("CO2", stationaryCombustionService.CO2PerUnit(quantity, fuelType)); 
