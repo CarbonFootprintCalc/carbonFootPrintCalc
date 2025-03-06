@@ -8,9 +8,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-
-
 @RestController
 public class Scope1Controller {
     @Resource
@@ -23,9 +20,12 @@ public class Scope1Controller {
     
     @ResponseBody
     @GetMapping("scope1")
-    public double scope1(@RequestParam double quantity, @RequestParam String fuelType) {
-        return stationaryCombustionService.CO2PerUnit(quantity, fuelType);
+    public double[] scope1(@RequestParam double quantity, @RequestParam String fuelType) {
+        double[] scope1Emiss = new double[3];
+        scope1Emiss[0] = stationaryCombustionService.CO2PerUnit(quantity, fuelType);
+        scope1Emiss[1] = stationaryCombustionService.CH4PerUnit(quantity, fuelType);
+        scope1Emiss[2] = stationaryCombustionService.N2OPerUnit(quantity, fuelType);
+        return scope1Emiss;
     }
 
- 
 }
