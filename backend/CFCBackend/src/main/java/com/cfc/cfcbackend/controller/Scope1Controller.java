@@ -23,11 +23,18 @@ public class Scope1Controller {
     
     @ResponseBody
     @GetMapping("/scope1")
-    public Map<String, Double> scope1(@RequestParam double quantity, @RequestParam String fuelType) {
+    public Map<String, Double> scope1(@RequestParam double quantity, @RequestParam String fuelType, @RequestParam String unit) {
         Map<String, Double> scope1Emiss = new HashMap<>(); 
-        scope1Emiss.put("CO2", stationaryCombustionService.CO2PerUnit(quantity, fuelType)); 
-        scope1Emiss.put("CH4", stationaryCombustionService.CH4PerUnit(quantity, fuelType)); 
-        scope1Emiss.put("N2O", stationaryCombustionService.N2OPerUnit(quantity, fuelType)); 
+        if(unit.equals("mmBtu")) {
+            scope1Emiss.put("CO2", stationaryCombustionService.CO2PerMMBtu(quantity, fuelType)); 
+            scope1Emiss.put("CH4", stationaryCombustionService.CH4PerMMBtu(quantity, fuelType)); 
+            scope1Emiss.put("N2O", stationaryCombustionService.N2OPerMMBtu(quantity, fuelType)); 
+        }
+        else {
+            scope1Emiss.put("CO2", stationaryCombustionService.CO2PerUnit(quantity, fuelType)); 
+            scope1Emiss.put("CH4", stationaryCombustionService.CH4PerUnit(quantity, fuelType)); 
+            scope1Emiss.put("N2O", stationaryCombustionService.N2OPerUnit(quantity, fuelType)); 
+        }
         return scope1Emiss;
     }
 
