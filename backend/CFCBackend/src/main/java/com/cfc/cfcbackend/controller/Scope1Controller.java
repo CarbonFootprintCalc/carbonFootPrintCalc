@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @RestController
 public class Scope1Controller {
 
-    // Convert to grams
-    // We might need to move this later
-    private final int GRAM_CONVERTER = 1000;
+    // We might need to move these or shove them into a database so they aren't hardcoded
+    private final double GRAM_CONVERTER = 1000; // Convert kg to g
+    private final double SCF_CONVERTER = 97.5; // Convert therms to scf
 
     @Resource
     StationaryCombustionService stationaryCombustionService;
@@ -30,7 +30,14 @@ public class Scope1Controller {
     @ResponseBody
     @GetMapping("/scope1")
     public Map<String, Double> scope1(@RequestParam double quantity, @RequestParam String fuelType, @RequestParam String unit) {
+
         Map<String, Double> scope1Emiss = new HashMap<>(); 
+        
+        // Convert therms to scf (unit) for gases
+        if(unit.equals("Therm")) {
+            quantity *= SCF_CONVERTER;
+        }
+
         // Calculate emissions based on the mmBtu
         if(unit.equals("mmBtu")) {
             scope1Emiss.put("CO2", stationaryCombustionService.CO2PerMMBtu(quantity, fuelType)); 
