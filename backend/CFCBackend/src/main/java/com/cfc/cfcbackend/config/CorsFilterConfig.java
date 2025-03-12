@@ -12,14 +12,20 @@ public class CorsFilterConfig implements Filter {
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
             throws IOException, ServletException {
         HttpServletResponse response = (HttpServletResponse) res;
+        HttpServletRequest request = (HttpServletRequest) req;
         
-        response.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
-        response.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:5173");
+        // Get the Origin from the request
+        String origin = request.getHeader("Origin");
+        
+        // Allow localhost and 127.0.0.1
+        if ("http://localhost:5173".equals(origin) || "http://127.0.0.1:5173".equals(origin)) {
+            response.setHeader("Access-Control-Allow-Origin", origin);
+        }
+        
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
         response.setHeader("Access-Control-Allow-Headers", "*");
         response.setHeader("Access-Control-Allow-Credentials", "true");
 
-        HttpServletRequest request = (HttpServletRequest) req;
         if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
             response.setStatus(HttpServletResponse.SC_OK);
             return;

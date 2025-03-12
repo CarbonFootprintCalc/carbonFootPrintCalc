@@ -13,6 +13,10 @@ import javax.annotation.Resource;
 import org.springframework.web.bind.annotation.CrossOrigin;
 @RestController
 public class Scope1Controller {
+
+    // We might need to move this or shove it into a database so it isn't hardcoded
+    private final double SCF_CONVERTER = 97.5; // Convert therms to scf
+
     @Resource
     StationaryCombustionService stationaryCombustionService;
     @ResponseBody
@@ -21,13 +25,30 @@ public class Scope1Controller {
         return "Welcome to the Carbon Footprint Calculator API";
     }
     
+    // Method to calculate emissions for stationary combustion
     @ResponseBody
     @GetMapping("/scope1")
-    public Map<String, Double> scope1(@RequestParam double quantity, @RequestParam String fuelType) {
+    public Map<String, Double> scope1(@RequestParam double quantity, @RequestParam String fuelType, @RequestParam String unit) {
+
         Map<String, Double> scope1Emiss = new HashMap<>(); 
-        scope1Emiss.put("CO2", stationaryCombustionService.CO2PerUnit(quantity, fuelType)); 
-        scope1Emiss.put("CH4", stationaryCombustionService.CH4PerUnit(quantity, fuelType)); 
-        scope1Emiss.put("N2O", stationaryCombustionService.N2OPerUnit(quantity, fuelType)); 
+        
+        // Convert therms to scf (unit) for gases
+        if(unit.equals("Therm")) {
+            quantity *= SCF_CONVERTER;
+        }
+
+        // Calculate emissions based on the mmBtu
+        if(unit.equals("mmBtu")) {
+            scope1Emiss.put("CO2", stationaryCombustionService.CO2PerMMBtu(quantity, fuelType)); 
+            scope1Emiss.put("CH4", stationaryCombustionService.CH4PerMMBtu(quantity, fuelType)); 
+            scope1Emiss.put("N2O", stationaryCombustionService.N2OPerMMBtu(quantity, fuelType)); 
+        }
+        // Otherwise, calculate based on the unit
+        else {
+            scope1Emiss.put("CO2", stationaryCombustionService.CO2PerUnit(quantity, fuelType)); 
+            scope1Emiss.put("CH4", stationaryCombustionService.CH4PerUnit(quantity, fuelType)); 
+            scope1Emiss.put("N2O", stationaryCombustionService.N2OPerUnit(quantity, fuelType)); 
+        }
         return scope1Emiss;
     }
 

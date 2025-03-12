@@ -43,12 +43,14 @@ const ScopeSection: React.FC<ScopeSectionProps> = ({ title, description }) => {
           console.log("Sending to backend:", {
             quantity: Number(source.quantity), 
             fuelType: source.fuelType,
+            unit: source.unit,
           });
   
           const response = await axios.get("http://localhost:8080/scope1", {
             params: {
               quantity: Number(source.quantity), 
               fuelType: source.fuelType,
+              unit: source.unit,
             },
           });
   
@@ -79,8 +81,8 @@ const ScopeSection: React.FC<ScopeSectionProps> = ({ title, description }) => {
               <th className="border border-gray-300 p-2">Quantity</th>
               <th className="border border-gray-300 p-2">Unit</th>
               <th className="border border-gray-300 p-2">CO₂ (kg)</th>
-              <th className="border border-gray-300 p-2">CH₄ (kg)</th>
-              <th className="border border-gray-300 p-2">N₂O (kg)</th>
+              <th className="border border-gray-300 p-2">CH₄ (g)</th>
+              <th className="border border-gray-300 p-2">N₂O (g)</th>
             </tr>
           </thead>
           <tbody>
