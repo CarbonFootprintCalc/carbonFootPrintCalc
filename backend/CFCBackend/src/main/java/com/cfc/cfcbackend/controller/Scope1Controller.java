@@ -14,8 +14,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @RestController
 public class Scope1Controller {
 
-    // We might need to move these or shove them into a database so they aren't hardcoded
-    private final double GRAM_CONVERTER = 1000; // Convert kg to g
+    // We might need to move this or shove it into a database so it isn't hardcoded
     private final double SCF_CONVERTER = 97.5; // Convert therms to scf
 
     @Resource
@@ -41,14 +40,14 @@ public class Scope1Controller {
         // Calculate emissions based on the mmBtu
         if(unit.equals("mmBtu")) {
             scope1Emiss.put("CO2", stationaryCombustionService.CO2PerMMBtu(quantity, fuelType)); 
-            scope1Emiss.put("CH4", stationaryCombustionService.CH4PerMMBtu(quantity, fuelType) * GRAM_CONVERTER); 
-            scope1Emiss.put("N2O", stationaryCombustionService.N2OPerMMBtu(quantity, fuelType) * GRAM_CONVERTER); 
+            scope1Emiss.put("CH4", stationaryCombustionService.CH4PerMMBtu(quantity, fuelType)); 
+            scope1Emiss.put("N2O", stationaryCombustionService.N2OPerMMBtu(quantity, fuelType)); 
         }
         // Otherwise, calculate based on the unit
         else {
             scope1Emiss.put("CO2", stationaryCombustionService.CO2PerUnit(quantity, fuelType)); 
-            scope1Emiss.put("CH4", stationaryCombustionService.CH4PerUnit(quantity, fuelType) * GRAM_CONVERTER); 
-            scope1Emiss.put("N2O", stationaryCombustionService.N2OPerUnit(quantity, fuelType) * GRAM_CONVERTER); 
+            scope1Emiss.put("CH4", stationaryCombustionService.CH4PerUnit(quantity, fuelType)); 
+            scope1Emiss.put("N2O", stationaryCombustionService.N2OPerUnit(quantity, fuelType)); 
         }
         return scope1Emiss;
     }
