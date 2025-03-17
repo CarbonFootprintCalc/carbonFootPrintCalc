@@ -1,5 +1,6 @@
 package com.cfc.cfcbackend.controller;
 
+import com.cfc.cfcbackend.service.MobileSourcesService;
 import com.cfc.cfcbackend.service.StationaryCombustionService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,6 +20,8 @@ public class Scope1Controller {
 
     @Resource
     StationaryCombustionService stationaryCombustionService;
+    @Resource
+    MobileSourcesService mobileSourcesService;
     @ResponseBody
     @GetMapping("/")
     public String root() {
@@ -50,6 +53,34 @@ public class Scope1Controller {
             scope1Emiss.put("N2O", stationaryCombustionService.N2OPerUnit(quantity, fuelType)); 
         }
         return scope1Emiss;
+    }
+
+    @ResponseBody
+    @GetMapping("/mobile_sources")
+    public Map<String, Double> mobileSources(@RequestParam String fuelType, @RequestParam double fuelUsage,
+                                             @RequestParam String vehicleType, @RequestParam String modelYear,
+                                             @RequestParam int mileage, @RequestParam boolean onRoad) {
+        Map<String, Double> mobileSources = new HashMap<>();
+        //test only, need to change database and backend to make sure fuel type are consistent
+        if (fuelType.equals("Gasoline")) {
+            fuelType = "Motor Gasoline";
+        }
+        mobileSources.put("CO2", mobileSourcesService.emissionCO2(fuelType, fuelUsage));
+        if (onRoad) {
+            if (fuelType.equals("Motor Gasoline")) {
+                mobileSources.put("CH4", mobileSourcesService.emissionOnRoadGasCH4(vehicleType, modelYear, mileage));
+                mobileSources.put("N2O", mobileSourcesService.emissionOnRoadGasN2O(vehicleType, modelYear, mileage));
+            } else {
+                mobileSources.put("CH4", mobileSourcesService.emissionOnRoadNonGasCH4(fuelType, vehicleType, modelYear, mileage));
+                mobileSources.put("N2O", mobileSourcesService.emissionOnRoadNonGasN2O(fuelType, vehicleType, modelYear, mileage));
+            }
+        } else {
+            //test only, need to change database and backend to make sure fuel type are consistent
+            fuelType = "Gasoline (4 stroke)";
+            mobileSources.put("CH4", mobileSourcesService.emissionNonRoadCH4(fuelType ,vehicleType, fuelUsage));
+            mobileSources.put("N2O", mobileSourcesService.emissionNonRoadN2O(fuelType ,vehicleType, fuelUsage));
+        }
+        return mobileSources;
     }
 
 }

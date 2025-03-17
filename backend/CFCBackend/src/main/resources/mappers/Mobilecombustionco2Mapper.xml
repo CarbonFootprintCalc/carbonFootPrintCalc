@@ -17,6 +17,12 @@
     from mobilecombustionco2
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectByFuelType" resultType="com.cfc.cfcbackend.db.po.Mobilecombustionco2">
+    select
+    <include refid="Base_Column_List" />
+    from mobilecombustionco2
+    where fuel_type = #{fuel_type,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from mobilecombustionco2
     where id = #{id,jdbcType=INTEGER}

@@ -18,6 +18,13 @@
     from nonroadch4n2o
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectByTypeNFuel" resultType="com.cfc.cfcbackend.db.po.Nonroadch4n2o">
+    select
+    <include refid="Base_Column_List" />
+    from nonroadch4n2o
+    where vehicle_type = #{vehicle_type,jdbcType=VARCHAR}
+    and fuel_type = #{fuel_type,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from nonroadch4n2o
     where id = #{id,jdbcType=INTEGER}

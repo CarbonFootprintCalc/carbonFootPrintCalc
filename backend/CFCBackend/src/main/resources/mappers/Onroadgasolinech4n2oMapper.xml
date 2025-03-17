@@ -18,7 +18,14 @@
     from onroadgasolinech4n2o
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="selectByTypeNYear" resultType="com.cfc.cfcbackend.db.po.Onroadgasolinech4n2o">
+      select
+      <include refid="Base_Column_List" />
+      from onroadgasolinech4n2o
+      where vehicle_type = #{vehicle_type,jdbcType=VARCHAR}
+      and model_year = #{model_year,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from onroadgasolinech4n2o
     where id = #{id,jdbcType=INTEGER}
   </delete>
