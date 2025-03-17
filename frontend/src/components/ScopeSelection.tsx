@@ -9,18 +9,18 @@ interface ScopeSectionProps {
 
 // fuel project
 const fuelOptions: Record<string, string[]> = {
-  "Fossil Fuels": ["Coal Fuels", "Natural Gas and Other Gaseous Fuels", "Petroleum-Based Fuels"],
-  "Biomass and Biofuels": ["Solid Biomass Fuels", "Liquid Biomass Fuels", "Gaseous Biomass Fuels"],
-  "Other Fuels - Solid": ["Municipal Solid Waste", "Petroleum Coke (Solid)", "Plastics", "Tires"],
-  "Other Fuels - Gaseous": ["Blast Furnace Gas", "Coke Oven Gas", "Fuel Gas", "Propane Gas", "Natural Gas"],
+  "Natural Gas": ["Natural Gas"],
+  "Solid Fuels": ["Coal and Coke", "Biomass Fuels - Solid", "Biomass Fuels - Kraft Pulping", "Other Fuels - Solid" ],
+  "Liquid Fuels": ["Petroleum Products", "Biomass Fuels - Liquid"],
+  "Gaseous Fuels": ["Other Fuels - Gaseous", " Biomass Fuels - Gaseous"],
 };
 
 // fuels unit
 const unitOptions: Record<string, string[]> = {
-  "Fossil Fuels": ["Short Tons", "MMBtu"],
-  "Biomass and Biofuels": ["Short Tons", "mmBtu", "Gallons"],
-  "Other Fuels - Solid": ["Short Tons", "mmBtu"],
-  "Other Fuels - Gaseous": ["SCF", "Therm", "mmBtu"],
+  "Natural Gas": ["Gallons ", "Liters", "Barrels","mmBtu"],
+  "Solid Fuels": ["Short Tons", "Metric Tons", "Kilograms", "mmBtu"],  
+  "Liquid Fuels": ["Gallons", "Liters", "Barrels", "mmBtu"],
+  "Gaseous Fuels": ["Cubic Meters", "MCF", "mmBtu"],
 };
 
 // data type 
