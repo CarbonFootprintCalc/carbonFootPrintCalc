@@ -62,12 +62,13 @@ public class Scope1Controller {
                                              @RequestParam int mileage, @RequestParam boolean onRoad) {
         Map<String, Double> mobileSources = new HashMap<>();
         //test only, need to change database and backend to make sure fuel type are consistent
-        if (fuelType.equals("Gasoline")) {
-            fuelType = "Motor Gasoline";
+        if (fuelType.equals("Gasoline") || fuelType.equals("Gasoline (4 stroke)") || fuelType.equals("Gasoline (2 stroke)")) {
+            mobileSources.put("CO2", mobileSourcesService.emissionCO2("Motor Gasoline", fuelUsage));
+        } else {
+            mobileSources.put("CO2", mobileSourcesService.emissionCO2(fuelType, fuelUsage));
         }
-        mobileSources.put("CO2", mobileSourcesService.emissionCO2(fuelType, fuelUsage));
         if (onRoad) {
-            if (fuelType.equals("Motor Gasoline")) {
+            if (fuelType.equals("Gasoline")) {
                 mobileSources.put("CH4", mobileSourcesService.emissionOnRoadGasCH4(vehicleType, modelYear, mileage));
                 mobileSources.put("N2O", mobileSourcesService.emissionOnRoadGasN2O(vehicleType, modelYear, mileage));
             } else {
@@ -75,8 +76,6 @@ public class Scope1Controller {
                 mobileSources.put("N2O", mobileSourcesService.emissionOnRoadNonGasN2O(fuelType, vehicleType, modelYear, mileage));
             }
         } else {
-            //test only, need to change database and backend to make sure fuel type are consistent
-            fuelType = "Gasoline (4 stroke)";
             mobileSources.put("CH4", mobileSourcesService.emissionNonRoadCH4(fuelType ,vehicleType, fuelUsage));
             mobileSources.put("N2O", mobileSourcesService.emissionNonRoadN2O(fuelType ,vehicleType, fuelUsage));
         }
