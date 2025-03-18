@@ -8,6 +8,16 @@ import ScopeSection from "./components/ScopeSelection";
 const App: React.FC = () => {
   const { isDarkMode } = useTheme();
 
+  const handleNext = () => {
+    // logic for move to next page 
+
+  };
+
+  const handlePrevious = () => {
+    // logic for move to previous page
+
+  };
+
   return (
     <div className={isDarkMode ? "dark" : ""}>
       <div className="w-full min-h-screen transition-colors duration-300 dark:bg-gray-900 bg-white">
@@ -79,9 +89,21 @@ const App: React.FC = () => {
           /> */}
 
           {/* Moved button below ScopeSection components */}
-          <button className="mt-8 px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors duration-200 shadow-lg">
-            Calculate Carbon Footprint
-          </button>
+          <div className="mt-8 flex gap-4">
+            <button
+              onClick={handlePrevious}
+              className="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors duration-200 shadow-lg"
+            >
+              Previous
+            </button>
+
+            <button
+              onClick={handleNext}
+              className="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors duration-200 shadow-lg"
+            >
+              Next
+            </button>
+          </div>
         </main>
       </div>
     </div>
