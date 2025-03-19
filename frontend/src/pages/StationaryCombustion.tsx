@@ -24,51 +24,48 @@ const StationaryCombustion: React.FC = () => {
           <h2 className="text-2xl font-bold text-center mb-8 dark:text-white">
             Scope 1 - Stationary Combustion
           </h2>
+          <div className="max-w-3xl text-center mb-8 dark:text-white">
+            <p>
+              Stationary Combustion refers to fuels burned on-site in fixed
+              equipment such as boilers, furnaces, generators and heaters. These
+              activites directly generate greenhouse gas emissions (Scope 1
+              Emissions).
+              <br />
+              <br />
+              Use this calculator to enter your company's fuel consumption for
+              stationary combustion only--do not include mobile combustion
+              sources (like vehicles), electicity consumption, or emissions from
+              purchased heating/cooling.
+              <br />
+              <br />
+              For each relevant fuel category, select the fuel type, enter the
+              quantity used, and choose the appropriate measurement unit
+              provided. After entering all applicable fuels, submit your data to
+              calculate your company's stationary combustion carbon footprint.
+            </p>
+          </div>
 
-          <ScopeSection
-            title="Coal and Coke"
-            description="These are fuels like coal, oil, and natural gas. Enter the amount your company burns (in units like ***) from the specific fossil fuel type you use."
-          />
-
-          <ScopeSection
-            title="Other Fuels - Solid"
-            description="This group covers fuels derived from living things, such as wood, agricultural leftovers, ethanol, and biodiesel. Report the *** of these fuels if your operations include them."
-          />
-
-          <ScopeSection
-            title="Biomass Fuels - Solid"
-            description="These are solid materials not considered traditional fossil fuels, such as municipal solid waste, plastics, tires, or solid petroleum coke. Provide the amount burned in your process in ***"
-          />
           <ScopeSection
             title="Natural Gas"
-            description="These gases are byproducts or specialzed fuels like blast furnace gas, coke oven gas, fuel gas, and propane gas. Input the *** consumed in your operations."
+            description="Natural Gas is used by companies primarily for heating, industrial processes, and power generation. Report your usage in units such as cubic meters, MCF, or MMBtu."
           />
           <ScopeSection
-            title="Other Fuels - Gaseous"
-            description="These gases are byproducts or specialzed fuels like blast furnace gas, coke oven gas, fuel gas, and propane gas. Input the *** consumed in your operations."
+            title="Coal and Coke"
+             description="Coal and coke fuels are primarily burned in industrial boilers, furnaces, and power generation. Report your usage in metric tons, short tons, kilograms, or MMBtu."
           />
           <ScopeSection
-            title="Biomass Fuels - Gaseous"
-            description="These gases are byproducts or specialzed fuels like blast furnace gas, coke oven gas, fuel gas, and propane gas. Input the *** consumed in your operations."
+           title="Miscellaneous Solid Fuels"
+            description="Other solid fuels include biomass-based materials and waste products like wood, plastics, agricultural residues, and materials used specifically in industrial processes (e.g. biomass used in pulping). Report these fuels in metric tons, short tons, kilograms, or MMBtu."
           />
           <ScopeSection
             title="Petroleum Products"
-            description="These gases are byproducts or specialzed fuels like blast furnace gas, coke oven gas, fuel gas, and propane gas. Input the *** consumed in your operations."
-          />
+            description="Petroleum Products include fuels such as distillate fuel oil, residual fuel oil, kerosene, and liquefied petroleum gases (LPG). They are typically used for heating, power generation, and industrial applications. Report your usage in gallons, liters, barrels, kilograms, or MMBtu."          />
           <ScopeSection
-            title="Biomass Fuels - Liquid"
-            description="These gases are byproducts or specialzed fuels like blast furnace gas, coke oven gas, fuel gas, and propane gas. Input the *** consumed in your operations."
-          />
+            title="Miscellaneous Liquid Fuels"
+            description="Other liquid fuels include biodiesel, ethanol, rendered animal fat, and vegetable oils. Companies often use these renewable fuels for heating, power generation, or industrial processes. Report your usage in gallons, liters, barrels, kilograms, or MMBtu."          />
           <ScopeSection
-            title="Biomass Fuels - Liquid"
-            description="These gases are byproducts or specialzed fuels like blast furnace gas, coke oven gas, fuel gas, and propane gas. Input the *** consumed in your operations."
-          />
-          <ScopeSection
-            title="Biomass Fuels - 
-          Kraft Pulping Liquor, by Wood 
-          Furnish"
-            description="These gases are byproducts or specialzed fuels like blast furnace gas, coke oven gas, fuel gas, and propane gas. Input the *** consumed in your operations."
-          />
+            title="Miscellaneous Gaseous Fuels"
+            description="Other gaseous fuels include propane gas, blast furnace gas, coke oven gas, fuel gas, landfill gas, and other biomass-derived gases. Companies commonly use these fuels for heating, power generation, and industrial processes. Report your usage in cubic meters, MCF, MMBtu."          />
 
           {/* Moved button below ScopeSection components */}
           <div className="mt-8 flex gap-4">

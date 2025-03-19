@@ -20,26 +20,7 @@ const fuelOptions: Record<string, string[]> = {
     "Mixed (Industrial Sector)",
     "Coal Coke",
   ],
-  "Other Fuels - Solid": [
-    "Municipal Solid Waste",
-    "Petroleum Coke (Solid)",
-    "Plastics",
-    "Tires",
-  ],
-  "Biomass Fuels - Solid": [
-    "Agricultural Byproducts",
-    "Peat",
-    "Solid Byproducts",
-    "Wood and Wood Residuals",
-  ],
   "Natural Gas": ["Natural Gas"],
-  "Other Fuels - Gaseous": [
-    "Blast Furnace Gas",
-    "Coke Oven Gas",
-    "Fuel Gas",
-    "Propane Gas",
-  ],
-  "Biomass Fuels - Gaseous": ["Landfill Gas", "Other Biomass Gases"],
   "Petroleum Products": [
     "Asphalt and Road Oil",
     "Aviation Gasoline",
@@ -72,31 +53,44 @@ const fuelOptions: Record<string, string[]> = {
     "Unfinished Oils",
     "Used Oil",
   ],
-  "Biomass Fuels - Liquid": [
-    "Biodiesel (100%)",
-    "Ethanol (100%)",
-    "Rendered Animal Fat",
-    "Vegetable Oil",
-  ],
-  "Biomass Fuels - Kraft Pulping Liquor, by Wood Furnish": [
+  "Miscellaneous Solid Fuels": [
+    "Municipal Solid Waste",
+    "Petroleum Coke (Solid)",
+    "Plastics",
+    "Tires",
+    "Agricultural Byproducts",
+    "Peat",
+    "Solid Byproducts",
+    "Wood and Wood Residuals",
     "North American Softwood",
     "North American Hardwood",
     "Bagasse",
     "Bamboo",
     "Straw",
   ],
+  "Miscellaneous Liquid Fuels": [
+    "Biodiesel (100%)",
+    "Ethanol (100%)",
+    "Rendered Animal Fat",
+    "Vegetable Oil",
+  ],
+  "Miscellaneous Gaseous Fuels": [
+    "Blast Furnace Gas",
+    "Coke Oven Gas",
+    "Fuel Gas",
+    "Propane Gas",
+    "Landfill Gas",
+    "Other Biomass Gases",
+  ]
 };
 
 const unitOptions: Record<string, string[]> = {
-  "Coal and Coke": ["Short Tons", "MMBtu"],
-  "Other Fuels - Solid": ["Short Tons", "MMBtu"],
-  "Biomass Fuels - Solid": ["Short Tons", "MMBtu"],
-  "Natural Gas": ["SCF", "Therm", "MMBtu"],
-  "Other Fuels - Gaseous": ["SCF", "Therm", "MMBtu"],
-  "Biomass Fuels - Gaseous": ["SCF", "Therm", "MMBtu"],
-  "Petroleum Products": ["Gallons", "MMBtu"],
-  "Biomass Fuels - Liquid": ["Gallons", "MMBtu"],
-  "Biomass Fuels - Kraft Pulping Liquor, by Wood Furnish": ["Gallons", "MMBtu"],
+  "Natural Gas": ["Cubic Meters", "MCF", "MMBtu"],
+  "Coal and Coke": ["Metric Tons", "Short Tons", "Kilograms", "MMBtu"],
+  "Miscellaneous Solid Fuels": ["Metric Tons", "Short Tons", "Kilograms", "MMBtu"],
+  "Petroleum Products": ["Gallons", "Liters", "Barrels", "Kilograms", "MMBtu"],
+  "Miscellaneous Liquid Fuels": ["Gallons", "Liters", "Barrels", "Kilograms", "MMBtu"],
+  "Miscellaneous Gaseous Fuels": ["Cubic Meters", "MCF", "MMBtu"]
 };
 
 // data type
