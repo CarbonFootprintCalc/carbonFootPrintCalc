@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AddSourceForm from "./AddSourceForm";
+import AddSourceForm from "./StationaryFuelForm";
 import axios from "axios";
 
 interface ScopeSectionProps {
@@ -108,7 +108,7 @@ interface Source {
   emissions?: { CO2: number; CH4: number; N2O: number };
 }
 
-const ScopeSection: React.FC<ScopeSectionProps> = ({ title, description }) => {
+const StationaryFuelSelection: React.FC<ScopeSectionProps> = ({ title, description }) => {
   const [sources, setSources] = useState<Source[]>([]);
 
   const handleAddSource = async (newSources: Omit<Source, "emissions">[]) => {
@@ -198,4 +198,4 @@ const ScopeSection: React.FC<ScopeSectionProps> = ({ title, description }) => {
   );
 };
 
-export default ScopeSection;
+export default StationaryFuelSelection;

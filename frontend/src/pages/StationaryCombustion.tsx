@@ -1,9 +1,9 @@
 import React from "react";
 import { useTheme } from "../context/ThemeContext";
-import ScopeSection from "../components/ScopeSelection";
+import ScopeSection from "../components/StationaryFuelSelection";
 import NavBar from "../components/NavBar";
 import { useNavigate } from "react-router-dom";
-const App: React.FC = () => {
+const StationaryCombustion: React.FC = () => {
   const navigate = useNavigate();
   const { isDarkMode } = useTheme();
 
@@ -92,4 +92,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default StationaryCombustion;

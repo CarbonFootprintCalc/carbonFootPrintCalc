@@ -13,10 +13,11 @@ const Home = () => {
     <div className="w-full min-h-screen transition-colors duration-300 dark:bg-gray-900 bg-white flex flex-col">
       <NavBar />
       <div className="flex-grow flex items-center justify-center">
-        {/* 这里可以放其他内容 */}
+        
+
       </div>
       
-      <div className="flex justify-center pb-10"> {/* 最底部居中 */}
+      <div className="flex justify-center pb-10"> 
         <button
           onClick={handleNext}
           className="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors duration-200 shadow-lg"
