@@ -8,12 +8,12 @@ interface AddSourceFormProps {
       quantity: string;
       unit: string;
     }[]
-  ) => void;
+  ) => void | Promise<void>;
   fuelOptions: string[];
   unitOptions: string[];
 }
 
-const AddSourceForm: React.FC<AddSourceFormProps> = ({
+const StationaryFuelForm: React.FC<AddSourceFormProps> = ({
   onAdd,
   fuelOptions,
   unitOptions,
@@ -143,4 +143,4 @@ const AddSourceForm: React.FC<AddSourceFormProps> = ({
   );
 };
 
-export default AddSourceForm;
+export default StationaryFuelForm;
