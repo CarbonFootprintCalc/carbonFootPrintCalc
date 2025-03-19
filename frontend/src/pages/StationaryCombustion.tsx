@@ -1,39 +1,24 @@
 import React from "react";
-import { useTheme } from "./context/ThemeContext";
-import SignInButton from "./components/SignInButton";
-import SignUpButton from "./components/SignUpButton";
-import ThemeToggleButton from "./components/ThemeToggleButton";
-import ScopeSection from "./components/ScopeSelection";
-
+import { useTheme } from "../context/ThemeContext";
+import ScopeSection from "../components/ScopeSelection";
+import NavBar from "../components/NavBar";
+import { useNavigate } from "react-router-dom";
 const App: React.FC = () => {
+  const navigate = useNavigate();
   const { isDarkMode } = useTheme();
 
   const handleNext = () => {
-    // logic for move to next page 
-
+    // logic for move to next page
   };
 
   const handlePrevious = () => {
-    // logic for move to previous page
-
+    navigate("/");
   };
 
   return (
     <div className={isDarkMode ? "dark" : ""}>
       <div className="w-full min-h-screen transition-colors duration-300 dark:bg-gray-900 bg-white">
-        <header className="fixed top-0 left-0 right-0 p-4 flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <h1 className="text-3xl font-extrabold bg-gradient-to-r from-green-500 via-blue-500 to-purple-500 bg-clip-text text-transparent hover:scale-105 transition-transform cursor-pointer">
-              EmissioTrack
-            </h1>
-          </div>
-
-          <div className="flex items-center gap-4">
-            <SignInButton />
-            <SignUpButton />
-            <ThemeToggleButton />
-          </div>
-        </header>
+        <NavBar />
 
         <main className="pt-20 px-4 flex flex-col items-center justify-center">
           <h2 className="text-2xl font-bold text-center mb-8 dark:text-white">
