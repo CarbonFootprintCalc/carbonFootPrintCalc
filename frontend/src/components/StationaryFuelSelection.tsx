@@ -85,7 +85,7 @@ const fuelOptions: Record<string, string[]> = {
 };
 
 const unitOptions: Record<string, string[]> = {
-  "Natural Gas": ["Cubic Meters, MCF, MMBtu"],
+  "Natural Gas": ["Cubic Meters", "MCF", "MMBtu"],
   "Coal and Coke": ["Metric Tons", "Short Tons", "Kilograms", "MMBtu"],
   "Miscellaneous Solid Fuels": ["Metric Tons", "Short Tons", "Kilograms", "MMBtu"],
   "Petroleum Products": ["Gallons", "Liters", "Barrels", "Kilograms", "MMBtu"],
