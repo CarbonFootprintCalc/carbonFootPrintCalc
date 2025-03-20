@@ -20,8 +20,6 @@ const mobileSourcesFuelOptions: Record<string, string[]> = {
   "Other Vehicles": ["to be added"],
 };
 
-const vehicleYears = Array.from({ length: 2025- 1972 + 1}, (_, i) => (1972 + i).toString());
-
 const unitOptions = ["Gallons", "Liters", "MMBtu"];
 
 // data type
@@ -115,7 +113,6 @@ const MobileSourcesSelection: React.FC<ScopeSectionProps> = ({ title, descriptio
           onAdd={handleAddSource}
           vehicleOptions={mobileSourcesVehicleOptions[title] || []}
           fuelOptions={mobileSourcesFuelOptions[title] || []}
-          yearOptions={vehicleYears}
           unitOptions={unitOptions}
         />
       </div>
