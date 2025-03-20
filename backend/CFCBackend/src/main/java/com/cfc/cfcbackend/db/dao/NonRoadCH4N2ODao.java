@@ -1,9 +1,8 @@
-package com.cfc.cfcbackend.db.mappers;
+package com.cfc.cfcbackend.db.dao;
 
 import com.cfc.cfcbackend.db.po.Nonroadch4n2o;
-import org.apache.ibatis.annotations.Param;
 
-public interface Nonroadch4n2oMapper {
+public interface NonRoadCH4N2ODao {
     int deleteByPrimaryKey(Integer id);
 
     int insert(Nonroadch4n2o record);
@@ -12,8 +11,7 @@ public interface Nonroadch4n2oMapper {
 
     Nonroadch4n2o selectByPrimaryKey(Integer id);
 
-    Nonroadch4n2o selectByTypeNFuel(@Param("vehicle_type") String vehicle_type,
-                                    @Param("fuel_type") String fuel_type);
+    Nonroadch4n2o selectByTypeNFuel(String vehicleType, String fuelType);
 
     int updateByPrimaryKeySelective(Nonroadch4n2o record);
 

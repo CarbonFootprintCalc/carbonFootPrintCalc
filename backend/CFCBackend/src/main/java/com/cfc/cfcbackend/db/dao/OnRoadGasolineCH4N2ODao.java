@@ -1,9 +1,8 @@
-package com.cfc.cfcbackend.db.mappers;
+package com.cfc.cfcbackend.db.dao;
 
 import com.cfc.cfcbackend.db.po.Onroadgasolinech4n2o;
-import org.apache.ibatis.annotations.Param;
 
-public interface Onroadgasolinech4n2oMapper {
+public interface OnRoadGasolineCH4N2ODao {
     int deleteByPrimaryKey(Integer id);
 
     int insert(Onroadgasolinech4n2o record);
@@ -12,7 +11,7 @@ public interface Onroadgasolinech4n2oMapper {
 
     Onroadgasolinech4n2o selectByPrimaryKey(Integer id);
 
-    Onroadgasolinech4n2o selectByTypeNYear(@Param("vehicle_type") String vehicle_type, @Param("model_year") String model_year);
+    Onroadgasolinech4n2o selectByTypeNYear(String vehicleType, String modelYear);
 
     int updateByPrimaryKeySelective(Onroadgasolinech4n2o record);
 

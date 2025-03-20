@@ -115,7 +115,7 @@ const StationaryFuelSelection: React.FC<ScopeSectionProps> = ({ title, descripti
             unit: source.unit,
           });
 
-          const response = await axios.get("http://localhost:8080/scope1", {
+          const response = await axios.get("http://localhost:8080/stationary-combustion", {
             params: {
               quantity: Number(source.quantity),
               fuelType: source.fuelType,
