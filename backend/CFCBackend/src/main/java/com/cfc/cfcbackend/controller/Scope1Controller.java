@@ -30,7 +30,7 @@ public class Scope1Controller {
     
     // Method to calculate emissions for stationary combustion
     @ResponseBody
-    @GetMapping("/scope1")
+    @GetMapping("/stationary-combustion")
     public Map<String, Double> scope1(@RequestParam double quantity, @RequestParam String fuelType, @RequestParam String unit) {
 
         Map<String, Double> scope1Emiss = new HashMap<>(); 
@@ -56,7 +56,7 @@ public class Scope1Controller {
     }
 
     @ResponseBody
-    @GetMapping("/mobile_sources")
+    @GetMapping("/mobile-sources")
     public Map<String, Double> mobileSources(@RequestParam String fuelType, @RequestParam double fuelUsage,
                                              @RequestParam String vehicleType, @RequestParam String modelYear,
                                              @RequestParam int mileage, @RequestParam boolean onRoad) {
