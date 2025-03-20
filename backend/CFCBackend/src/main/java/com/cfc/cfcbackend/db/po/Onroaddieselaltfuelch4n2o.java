@@ -1,5 +1,10 @@
 package com.cfc.cfcbackend.db.po;
 
+import lombok.Builder;
+import lombok.Data;
+
+@Builder
+@Data
 public class Onroaddieselaltfuelch4n2o {
     private Integer id;
 
