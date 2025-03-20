@@ -1,6 +1,7 @@
 package com.cfc.cfcbackend.controller;
 
 import com.cfc.cfcbackend.service.MobileSourcesService;
+import com.cfc.cfcbackend.service.RefrigerationACService;
 import com.cfc.cfcbackend.service.StationaryCombustionService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,6 +23,9 @@ public class Scope1Controller {
     StationaryCombustionService stationaryCombustionService;
     @Resource
     MobileSourcesService mobileSourcesService;
+    @Resource
+    RefrigerationACService refrigerationACService;
+
     @ResponseBody
     @GetMapping("/")
     public String root() {
@@ -80,6 +84,16 @@ public class Scope1Controller {
             mobileSources.put("N2O", mobileSourcesService.emissionNonRoadN2O(fuelType ,vehicleType, fuelUsage));
         }
         return mobileSources;
+    }
+
+    // Method to calculate CO2 emissions for refrigeration and AC sources
+    @ResponseBody
+    @GetMapping("/refrigeration-ac")
+    public double refrigerationAC(@RequestParam String gasType, @RequestParam double newCharge, 
+                                  @RequestParam double newCapacity, @RequestParam double recharge, 
+                                  @RequestParam double disposedCapacity, @RequestParam double disposedRecovered) {
+
+        return refrigerationACService.CO2EqEmissions(gasType, newCharge, newCapacity, recharge, disposedCapacity, disposedRecovered);
     }
 
 }
