@@ -1,7 +1,7 @@
 package com.cfc.cfcbackend.db.dao.impl;
 
 import com.cfc.cfcbackend.db.dao.OnRoadGasolineCH4N2ODao;
-import com.cfc.cfcbackend.db.po.Onroadgasolinech4n2o;
+import com.cfc.cfcbackend.db.po.OnRoadGasolineCH4N2O;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -38,7 +38,7 @@ class OnRoadGasolineCH4N2ODaoImplTest {
 
     @Test
     void selectByTypeNYear() {
-        Onroadgasolinech4n2o onroadgasolinech4n2o = Onroadgasolinech4n2o.builder()
+        OnRoadGasolineCH4N2O onroadgasolinech4n2o = OnRoadGasolineCH4N2O.builder()
                 .id(10)
                 .mobileCombustionId(2)
                 .vehicleType("Gasoline Passenger Cars")
@@ -46,7 +46,7 @@ class OnRoadGasolineCH4N2ODaoImplTest {
                 .ch4FactorGch4PerMile(0.0617f)
                 .n2oFactorGc2oPerMile(0.0603f)
                 .build();
-        Onroadgasolinech4n2o result = onRoadGasolineCH4N2ODao.selectByTypeNYear("Gasoline Passenger Cars", "1994");
+        OnRoadGasolineCH4N2O result = onRoadGasolineCH4N2ODao.selectByTypeNYear("Gasoline Passenger Cars", "1994");
         assertEquals(onroadgasolinech4n2o, result);
     }
 

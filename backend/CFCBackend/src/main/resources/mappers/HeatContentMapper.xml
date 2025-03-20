@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cfc.cfcbackend.db.mappers.HeatContentMapper">
+  <resultMap id="BaseResultMap" type="com.cfc.cfcbackend.db.po.HeatContent">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="fuel_type" jdbcType="VARCHAR" property="fuelType" />
+    <result column="convert_from" jdbcType="VARCHAR" property="convertFrom" />
+    <result column="convert_to" jdbcType="VARCHAR" property="convertTo" />
+    <result column="multiply_by" jdbcType="REAL" property="multiplyBy" />
+    <result column="units" jdbcType="VARCHAR" property="units" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, fuel_type, convert_from, convert_to, multiply_by, units
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from heatcontent
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from heatcontent
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cfc.cfcbackend.db.po.HeatContent">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into heatcontent (fuel_type, convert_from, convert_to, 
+      multiply_by, units)
+    values (#{fuelType,jdbcType=VARCHAR}, #{convertFrom,jdbcType=VARCHAR}, #{convertTo,jdbcType=VARCHAR}, 
+      #{multiplyBy,jdbcType=REAL}, #{units,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cfc.cfcbackend.db.po.HeatContent">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into heatcontent
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="fuelType != null">
+        fuel_type,
+      </if>
+      <if test="convertFrom != null">
+        convert_from,
+      </if>
+      <if test="convertTo != null">
+        convert_to,
+      </if>
+      <if test="multiplyBy != null">
+        multiply_by,
+      </if>
+      <if test="units != null">
+        units,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="fuelType != null">
+        #{fuelType,jdbcType=VARCHAR},
+      </if>
+      <if test="convertFrom != null">
+        #{convertFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="convertTo != null">
+        #{convertTo,jdbcType=VARCHAR},
+      </if>
+      <if test="multiplyBy != null">
+        #{multiplyBy,jdbcType=REAL},
+      </if>
+      <if test="units != null">
+        #{units,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cfc.cfcbackend.db.po.HeatContent">
+    update heatcontent
+    <set>
+      <if test="fuelType != null">
+        fuel_type = #{fuelType,jdbcType=VARCHAR},
+      </if>
+      <if test="convertFrom != null">
+        convert_from = #{convertFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="convertTo != null">
+        convert_to = #{convertTo,jdbcType=VARCHAR},
+      </if>
+      <if test="multiplyBy != null">
+        multiply_by = #{multiplyBy,jdbcType=REAL},
+      </if>
+      <if test="units != null">
+        units = #{units,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cfc.cfcbackend.db.po.HeatContent">
+    update heatcontent
+    set fuel_type = #{fuelType,jdbcType=VARCHAR},
+      convert_from = #{convertFrom,jdbcType=VARCHAR},
+      convert_to = #{convertTo,jdbcType=VARCHAR},
+      multiply_by = #{multiplyBy,jdbcType=REAL},
+      units = #{units,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

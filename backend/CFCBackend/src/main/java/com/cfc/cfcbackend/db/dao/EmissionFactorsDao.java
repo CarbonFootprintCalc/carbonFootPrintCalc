@@ -1,7 +1,7 @@
 package com.cfc.cfcbackend.db.dao;
 
-import com.cfc.cfcbackend.db.po.Emissionfactors;
+import com.cfc.cfcbackend.db.po.EmissionFactors;
 
 public interface EmissionFactorsDao {
-    Emissionfactors getEmissionfactors(int id);
+    EmissionFactors getEmissionfactors(int id);
 }

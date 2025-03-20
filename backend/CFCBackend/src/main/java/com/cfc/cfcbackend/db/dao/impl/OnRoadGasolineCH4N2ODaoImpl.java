@@ -1,8 +1,8 @@
 package com.cfc.cfcbackend.db.dao.impl;
 
 import com.cfc.cfcbackend.db.dao.OnRoadGasolineCH4N2ODao;
-import com.cfc.cfcbackend.db.mappers.Onroadgasolinech4n2oMapper;
-import com.cfc.cfcbackend.db.po.Onroadgasolinech4n2o;
+import com.cfc.cfcbackend.db.mappers.OnRoadGasolineCH4N2OMapper;
+import com.cfc.cfcbackend.db.po.OnRoadGasolineCH4N2O;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 public class OnRoadGasolineCH4N2ODaoImpl implements OnRoadGasolineCH4N2ODao {
 
     @Resource
-    private Onroadgasolinech4n2oMapper onroadgasolinech4n2oMapper;
+    private OnRoadGasolineCH4N2OMapper onroadgasolinech4n2oMapper;
 
     @Override
     public int deleteByPrimaryKey(Integer id) {
@@ -19,32 +19,32 @@ public class OnRoadGasolineCH4N2ODaoImpl implements OnRoadGasolineCH4N2ODao {
     }
 
     @Override
-    public int insert(Onroadgasolinech4n2o record) {
+    public int insert(OnRoadGasolineCH4N2O record) {
         return 0;
     }
 
     @Override
-    public int insertSelective(Onroadgasolinech4n2o record) {
+    public int insertSelective(OnRoadGasolineCH4N2O record) {
         return 0;
     }
 
     @Override
-    public Onroadgasolinech4n2o selectByPrimaryKey(Integer id) {
+    public OnRoadGasolineCH4N2O selectByPrimaryKey(Integer id) {
         return null;
     }
 
     @Override
-    public Onroadgasolinech4n2o selectByTypeNYear(String vehicleType, String modelYear) {
+    public OnRoadGasolineCH4N2O selectByTypeNYear(String vehicleType, String modelYear) {
         return onroadgasolinech4n2oMapper.selectByTypeNYear(vehicleType, modelYear);
     }
 
     @Override
-    public int updateByPrimaryKeySelective(Onroadgasolinech4n2o record) {
+    public int updateByPrimaryKeySelective(OnRoadGasolineCH4N2O record) {
         return 0;
     }
 
     @Override
-    public int updateByPrimaryKey(Onroadgasolinech4n2o record) {
+    public int updateByPrimaryKey(OnRoadGasolineCH4N2O record) {
         return 0;
     }
 }

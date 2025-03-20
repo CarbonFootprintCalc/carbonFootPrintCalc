@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cfc.cfcbackend.db.mappers.UserSessionsMapper">
+  <resultMap id="BaseResultMap" type="com.cfc.cfcbackend.db.po.UserSessions">
+    <id column="session_id" jdbcType="INTEGER" property="sessionId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="session_token" jdbcType="VARCHAR" property="sessionToken" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="expires_at" jdbcType="TIMESTAMP" property="expiresAt" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    session_id, user_id, session_token, created_at, expires_at
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from usersessions
+    where session_id = #{sessionId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from usersessions
+    where session_id = #{sessionId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cfc.cfcbackend.db.po.UserSessions">
+    insert into usersessions (session_id, user_id, session_token, 
+      created_at, expires_at)
+    values (#{sessionId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{sessionToken,jdbcType=VARCHAR}, 
+      #{createdAt,jdbcType=TIMESTAMP}, #{expiresAt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cfc.cfcbackend.db.po.UserSessions">
+    insert into usersessions
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sessionId != null">
+        session_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="sessionToken != null">
+        session_token,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="expiresAt != null">
+        expires_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sessionId != null">
+        #{sessionId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="sessionToken != null">
+        #{sessionToken,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expiresAt != null">
+        #{expiresAt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cfc.cfcbackend.db.po.UserSessions">
+    update usersessions
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="sessionToken != null">
+        session_token = #{sessionToken,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expiresAt != null">
+        expires_at = #{expiresAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where session_id = #{sessionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cfc.cfcbackend.db.po.UserSessions">
+    update usersessions
+    set user_id = #{userId,jdbcType=INTEGER},
+      session_token = #{sessionToken,jdbcType=VARCHAR},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      expires_at = #{expiresAt,jdbcType=TIMESTAMP}
+    where session_id = #{sessionId,jdbcType=INTEGER}
+  </update>
+</mapper>

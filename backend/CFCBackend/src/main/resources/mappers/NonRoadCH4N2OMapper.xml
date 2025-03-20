@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cfc.cfcbackend.db.mappers.NonRoadCH4N2OMapper">
+  <resultMap id="BaseResultMap" type="com.cfc.cfcbackend.db.po.NonRoadCH4N2O">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="mobile_combustion_id" jdbcType="INTEGER" property="mobileCombustionId" />
+    <result column="vehicle_type" jdbcType="VARCHAR" property="vehicleType" />
+    <result column="fuel_type" jdbcType="VARCHAR" property="fuelType" />
+    <result column="ch4_factor_gCh4_per_gallon" jdbcType="REAL" property="ch4FactorGch4PerGallon" />
+    <result column="n2o_factor_gN2o_per_gallon" jdbcType="REAL" property="n2oFactorGn2oPerGallon" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, mobile_combustion_id, vehicle_type, fuel_type, ch4_factor_gCh4_per_gallon, n2o_factor_gN2o_per_gallon
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from nonroadch4n2o
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByTypeNFuel" resultType="com.cfc.cfcbackend.db.po.NonRoadCH4N2O">
+    select
+    <include refid="Base_Column_List" />
+    from nonroadch4n2o
+    where vehicle_type = #{vehicle_type,jdbcType=VARCHAR}
+    and fuel_type = #{fuel_type,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from nonroadch4n2o
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cfc.cfcbackend.db.po.NonRoadCH4N2O">
+    insert into nonroadch4n2o (id, mobile_combustion_id, vehicle_type, 
+      fuel_type, ch4_factor_gCh4_per_gallon, n2o_factor_gN2o_per_gallon
+      )
+    values (#{id,jdbcType=INTEGER}, #{mobileCombustionId,jdbcType=INTEGER}, #{vehicleType,jdbcType=VARCHAR}, 
+      #{fuelType,jdbcType=VARCHAR}, #{ch4FactorGch4PerGallon,jdbcType=REAL}, #{n2oFactorGn2oPerGallon,jdbcType=REAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cfc.cfcbackend.db.po.NonRoadCH4N2O">
+    insert into nonroadch4n2o
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="mobileCombustionId != null">
+        mobile_combustion_id,
+      </if>
+      <if test="vehicleType != null">
+        vehicle_type,
+      </if>
+      <if test="fuelType != null">
+        fuel_type,
+      </if>
+      <if test="ch4FactorGch4PerGallon != null">
+        ch4_factor_gCh4_per_gallon,
+      </if>
+      <if test="n2oFactorGn2oPerGallon != null">
+        n2o_factor_gN2o_per_gallon,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="mobileCombustionId != null">
+        #{mobileCombustionId,jdbcType=INTEGER},
+      </if>
+      <if test="vehicleType != null">
+        #{vehicleType,jdbcType=VARCHAR},
+      </if>
+      <if test="fuelType != null">
+        #{fuelType,jdbcType=VARCHAR},
+      </if>
+      <if test="ch4FactorGch4PerGallon != null">
+        #{ch4FactorGch4PerGallon,jdbcType=REAL},
+      </if>
+      <if test="n2oFactorGn2oPerGallon != null">
+        #{n2oFactorGn2oPerGallon,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cfc.cfcbackend.db.po.NonRoadCH4N2O">
+    update nonroadch4n2o
+    <set>
+      <if test="mobileCombustionId != null">
+        mobile_combustion_id = #{mobileCombustionId,jdbcType=INTEGER},
+      </if>
+      <if test="vehicleType != null">
+        vehicle_type = #{vehicleType,jdbcType=VARCHAR},
+      </if>
+      <if test="fuelType != null">
+        fuel_type = #{fuelType,jdbcType=VARCHAR},
+      </if>
+      <if test="ch4FactorGch4PerGallon != null">
+        ch4_factor_gCh4_per_gallon = #{ch4FactorGch4PerGallon,jdbcType=REAL},
+      </if>
+      <if test="n2oFactorGn2oPerGallon != null">
+        n2o_factor_gN2o_per_gallon = #{n2oFactorGn2oPerGallon,jdbcType=REAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cfc.cfcbackend.db.po.NonRoadCH4N2O">
+    update nonroadch4n2o
+    set mobile_combustion_id = #{mobileCombustionId,jdbcType=INTEGER},
+      vehicle_type = #{vehicleType,jdbcType=VARCHAR},
+      fuel_type = #{fuelType,jdbcType=VARCHAR},
+      ch4_factor_gCh4_per_gallon = #{ch4FactorGch4PerGallon,jdbcType=REAL},
+      n2o_factor_gN2o_per_gallon = #{n2oFactorGn2oPerGallon,jdbcType=REAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
