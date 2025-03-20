@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cfc.cfcbackend.db.mappers.MobileCombustionResultsMapper">
+  <resultMap id="BaseResultMap" type="com.cfc.cfcbackend.db.po.MobileCombustionResults">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="vehicle_type" jdbcType="VARCHAR" property="vehicleType" />
+    <result column="fuel_type" jdbcType="VARCHAR" property="fuelType" />
+    <result column="fuel_consumed" jdbcType="REAL" property="fuelConsumed" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
+    <result column="emission_co2_kg" jdbcType="REAL" property="emissionCo2Kg" />
+    <result column="emission_ch4_g" jdbcType="REAL" property="emissionCh4G" />
+    <result column="emission_n2o_g" jdbcType="REAL" property="emissionN2oG" />
+    <result column="total_emission_tons_co2e" jdbcType="REAL" property="totalEmissionTonsCo2e" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, vehicle_type, fuel_type, fuel_consumed, unit, emission_co2_kg, emission_ch4_g, 
+    emission_n2o_g, total_emission_tons_co2e
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mobilecombustionresults
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mobilecombustionresults
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cfc.cfcbackend.db.po.MobileCombustionResults">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into mobilecombustionresults (user_id, vehicle_type, fuel_type, 
+      fuel_consumed, unit, emission_co2_kg, 
+      emission_ch4_g, emission_n2o_g, total_emission_tons_co2e
+      )
+    values (#{userId,jdbcType=INTEGER}, #{vehicleType,jdbcType=VARCHAR}, #{fuelType,jdbcType=VARCHAR}, 
+      #{fuelConsumed,jdbcType=REAL}, #{unit,jdbcType=VARCHAR}, #{emissionCo2Kg,jdbcType=REAL}, 
+      #{emissionCh4G,jdbcType=REAL}, #{emissionN2oG,jdbcType=REAL}, #{totalEmissionTonsCo2e,jdbcType=REAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cfc.cfcbackend.db.po.MobileCombustionResults">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into mobilecombustionresults
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="vehicleType != null">
+        vehicle_type,
+      </if>
+      <if test="fuelType != null">
+        fuel_type,
+      </if>
+      <if test="fuelConsumed != null">
+        fuel_consumed,
+      </if>
+      <if test="unit != null">
+        unit,
+      </if>
+      <if test="emissionCo2Kg != null">
+        emission_co2_kg,
+      </if>
+      <if test="emissionCh4G != null">
+        emission_ch4_g,
+      </if>
+      <if test="emissionN2oG != null">
+        emission_n2o_g,
+      </if>
+      <if test="totalEmissionTonsCo2e != null">
+        total_emission_tons_co2e,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="vehicleType != null">
+        #{vehicleType,jdbcType=VARCHAR},
+      </if>
+      <if test="fuelType != null">
+        #{fuelType,jdbcType=VARCHAR},
+      </if>
+      <if test="fuelConsumed != null">
+        #{fuelConsumed,jdbcType=REAL},
+      </if>
+      <if test="unit != null">
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="emissionCo2Kg != null">
+        #{emissionCo2Kg,jdbcType=REAL},
+      </if>
+      <if test="emissionCh4G != null">
+        #{emissionCh4G,jdbcType=REAL},
+      </if>
+      <if test="emissionN2oG != null">
+        #{emissionN2oG,jdbcType=REAL},
+      </if>
+      <if test="totalEmissionTonsCo2e != null">
+        #{totalEmissionTonsCo2e,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cfc.cfcbackend.db.po.MobileCombustionResults">
+    update mobilecombustionresults
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="vehicleType != null">
+        vehicle_type = #{vehicleType,jdbcType=VARCHAR},
+      </if>
+      <if test="fuelType != null">
+        fuel_type = #{fuelType,jdbcType=VARCHAR},
+      </if>
+      <if test="fuelConsumed != null">
+        fuel_consumed = #{fuelConsumed,jdbcType=REAL},
+      </if>
+      <if test="unit != null">
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="emissionCo2Kg != null">
+        emission_co2_kg = #{emissionCo2Kg,jdbcType=REAL},
+      </if>
+      <if test="emissionCh4G != null">
+        emission_ch4_g = #{emissionCh4G,jdbcType=REAL},
+      </if>
+      <if test="emissionN2oG != null">
+        emission_n2o_g = #{emissionN2oG,jdbcType=REAL},
+      </if>
+      <if test="totalEmissionTonsCo2e != null">
+        total_emission_tons_co2e = #{totalEmissionTonsCo2e,jdbcType=REAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cfc.cfcbackend.db.po.MobileCombustionResults">
+    update mobilecombustionresults
+    set user_id = #{userId,jdbcType=INTEGER},
+      vehicle_type = #{vehicleType,jdbcType=VARCHAR},
+      fuel_type = #{fuelType,jdbcType=VARCHAR},
+      fuel_consumed = #{fuelConsumed,jdbcType=REAL},
+      unit = #{unit,jdbcType=VARCHAR},
+      emission_co2_kg = #{emissionCo2Kg,jdbcType=REAL},
+      emission_ch4_g = #{emissionCh4G,jdbcType=REAL},
+      emission_n2o_g = #{emissionN2oG,jdbcType=REAL},
+      total_emission_tons_co2e = #{totalEmissionTonsCo2e,jdbcType=REAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
