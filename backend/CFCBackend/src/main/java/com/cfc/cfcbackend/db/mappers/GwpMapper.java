@@ -14,4 +14,6 @@ public interface GwpMapper {
     int updateByPrimaryKeySelective(Gwp record);
 
     int updateByPrimaryKey(Gwp record);
+
+    Gwp selectByGasType(String gasType);
 }
