@@ -3,12 +3,12 @@ import React, { useState } from "react";
 interface RefrigerationACFuelFormProps {
   onAdd: (
     sources: {
-      gas: string;
-      charge: number;
-      capacity: number;
+      gasType: string;
+      newCharge: number;
+      newCapacity: number;
       recharge: number;
-      totalCapacity: number;
-      recovered: number;
+      disposedCapacity: number;
+      disposedRecovered: number;
     }[]
   ) => void;
   gasOptions: string[];
@@ -19,7 +19,7 @@ const RefrigerationACFuelForm: React.FC<RefrigerationACFuelFormProps> = ({
   gasOptions,
 }) => {
   const [rows, setRows] = useState([
-    { gas: "", charge: 0, capacity: 0, recharge: 0, totalCapacity: 0, recovered: 0 },
+    { gasType: "", newCharge: 0, newCapacity: 0, recharge: 0, disposedCapacity: 0, disposedRecovered: 0 },
   ]);
 
   const handleInputChange = (
@@ -34,21 +34,21 @@ const RefrigerationACFuelForm: React.FC<RefrigerationACFuelFormProps> = ({
 
   const handleGasChange = (index: number, value: string) => {
     const updatedRows = [...rows];
-    updatedRows[index].gas = value;
+    updatedRows[index].gasType = value;
     setRows(updatedRows);
   };
 
   const handleAddRow = () => {
     setRows((prev) => [
       ...prev,
-      { gas: "", charge: 0, capacity: 0, recharge: 0, totalCapacity: 0, recovered: 0 },
+      { gasType: "", newCharge: 0, newCapacity: 0, recharge: 0, disposedCapacity: 0, disposedRecovered: 0 },
     ]);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onAdd(rows);
-    setRows([{ gas: "", charge: 0, capacity: 0, recharge: 0, totalCapacity: 0, recovered: 0 }]);
+    setRows([{ gasType: "", newCharge: 0, newCapacity: 0, recharge: 0, disposedCapacity: 0, disposedRecovered: 0 }]);
   };
 
   return (
@@ -59,7 +59,7 @@ const RefrigerationACFuelForm: React.FC<RefrigerationACFuelFormProps> = ({
       {rows.map((row, index) => (
         <div key={index} className="flex items-center justify-between w-full gap-2 my-2">
           <select
-            value={row.gas}
+            value={row.gasType}
             onChange={(e) => handleGasChange(index, e.target.value)}
             className="w-[150px] h-10 p-2 border rounded bg-white"
           >
@@ -75,16 +75,16 @@ const RefrigerationACFuelForm: React.FC<RefrigerationACFuelFormProps> = ({
             type="number"
             placeholder="Charge (kg)"
             className="w-[150px] h-10 p-2 border rounded"
-            value={row.charge || ""}
-            onChange={(e) => handleInputChange(index, "charge", e.target.value)}
+            value={row.newCharge || ""}
+            onChange={(e) => handleInputChange(index, "newCharge", e.target.value)}
           />
 
           <input
             type="number"
             placeholder="Capacity (kg)"
             className="w-[150px] h-10 p-2 border rounded"
-            value={row.capacity || ""}
-            onChange={(e) => handleInputChange(index, "capacity", e.target.value)}
+            value={row.newCapacity || ""}
+            onChange={(e) => handleInputChange(index, "newCapacity", e.target.value)}
           />
 
           <input
@@ -99,16 +99,16 @@ const RefrigerationACFuelForm: React.FC<RefrigerationACFuelFormProps> = ({
             type="number"
             placeholder="Total Capacity (kg)"
             className="w-[150px] h-10 p-2 border rounded"
-            value={row.totalCapacity || ""}
-            onChange={(e) => handleInputChange(index, "totalCapacity", e.target.value)}
+            value={row.disposedCapacity || ""}
+            onChange={(e) => handleInputChange(index, "disposedCapacity", e.target.value)}
           />
 
           <input
             type="number"
             placeholder="Recovered (kg)"
             className="w-[150px] h-10 p-2 border rounded"
-            value={row.recovered || ""}
-            onChange={(e) => handleInputChange(index, "recovered", e.target.value)}
+            value={row.disposedRecovered || ""}
+            onChange={(e) => handleInputChange(index, "disposedRecovered", e.target.value)}
           />
 
           {rows.length > 1 && (
