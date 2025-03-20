@@ -1,6 +1,6 @@
 package com.cfc.cfcbackend.db.dao.impl;
 
-import com.cfc.cfcbackend.db.dao.Onroaddieselaltfuelch4n2oDao;
+import com.cfc.cfcbackend.db.dao.OnRoadDieselAltFuelCH4N2ODao;
 import com.cfc.cfcbackend.db.mappers.Onroaddieselaltfuelch4n2oMapper;
 import com.cfc.cfcbackend.db.po.Onroaddieselaltfuelch4n2o;
 import org.springframework.stereotype.Repository;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import javax.annotation.Resource;
 
 @Repository
-public class Onroaddieselaltfuelch4n2oDaoImpl implements Onroaddieselaltfuelch4n2oDao {
+public class OnRoadDieselAltFuelCH4N2ODaoImpl implements OnRoadDieselAltFuelCH4N2ODao {
 
     @Resource
     private Onroaddieselaltfuelch4n2oMapper onroaddieselaltfuelch4n2oMapper;
@@ -34,13 +34,13 @@ public class Onroaddieselaltfuelch4n2oDaoImpl implements Onroaddieselaltfuelch4n
     }
 
     @Override
-    public Onroaddieselaltfuelch4n2o selectByTypeNFuelNYear(String vehicle_type, String fuel_type, String model_year) {
-        return onroaddieselaltfuelch4n2oMapper.selectByTypeNFuelNYear(vehicle_type, fuel_type, model_year);
+    public Onroaddieselaltfuelch4n2o selectByTypeNFuelNYear(String vehicleType, String fuelType, String modelYear) {
+        return onroaddieselaltfuelch4n2oMapper.selectByTypeNFuelNYear(vehicleType, fuelType, modelYear);
     }
 
     @Override
-    public Onroaddieselaltfuelch4n2o selectByTypeNFuel(String vehicle_type, String fuel_type) {
-        return onroaddieselaltfuelch4n2oMapper.selectByTypeNFuel(vehicle_type, fuel_type);
+    public Onroaddieselaltfuelch4n2o selectByTypeNFuel(String vehicleType, String fuelType) {
+        return onroaddieselaltfuelch4n2oMapper.selectByTypeNFuel(vehicleType, fuelType);
     }
 
     @Override

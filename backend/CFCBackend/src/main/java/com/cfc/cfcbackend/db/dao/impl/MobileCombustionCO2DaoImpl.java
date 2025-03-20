@@ -1,6 +1,6 @@
 package com.cfc.cfcbackend.db.dao.impl;
 
-import com.cfc.cfcbackend.db.dao.Mobilecombustionco2Dao;
+import com.cfc.cfcbackend.db.dao.MobileCombustionCO2Dao;
 import com.cfc.cfcbackend.db.mappers.Mobilecombustionco2Mapper;
 import com.cfc.cfcbackend.db.po.Mobilecombustionco2;
 import org.springframework.stereotype.Repository;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import javax.annotation.Resource;
 
 @Repository
-public class Mobilecombustionco2DaoImpl implements Mobilecombustionco2Dao {
+public class MobileCombustionCO2DaoImpl implements MobileCombustionCO2Dao {
 
     @Resource
     private Mobilecombustionco2Mapper mobilecombustionco2Mapper;

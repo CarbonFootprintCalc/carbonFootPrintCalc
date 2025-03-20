@@ -1,6 +1,6 @@
 package com.cfc.cfcbackend.db.dao.impl;
 
-import com.cfc.cfcbackend.db.dao.Onroadgasolinech4n2oDao;
+import com.cfc.cfcbackend.db.dao.OnRoadGasolineCH4N2ODao;
 import com.cfc.cfcbackend.db.mappers.Onroadgasolinech4n2oMapper;
 import com.cfc.cfcbackend.db.po.Onroadgasolinech4n2o;
 import org.springframework.stereotype.Repository;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import javax.annotation.Resource;
 
 @Repository
-public class Onroadgasolinech4n2oDaoImpl implements Onroadgasolinech4n2oDao {
+public class OnRoadGasolineCH4N2ODaoImpl implements OnRoadGasolineCH4N2ODao {
 
     @Resource
     private Onroadgasolinech4n2oMapper onroadgasolinech4n2oMapper;
@@ -34,8 +34,8 @@ public class Onroadgasolinech4n2oDaoImpl implements Onroadgasolinech4n2oDao {
     }
 
     @Override
-    public Onroadgasolinech4n2o selectByTypeNYear(String vehicle_type, String model_year) {
-        return onroadgasolinech4n2oMapper.selectByTypeNYear(vehicle_type, model_year);
+    public Onroadgasolinech4n2o selectByTypeNYear(String vehicleType, String modelYear) {
+        return onroadgasolinech4n2oMapper.selectByTypeNYear(vehicleType, modelYear);
     }
 
     @Override

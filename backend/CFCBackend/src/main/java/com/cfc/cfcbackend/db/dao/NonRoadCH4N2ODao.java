@@ -2,7 +2,7 @@ package com.cfc.cfcbackend.db.dao;
 
 import com.cfc.cfcbackend.db.po.Nonroadch4n2o;
 
-public interface Nonroadch4n2oDao {
+public interface NonRoadCH4N2ODao {
     int deleteByPrimaryKey(Integer id);
 
     int insert(Nonroadch4n2o record);
@@ -11,7 +11,7 @@ public interface Nonroadch4n2oDao {
 
     Nonroadch4n2o selectByPrimaryKey(Integer id);
 
-    Nonroadch4n2o selectByTypeNFuel(String vehicle_type, String fuel_type);
+    Nonroadch4n2o selectByTypeNFuel(String vehicleType, String fuelType);
 
     int updateByPrimaryKeySelective(Nonroadch4n2o record);
 

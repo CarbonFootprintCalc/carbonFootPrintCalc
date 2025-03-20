@@ -2,7 +2,7 @@ package com.cfc.cfcbackend.db.dao;
 
 import com.cfc.cfcbackend.db.po.Mobilecombustionco2;
 
-public interface Mobilecombustionco2Dao {
+public interface MobileCombustionCO2Dao {
     int deleteByPrimaryKey(Integer id);
 
     int insert(Mobilecombustionco2 record);

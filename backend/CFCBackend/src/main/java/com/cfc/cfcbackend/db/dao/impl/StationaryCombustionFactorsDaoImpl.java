@@ -1,6 +1,6 @@
 package com.cfc.cfcbackend.db.dao.impl;
 
-import com.cfc.cfcbackend.db.dao.StationarycombustionfactorsDao;
+import com.cfc.cfcbackend.db.dao.StationaryCombustionFactorsDao;
 import com.cfc.cfcbackend.db.mappers.StationarycombustionfactorsMapper;
 import com.cfc.cfcbackend.db.po.Stationarycombustionfactors;
 import org.springframework.stereotype.Repository;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import javax.annotation.Resource;
 
 @Repository
-public class StationarycombustionfactorsDaoImpl implements StationarycombustionfactorsDao {
+public class StationaryCombustionFactorsDaoImpl implements StationaryCombustionFactorsDao {
 
     @Resource
     private StationarycombustionfactorsMapper stationarycombustionfactorsMapper;

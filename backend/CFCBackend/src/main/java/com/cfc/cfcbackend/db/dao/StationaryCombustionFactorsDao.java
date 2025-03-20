@@ -2,7 +2,7 @@ package com.cfc.cfcbackend.db.dao;
 
 import com.cfc.cfcbackend.db.po.Stationarycombustionfactors;
 
-public interface StationarycombustionfactorsDao {
+public interface StationaryCombustionFactorsDao {
     int deleteByPrimaryKey(Integer id);
 
     int insert(Stationarycombustionfactors record);
