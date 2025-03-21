@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import StationaryCombustion from "./pages/StationaryCombustion"; 
 import Refrige from "./pages/RefrigerationAC";
+import FireSuppression from "./pages/FireSuppression";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/stationary-combustion" element={<StationaryCombustion />} />
       <Route path="/refrigeration-AC" element={<Refrige />} />
+      <Route path="/fire-suppression" element={<FireSuppression />} />
     </Routes>
   );
 }

@@ -1,17 +1,15 @@
 import React from "react";
 import { useTheme } from "../context/ThemeContext";
-import RefrigerationACFuelSelection from "../components/RefrigerationACFuelSelection";
+import FireSuppressionFuelSelection from "../components/FireSuppressionFuelSelection";
 import NavBar from "../components/NavBar";
 import { useNavigate } from "react-router-dom";
 
-const RefrigerationAC: React.FC = () => {
+const FireSuppression: React.FC = () => {
   const navigate = useNavigate();
   const { isDarkMode } = useTheme();
-  const handleNext = () => {
-    
-  };
+
   const handlePrevious = () => {
-    navigate("/stationary-combustion");
+    navigate("/refrigeration-AC");
   };
 
   return (
@@ -21,12 +19,12 @@ const RefrigerationAC: React.FC = () => {
 
         <main className="pt-20 px-4 flex flex-col items-center justify-center">
           <h2 className="text-2xl font-bold text-center mb-8 dark:text-white">
-            Refrigeration and Air Conditioning Equipment
+            Fire Suppression Systems
           </h2>
 
-          <RefrigerationACFuelSelection
-            title="Scope 1 Emissions from Refrigeration and AC"
-            description="Report refrigerant gases such as HFC, PFC, CO2, and SF6 used in refrigeration and air conditioning equipment at your facilities."
+          <FireSuppressionFuelSelection
+            title="Scope 1 Emissions from Fire Suppression"
+            description="Report emissions from fire suppression systems using gases such as HFC-23, HFC-125, HFC-134a, HFC-227ea, HFC-236fa, PFC-14, PFC-31-10, and Carbon dioxide."
           />
 
           <div className="mt-8 flex gap-4">
@@ -36,12 +34,6 @@ const RefrigerationAC: React.FC = () => {
             >
               Previous
             </button>
-            <button
-              onClick={handleNext}
-              className="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors duration-200 shadow-lg"
-            >
-              Next
-            </button>
           </div>
         </main>
       </div>
@@ -49,4 +41,4 @@ const RefrigerationAC: React.FC = () => {
   );
 };
 
-export default RefrigerationAC;
+export default FireSuppression;
