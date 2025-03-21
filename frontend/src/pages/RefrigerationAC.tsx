@@ -8,7 +8,7 @@ const RefrigerationAC: React.FC = () => {
   const navigate = useNavigate();
   const { isDarkMode } = useTheme();
   const handleNext = () => {
-    
+    navigate("/fire-suppression");
   };
   const handlePrevious = () => {
     navigate("/stationary-combustion");
