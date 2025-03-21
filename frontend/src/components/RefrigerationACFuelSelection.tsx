@@ -8,12 +8,12 @@ interface RefrigerationACFuelSelectionProps {
 }
 
 interface RefrigerationSource {
-  gas: string;
-  charge: number;
-  capacity: number;
+  gasType: string;
+  newCharge: number;
+  newCapacity: number;
   recharge: number;
-  totalCapacity: number;
-  recovered: number;
+  disposedCapacity: number;
+  disposedRecovered: number;
   emissions?: number;
 }
 
@@ -33,7 +33,7 @@ const RefrigerationACFuelSelection: React.FC<RefrigerationACFuelSelectionProps> 
             params: source,
           });
 
-          return { ...source, emissions: response.data.emissions };
+          return { ...source, emissions: response.data };
         } catch (error) {
           console.error("Error fetching emissions data:", error);
           return { ...source, emissions: 0 };
@@ -59,18 +59,18 @@ const RefrigerationACFuelSelection: React.FC<RefrigerationACFuelSelectionProps> 
               <th className="border p-2">Recharge (kg)</th>
               <th className="border p-2">Total Capacity (kg)</th>
               <th className="border p-2">Recovered (kg)</th>
-              <th className="border p-2">CO₂e Emissions (kg)</th>
+              <th className="border p-2">CO₂ Emissions (kg)</th>
             </tr>
           </thead>
           <tbody>
             {sources.map((src, idx) => (
               <tr key={idx}>
-                <td className="border p-2">{src.gas}</td>
-                <td className="border p-2">{src.charge}</td>
-                <td className="border p-2">{src.capacity}</td>
+                <td className="border p-2">{src.gasType}</td>
+                <td className="border p-2">{src.newCharge}</td>
+                <td className="border p-2">{src.newCapacity}</td>
                 <td className="border p-2">{src.recharge}</td>
-                <td className="border p-2">{src.totalCapacity}</td>
-                <td className="border p-2">{src.recovered}</td>
+                <td className="border p-2">{src.disposedCapacity}</td>
+                <td className="border p-2">{src.disposedRecovered}</td>
                 <td className="border p-2">{src.emissions?.toFixed(2)}</td>
               </tr>
             ))}

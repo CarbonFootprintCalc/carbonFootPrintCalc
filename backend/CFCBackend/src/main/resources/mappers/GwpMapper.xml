@@ -66,4 +66,10 @@
       gwp_100_year = #{gwp100Year,jdbcType=REAL}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectByGasType" resultType="com.cfc.cfcbackend.db.po.Gwp">
+    select
+    <include refid="Base_Column_List" />
+    from gwp
+    where gas_name = #{gasType,jdbcType=INTEGER}
+  </select>
 </mapper>

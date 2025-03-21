@@ -1,6 +1,7 @@
 package com.cfc.cfcbackend.controller;
 
 import com.cfc.cfcbackend.service.MobileSourcesService;
+import com.cfc.cfcbackend.service.RefrigerationACService;
 import com.cfc.cfcbackend.service.StationaryCombustionService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -12,6 +13,9 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import org.springframework.web.bind.annotation.CrossOrigin;
+
+// Main controller for handling all scope 1 emission calculations
+
 @RestController
 public class Scope1Controller {
 
@@ -22,6 +26,9 @@ public class Scope1Controller {
     StationaryCombustionService stationaryCombustionService;
     @Resource
     MobileSourcesService mobileSourcesService;
+    @Resource
+    RefrigerationACService refrigerationACService;
+
     @ResponseBody
     @GetMapping("/")
     public String root() {
@@ -33,7 +40,7 @@ public class Scope1Controller {
     @GetMapping("/stationary-combustion")
     public Map<String, Double> scope1(@RequestParam double quantity, @RequestParam String fuelType, @RequestParam String unit) {
 
-        Map<String, Double> scope1Emiss = new HashMap<>(); 
+        Map<String, Double> stationarySources = new HashMap<>(); 
         
         // Convert therms to scf (unit) for gases
         if(unit.equals("Therm")) {
@@ -42,19 +49,20 @@ public class Scope1Controller {
 
         // Calculate emissions based on the mmBtu
         if(unit.equals("mmBtu")) {
-            scope1Emiss.put("CO2", stationaryCombustionService.CO2PerMMBtu(quantity, fuelType)); 
-            scope1Emiss.put("CH4", stationaryCombustionService.CH4PerMMBtu(quantity, fuelType)); 
-            scope1Emiss.put("N2O", stationaryCombustionService.N2OPerMMBtu(quantity, fuelType)); 
+            stationarySources.put("CO2", stationaryCombustionService.CO2PerMMBtu(quantity, fuelType)); 
+            stationarySources.put("CH4", stationaryCombustionService.CH4PerMMBtu(quantity, fuelType)); 
+            stationarySources.put("N2O", stationaryCombustionService.N2OPerMMBtu(quantity, fuelType)); 
         }
         // Otherwise, calculate based on the unit
         else {
-            scope1Emiss.put("CO2", stationaryCombustionService.CO2PerUnit(quantity, fuelType)); 
-            scope1Emiss.put("CH4", stationaryCombustionService.CH4PerUnit(quantity, fuelType)); 
-            scope1Emiss.put("N2O", stationaryCombustionService.N2OPerUnit(quantity, fuelType)); 
+            stationarySources.put("CO2", stationaryCombustionService.CO2PerUnit(quantity, fuelType)); 
+            stationarySources.put("CH4", stationaryCombustionService.CH4PerUnit(quantity, fuelType)); 
+            stationarySources.put("N2O", stationaryCombustionService.N2OPerUnit(quantity, fuelType)); 
         }
-        return scope1Emiss;
+        return stationarySources;
     }
 
+    // Method to calculate emissions for mobile combustion
     @ResponseBody
     @GetMapping("/mobile-sources")
     public Map<String, Double> mobileSources(@RequestParam String fuelType, @RequestParam double fuelUsage,
@@ -80,6 +88,16 @@ public class Scope1Controller {
             mobileSources.put("N2O", mobileSourcesService.emissionNonRoadN2O(fuelType ,vehicleType, fuelUsage));
         }
         return mobileSources;
+    }
+
+    // Method to calculate CO2 emissions for refrigeration and AC sources
+    @ResponseBody
+    @GetMapping("/refrigeration-ac")
+    public double refrigerationAC(@RequestParam String gasType, @RequestParam double newCharge, 
+                                  @RequestParam double newCapacity, @RequestParam double recharge, 
+                                  @RequestParam double disposedCapacity, @RequestParam double disposedRecovered) {
+
+        return refrigerationACService.CO2EqEmissions(gasType, newCharge, newCapacity, recharge, disposedCapacity, disposedRecovered);
     }
 
 }

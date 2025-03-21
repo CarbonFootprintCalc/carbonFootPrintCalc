@@ -1,15 +1,15 @@
-package com.cfc.cfcbackend.db.mappers;
+package com.cfc.cfcbackend.db.dao;
 
 import com.cfc.cfcbackend.db.po.Gwp;
 
-public interface GwpMapper {
-    int deleteByPrimaryKey(Integer id);
+public interface GWPDao {
+    int deleteByPrimaryKey(int id);
 
     int insert(Gwp record);
 
     int insertSelective(Gwp record);
 
-    Gwp selectByPrimaryKey(Integer id);
+    Gwp selectByPrimaryKey(int id);
 
     int updateByPrimaryKeySelective(Gwp record);
 
