@@ -1,8 +1,8 @@
 package com.cfc.cfcbackend.db.dao.impl;
 
 import com.cfc.cfcbackend.db.dao.NonRoadCH4N2ODao;
-import com.cfc.cfcbackend.db.mappers.Nonroadch4n2oMapper;
-import com.cfc.cfcbackend.db.po.Nonroadch4n2o;
+import com.cfc.cfcbackend.db.mappers.NonRoadCH4N2OMapper;
+import com.cfc.cfcbackend.db.po.NonRoadCH4N2O;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 public class NonRoadCH4N2ODaoImpl implements NonRoadCH4N2ODao {
 
     @Resource
-    private Nonroadch4n2oMapper nonroadch4n2oMapper;
+    private NonRoadCH4N2OMapper nonroadch4n2oMapper;
 
     @Override
     public int deleteByPrimaryKey(Integer id) {
@@ -19,32 +19,32 @@ public class NonRoadCH4N2ODaoImpl implements NonRoadCH4N2ODao {
     }
 
     @Override
-    public int insert(Nonroadch4n2o record) {
+    public int insert(NonRoadCH4N2O record) {
         return 0;
     }
 
     @Override
-    public int insertSelective(Nonroadch4n2o record) {
+    public int insertSelective(NonRoadCH4N2O record) {
         return 0;
     }
 
     @Override
-    public Nonroadch4n2o selectByPrimaryKey(Integer id) {
+    public NonRoadCH4N2O selectByPrimaryKey(Integer id) {
         return null;
     }
 
     @Override
-    public Nonroadch4n2o selectByTypeNFuel(String vehicleType, String fuelType) {
+    public NonRoadCH4N2O selectByTypeNFuel(String vehicleType, String fuelType) {
         return nonroadch4n2oMapper.selectByTypeNFuel(vehicleType, fuelType);
     }
 
     @Override
-    public int updateByPrimaryKeySelective(Nonroadch4n2o record) {
+    public int updateByPrimaryKeySelective(NonRoadCH4N2O record) {
         return 0;
     }
 
     @Override
-    public int updateByPrimaryKey(Nonroadch4n2o record) {
+    public int updateByPrimaryKey(NonRoadCH4N2O record) {
         return 0;
     }
 }

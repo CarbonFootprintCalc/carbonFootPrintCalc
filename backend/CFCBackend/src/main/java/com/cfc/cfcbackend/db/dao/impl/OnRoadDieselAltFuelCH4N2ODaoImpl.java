@@ -1,8 +1,8 @@
 package com.cfc.cfcbackend.db.dao.impl;
 
 import com.cfc.cfcbackend.db.dao.OnRoadDieselAltFuelCH4N2ODao;
-import com.cfc.cfcbackend.db.mappers.Onroaddieselaltfuelch4n2oMapper;
-import com.cfc.cfcbackend.db.po.Onroaddieselaltfuelch4n2o;
+import com.cfc.cfcbackend.db.mappers.OnRoadDieselAltFuelCH4N2OMapper;
+import com.cfc.cfcbackend.db.po.OnRoadDieselAltFuelCH4N2O;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 public class OnRoadDieselAltFuelCH4N2ODaoImpl implements OnRoadDieselAltFuelCH4N2ODao {
 
     @Resource
-    private Onroaddieselaltfuelch4n2oMapper onroaddieselaltfuelch4n2oMapper;
+    private OnRoadDieselAltFuelCH4N2OMapper onroaddieselaltfuelch4n2oMapper;
 
     @Override
     public int deleteByPrimaryKey(Integer id) {
@@ -19,37 +19,37 @@ public class OnRoadDieselAltFuelCH4N2ODaoImpl implements OnRoadDieselAltFuelCH4N
     }
 
     @Override
-    public int insert(Onroaddieselaltfuelch4n2o record) {
+    public int insert(OnRoadDieselAltFuelCH4N2O record) {
         return 0;
     }
 
     @Override
-    public int insertSelective(Onroaddieselaltfuelch4n2o record) {
+    public int insertSelective(OnRoadDieselAltFuelCH4N2O record) {
         return 0;
     }
 
     @Override
-    public Onroaddieselaltfuelch4n2o selectByPrimaryKey(Integer id) {
+    public OnRoadDieselAltFuelCH4N2O selectByPrimaryKey(Integer id) {
         return null;
     }
 
     @Override
-    public Onroaddieselaltfuelch4n2o selectByTypeNFuelNYear(String vehicleType, String fuelType, String modelYear) {
+    public OnRoadDieselAltFuelCH4N2O selectByTypeNFuelNYear(String vehicleType, String fuelType, String modelYear) {
         return onroaddieselaltfuelch4n2oMapper.selectByTypeNFuelNYear(vehicleType, fuelType, modelYear);
     }
 
     @Override
-    public Onroaddieselaltfuelch4n2o selectByTypeNFuel(String vehicleType, String fuelType) {
+    public OnRoadDieselAltFuelCH4N2O selectByTypeNFuel(String vehicleType, String fuelType) {
         return onroaddieselaltfuelch4n2oMapper.selectByTypeNFuel(vehicleType, fuelType);
     }
 
     @Override
-    public int updateByPrimaryKeySelective(Onroaddieselaltfuelch4n2o record) {
+    public int updateByPrimaryKeySelective(OnRoadDieselAltFuelCH4N2O record) {
         return 0;
     }
 
     @Override
-    public int updateByPrimaryKey(Onroaddieselaltfuelch4n2o record) {
+    public int updateByPrimaryKey(OnRoadDieselAltFuelCH4N2O record) {
         return 0;
     }
 }

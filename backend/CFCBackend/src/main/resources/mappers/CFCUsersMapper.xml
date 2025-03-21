@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cfc.cfcbackend.db.mappers.CFCUsersMapper">
+  <resultMap id="BaseResultMap" type="com.cfc.cfcbackend.db.po.CFCUsers">
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="password_hash" jdbcType="VARCHAR" property="passwordHash" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="organization" jdbcType="VARCHAR" property="organization" />
+    <result column="role" jdbcType="CHAR" property="role" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    user_id, email, password_hash, username, organization, role
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cfcusers
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from cfcusers
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cfc.cfcbackend.db.po.CFCUsers">
+    insert into cfcusers (user_id, email, password_hash, 
+      username, organization, role
+      )
+    values (#{userId,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, #{passwordHash,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, #{organization,jdbcType=VARCHAR}, #{role,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cfc.cfcbackend.db.po.CFCUsers">
+    insert into cfcusers
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="passwordHash != null">
+        password_hash,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="organization != null">
+        organization,
+      </if>
+      <if test="role != null">
+        role,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordHash != null">
+        #{passwordHash,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="organization != null">
+        #{organization,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null">
+        #{role,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cfc.cfcbackend.db.po.CFCUsers">
+    update cfcusers
+    <set>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordHash != null">
+        password_hash = #{passwordHash,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="organization != null">
+        organization = #{organization,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null">
+        role = #{role,jdbcType=CHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cfc.cfcbackend.db.po.CFCUsers">
+    update cfcusers
+    set email = #{email,jdbcType=VARCHAR},
+      password_hash = #{passwordHash,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      organization = #{organization,jdbcType=VARCHAR},
+      role = #{role,jdbcType=CHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>
