@@ -1,21 +1,21 @@
 package com.cfc.cfcbackend.db.dao;
 
-import com.cfc.cfcbackend.db.po.Onroaddieselaltfuelch4n2o;
+import com.cfc.cfcbackend.db.po.OnRoadDieselAltFuelCH4N2O;
 
 public interface OnRoadDieselAltFuelCH4N2ODao {
     int deleteByPrimaryKey(Integer id);
 
-    int insert(Onroaddieselaltfuelch4n2o record);
+    int insert(OnRoadDieselAltFuelCH4N2O record);
 
-    int insertSelective(Onroaddieselaltfuelch4n2o record);
+    int insertSelective(OnRoadDieselAltFuelCH4N2O record);
 
-    Onroaddieselaltfuelch4n2o selectByPrimaryKey(Integer id);
+    OnRoadDieselAltFuelCH4N2O selectByPrimaryKey(Integer id);
 
-    Onroaddieselaltfuelch4n2o selectByTypeNFuelNYear(String vehicleType, String fuelType, String modelYear);
+    OnRoadDieselAltFuelCH4N2O selectByTypeNFuelNYear(String vehicleType, String fuelType, String modelYear);
 
-    Onroaddieselaltfuelch4n2o selectByTypeNFuel(String vehicleType, String fuelType);
+    OnRoadDieselAltFuelCH4N2O selectByTypeNFuel(String vehicleType, String fuelType);
 
-    int updateByPrimaryKeySelective(Onroaddieselaltfuelch4n2o record);
+    int updateByPrimaryKeySelective(OnRoadDieselAltFuelCH4N2O record);
 
-    int updateByPrimaryKey(Onroaddieselaltfuelch4n2o record);
+    int updateByPrimaryKey(OnRoadDieselAltFuelCH4N2O record);
 }

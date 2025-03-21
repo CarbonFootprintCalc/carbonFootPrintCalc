@@ -1,8 +1,8 @@
 package com.cfc.cfcbackend.db.dao.impl;
 
 import com.cfc.cfcbackend.db.dao.EmissionFactorsDao;
-import com.cfc.cfcbackend.db.mappers.EmissionfactorsMapper;
-import com.cfc.cfcbackend.db.po.Emissionfactors;
+import com.cfc.cfcbackend.db.mappers.EmissionFactorsMapper;
+import com.cfc.cfcbackend.db.po.EmissionFactors;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -11,9 +11,9 @@ import javax.annotation.Resource;
 public class EmissionFactorsDaoImpl implements EmissionFactorsDao {
 
     @Resource
-    EmissionfactorsMapper mapper;
+    EmissionFactorsMapper mapper;
     @Override
-    public Emissionfactors getEmissionfactors(int id) {
+    public EmissionFactors getEmissionfactors(int id) {
         return mapper.selectByPrimaryKey(id);
     }
 }

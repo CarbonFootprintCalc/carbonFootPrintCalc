@@ -1,8 +1,8 @@
 package com.cfc.cfcbackend.db.dao.impl;
 
 import com.cfc.cfcbackend.db.dao.StationaryCombustionFactorsDao;
-import com.cfc.cfcbackend.db.mappers.StationarycombustionfactorsMapper;
-import com.cfc.cfcbackend.db.po.Stationarycombustionfactors;
+import com.cfc.cfcbackend.db.mappers.StationaryCombustionFactorsMapper;
+import com.cfc.cfcbackend.db.po.StationaryCombustionFactors;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -11,39 +11,39 @@ import javax.annotation.Resource;
 public class StationaryCombustionFactorsDaoImpl implements StationaryCombustionFactorsDao {
 
     @Resource
-    private StationarycombustionfactorsMapper stationarycombustionfactorsMapper;
+    private StationaryCombustionFactorsMapper stationarycombustionfactorsMapper;
     @Override
     public int deleteByPrimaryKey(Integer id) {
         return 0;
     }
 
     @Override
-    public int insert(Stationarycombustionfactors record) {
+    public int insert(StationaryCombustionFactors record) {
         return 0;
     }
 
     @Override
-    public int insertSelective(Stationarycombustionfactors record) {
+    public int insertSelective(StationaryCombustionFactors record) {
         return 0;
     }
 
     @Override
-    public Stationarycombustionfactors selectByPrimaryKey(int id) {
+    public StationaryCombustionFactors selectByPrimaryKey(int id) {
         return stationarycombustionfactorsMapper.selectByPrimaryKey(id);
     }
 
     @Override
-    public Stationarycombustionfactors selectByFuelType(String fuelType) {
+    public StationaryCombustionFactors selectByFuelType(String fuelType) {
         return stationarycombustionfactorsMapper.selectByFuelType(fuelType);
     }
 
     @Override
-    public int updateByPrimaryKeySelective(Stationarycombustionfactors record) {
+    public int updateByPrimaryKeySelective(StationaryCombustionFactors record) {
         return 0;
     }
 
     @Override
-    public int updateByPrimaryKey(Stationarycombustionfactors record) {
+    public int updateByPrimaryKey(StationaryCombustionFactors record) {
         return 0;
     }
 }

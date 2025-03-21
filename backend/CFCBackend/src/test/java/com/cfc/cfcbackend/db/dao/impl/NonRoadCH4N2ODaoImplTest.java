@@ -1,8 +1,7 @@
 package com.cfc.cfcbackend.db.dao.impl;
 
 import com.cfc.cfcbackend.db.dao.NonRoadCH4N2ODao;
-import com.cfc.cfcbackend.db.po.Mobilecombustionco2;
-import com.cfc.cfcbackend.db.po.Nonroadch4n2o;
+import com.cfc.cfcbackend.db.po.NonRoadCH4N2O;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -39,7 +38,7 @@ class NonRoadCH4N2ODaoImplTest {
 
     @Test
     void selectByTypeNFuel() {
-        Nonroadch4n2o nonroadch4n2o = Nonroadch4n2o.builder()
+        NonRoadCH4N2O nonroadch4n2o = NonRoadCH4N2O.builder()
                 .id(5)
                 .mobileCombustionId(4)
                 .vehicleType("Locomotives")
@@ -47,7 +46,7 @@ class NonRoadCH4N2ODaoImplTest {
                 .ch4FactorGch4PerGallon(0.8f)
                 .n2oFactorGn2oPerGallon(0.26f)
                 .build();
-        Nonroadch4n2o result = nonRoadCH4N2ODao.selectByTypeNFuel("Locomotives", "Diesel");
+        NonRoadCH4N2O result = nonRoadCH4N2ODao.selectByTypeNFuel("Locomotives", "Diesel");
         assertEquals(nonroadch4n2o, result);
     }
 

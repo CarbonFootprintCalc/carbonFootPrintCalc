@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cfc.cfcbackend.db.mappers.MobileCombustionMapper">
+  <resultMap id="BaseResultMap" type="com.cfc.cfcbackend.db.po.MobileCombustion">
+    <id column="mobile_combustion_id" jdbcType="INTEGER" property="mobileCombustionId" />
+    <result column="factor_id" jdbcType="INTEGER" property="factorId" />
+    <result column="sub_category" jdbcType="CHAR" property="subCategory" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    mobile_combustion_id, factor_id, sub_category
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mobilecombustion
+    where mobile_combustion_id = #{mobileCombustionId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mobilecombustion
+    where mobile_combustion_id = #{mobileCombustionId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cfc.cfcbackend.db.po.MobileCombustion">
+    insert into mobilecombustion (mobile_combustion_id, factor_id, sub_category
+      )
+    values (#{mobileCombustionId,jdbcType=INTEGER}, #{factorId,jdbcType=INTEGER}, #{subCategory,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cfc.cfcbackend.db.po.MobileCombustion">
+    insert into mobilecombustion
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mobileCombustionId != null">
+        mobile_combustion_id,
+      </if>
+      <if test="factorId != null">
+        factor_id,
+      </if>
+      <if test="subCategory != null">
+        sub_category,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mobileCombustionId != null">
+        #{mobileCombustionId,jdbcType=INTEGER},
+      </if>
+      <if test="factorId != null">
+        #{factorId,jdbcType=INTEGER},
+      </if>
+      <if test="subCategory != null">
+        #{subCategory,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cfc.cfcbackend.db.po.MobileCombustion">
+    update mobilecombustion
+    <set>
+      <if test="factorId != null">
+        factor_id = #{factorId,jdbcType=INTEGER},
+      </if>
+      <if test="subCategory != null">
+        sub_category = #{subCategory,jdbcType=CHAR},
+      </if>
+    </set>
+    where mobile_combustion_id = #{mobileCombustionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cfc.cfcbackend.db.po.MobileCombustion">
+    update mobilecombustion
+    set factor_id = #{factorId,jdbcType=INTEGER},
+      sub_category = #{subCategory,jdbcType=CHAR}
+    where mobile_combustion_id = #{mobileCombustionId,jdbcType=INTEGER}
+  </update>
+</mapper>

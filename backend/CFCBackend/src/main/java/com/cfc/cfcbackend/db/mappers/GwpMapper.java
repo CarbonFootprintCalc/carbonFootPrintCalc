@@ -1,19 +1,19 @@
 package com.cfc.cfcbackend.db.mappers;
 
-import com.cfc.cfcbackend.db.po.Gwp;
+import com.cfc.cfcbackend.db.po.GWP;
 
-public interface GwpMapper {
+public interface GWPMapper {
     int deleteByPrimaryKey(Integer id);
 
-    int insert(Gwp record);
+    int insert(GWP record);
 
-    int insertSelective(Gwp record);
+    int insertSelective(GWP record);
 
-    Gwp selectByPrimaryKey(Integer id);
+    GWP selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(Gwp record);
+    int updateByPrimaryKeySelective(GWP record);
 
-    int updateByPrimaryKey(Gwp record);
+    int updateByPrimaryKey(GWP record);
 
-    Gwp selectByGasType(String gasType);
+    GWP selectByGasType(String gasType);
 }
