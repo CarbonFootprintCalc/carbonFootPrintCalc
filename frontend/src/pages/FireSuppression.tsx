@@ -9,7 +9,7 @@ const FireSuppression: React.FC = () => {
   const { isDarkMode } = useTheme();
 
   const handlePrevious = () => {
-    navigate("/refrigeration-AC");
+    navigate("/refrigeration-ac");
   };
 
   return (

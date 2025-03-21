@@ -10,7 +10,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/stationary-combustion" element={<StationaryCombustion />} />
-      <Route path="/refrigeration-AC" element={<Refrige />} />
+      <Route path="/refrigeration-ac" element={<Refrige />} />
       <Route path="/fire-suppression" element={<FireSuppression />} />
     </Routes>
   );
