@@ -13,10 +13,7 @@ interface FireSuppressionFuelFormProps {
   gasOptions: string[];
 }
 
-const FireSuppressionFuelForm: React.FC<FireSuppressionFuelFormProps> = ({
-  onAdd,
-  gasOptions,
-}) => {
+const FireSuppressionFuelForm: React.FC<FireSuppressionFuelFormProps> = ({ onAdd, gasOptions }) => {
   const [rows, setRows] = useState([
     {
       description: "",
@@ -27,16 +24,20 @@ const FireSuppressionFuelForm: React.FC<FireSuppressionFuelFormProps> = ({
     },
   ]);
 
-  const handleInputChange = (
+  const handleChange = (
     index: number,
     field: keyof typeof rows[number],
     value: string
   ) => {
     const updatedRows = [...rows];
-    if (field === "description" || field === "gas") {
-      updatedRows[index][field] = value;
+    if (
+      field === "inventoryChange" ||
+      field === "transferredAmount" ||
+      field === "capacityChange"
+    ) {
+      updatedRows[index][field] = Number(value) as never;
     } else {
-      updatedRows[index][field] = Number(value) || 0;
+      updatedRows[index][field] = value as never;
     }
     setRows(updatedRows);
   };
@@ -52,6 +53,10 @@ const FireSuppressionFuelForm: React.FC<FireSuppressionFuelFormProps> = ({
         capacityChange: 0,
       },
     ]);
+  };
+
+  const handleRemoveRow = (index: number) => {
+    setRows(rows.filter((_, i) => i !== index));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -74,18 +79,18 @@ const FireSuppressionFuelForm: React.FC<FireSuppressionFuelFormProps> = ({
       className="mt-4 p-4 border rounded bg-gray-100 dark:bg-gray-800 w-[1100px] mx-auto"
     >
       {rows.map((row, index) => (
-        <div key={index} className="flex items-center justify-between w-full gap-2 my-2">
+        <div key={index} className="flex items-center justify-between gap-2 my-2">
           <input
             type="text"
             placeholder="Description"
             className="w-[200px] h-10 p-2 border rounded"
             value={row.description}
-            onChange={(e) => handleInputChange(index, "description", e.target.value)}
+            onChange={(e) => handleChange(index, "description", e.target.value)}
           />
 
           <select
             value={row.gas}
-            onChange={(e) => handleInputChange(index, "gas", e.target.value)}
+            onChange={(e) => handleChange(index, "gas", e.target.value)}
             className="w-[150px] h-10 p-2 border rounded bg-white"
           >
             <option value="">Select Gas</option>
@@ -101,7 +106,7 @@ const FireSuppressionFuelForm: React.FC<FireSuppressionFuelFormProps> = ({
             placeholder="Inventory Change (kg)"
             className="w-[150px] h-10 p-2 border rounded"
             value={row.inventoryChange || ""}
-            onChange={(e) => handleInputChange(index, "inventoryChange", e.target.value)}
+            onChange={(e) => handleChange(index, "inventoryChange", e.target.value)}
           />
 
           <input
@@ -109,7 +114,7 @@ const FireSuppressionFuelForm: React.FC<FireSuppressionFuelFormProps> = ({
             placeholder="Transferred Amount (kg)"
             className="w-[150px] h-10 p-2 border rounded"
             value={row.transferredAmount || ""}
-            onChange={(e) => handleInputChange(index, "transferredAmount", e.target.value)}
+            onChange={(e) => handleChange(index, "transferredAmount", e.target.value)}
           />
 
           <input
@@ -117,13 +122,13 @@ const FireSuppressionFuelForm: React.FC<FireSuppressionFuelFormProps> = ({
             placeholder="Capacity Change (kg)"
             className="w-[150px] h-10 p-2 border rounded"
             value={row.capacityChange || ""}
-            onChange={(e) => handleInputChange(index, "capacityChange", e.target.value)}
+            onChange={(e) => handleChange(index, "capacityChange", e.target.value)}
           />
 
           {rows.length > 1 && (
             <button
               type="button"
-              onClick={() => setRows(rows.filter((_, idx) => idx !== index))}
+              onClick={() => handleRemoveRow(index)}
               className="w-[50px] h-10 bg-red-500 text-white rounded-lg hover:bg-red-600"
             >
               ✕

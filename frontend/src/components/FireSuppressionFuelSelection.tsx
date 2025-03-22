@@ -1,19 +1,17 @@
 import React, { useState } from "react";
-import RefrigerationACFuelForm from "./RefrigerationACFuelForm";
+import FireSuppressionFuelForm from "./FireSuppressionFuelForm";
 import axios from "axios";
 
-interface RefrigerationACFuelSelectionProps {
+interface FireSuppressionFuelSelectionProps {
   title: string;
   description: string;
 }
 
-interface RefrigerationSource {
+interface FireSuppressionSource {
   gas: string;
-  charge: number;
-  capacity: number;
-  recharge: number;
-  totalCapacity: number;
-  recovered: number;
+  inventoryChange: number;
+  transferredAmount: number;
+  capacityChange: number;
   emissions?: number;
 }
 
@@ -28,13 +26,13 @@ const gasOptions = [
   "PFC-31-10",
 ];
 
-const FireSuppressionFuelSelection: React.FC<RefrigerationACFuelSelectionProps> = ({
+const FireSuppressionFuelSelection: React.FC<FireSuppressionFuelSelectionProps> = ({
   title,
   description,
 }) => {
-  const [sources, setSources] = useState<RefrigerationSource[]>([]);
+  const [sources, setSources] = useState<FireSuppressionSource[]>([]);
 
-  const handleAddSource = async (newSources: RefrigerationSource[]) => {
+  const handleAddSource = async (newSources: FireSuppressionSource[]) => {
     const updatedSources = await Promise.all(
       newSources.map(async (source) => {
         try {
@@ -63,23 +61,19 @@ const FireSuppressionFuelSelection: React.FC<RefrigerationACFuelSelectionProps> 
           <thead>
             <tr className="bg-gray-200">
               <th className="border p-2">Gas</th>
-              <th className="border p-2">Charge (kg)</th>
-              <th className="border p-2">Capacity (kg)</th>
-              <th className="border p-2">Recharge (kg)</th>
-              <th className="border p-2">Total Capacity (kg)</th>
-              <th className="border p-2">Recovered (kg)</th>
-              <th className="border p-2">CO₂e Emissions (kg)</th>
+              <th className="border p-2">Inventory Change (kg)</th>
+              <th className="border p-2">Transferred Amount (kg)</th>
+              <th className="border p-2">Capacity Change (kg)</th>
+              <th className="border p-2">CO₂ Emissions (kg)</th>
             </tr>
           </thead>
           <tbody>
             {sources.map((src, idx) => (
               <tr key={idx}>
                 <td className="border p-2">{src.gas}</td>
-                <td className="border p-2">{src.charge}</td>
-                <td className="border p-2">{src.capacity}</td>
-                <td className="border p-2">{src.recharge}</td>
-                <td className="border p-2">{src.totalCapacity}</td>
-                <td className="border p-2">{src.recovered}</td>
+                <td className="border p-2">{src.inventoryChange}</td>
+                <td className="border p-2">{src.transferredAmount}</td>
+                <td className="border p-2">{src.capacityChange}</td>
                 <td className="border p-2">{src.emissions?.toFixed(2)}</td>
               </tr>
             ))}
@@ -88,7 +82,7 @@ const FireSuppressionFuelSelection: React.FC<RefrigerationACFuelSelectionProps> 
       )}
 
       <div className="mt-4">
-        <RefrigerationACFuelForm onAdd={handleAddSource} gasOptions={gasOptions} />
+        <FireSuppressionFuelForm onAdd={handleAddSource} gasOptions={gasOptions} />
       </div>
     </div>
   );
