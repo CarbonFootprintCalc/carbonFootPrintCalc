@@ -38,7 +38,7 @@ class OnRoadGasolineCH4N2ODaoImplTest {
 
     @Test
     void selectByTypeNYear() {
-        OnRoadGasolineCH4N2O onroadgasolinech4n2o = OnRoadGasolineCH4N2O.builder()
+        OnRoadGasolineCH4N2O expect = OnRoadGasolineCH4N2O.builder()
                 .id(10)
                 .mobileCombustionId(2)
                 .vehicleType("Gasoline Passenger Cars")
@@ -46,8 +46,8 @@ class OnRoadGasolineCH4N2ODaoImplTest {
                 .ch4FactorGch4PerMile(0.0617f)
                 .n2oFactorGc2oPerMile(0.0603f)
                 .build();
-        OnRoadGasolineCH4N2O result = onRoadGasolineCH4N2ODao.selectByTypeNYear("Gasoline Passenger Cars", "1994");
-        assertEquals(onroadgasolinech4n2o, result);
+        OnRoadGasolineCH4N2O actual = onRoadGasolineCH4N2ODao.selectByTypeNYear("Gasoline Passenger Cars", "1994");
+        assertEquals(expect, actual);
     }
 
     @Test

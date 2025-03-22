@@ -38,7 +38,7 @@ class OnRoadDieselAltFuelCH4N2ODaoImplTest {
 
     @Test
     void selectByTypeNFuelNYear() {
-        OnRoadDieselAltFuelCH4N2O onroaddieselaltfuelch4n2o = OnRoadDieselAltFuelCH4N2O.builder()
+        OnRoadDieselAltFuelCH4N2O expect = OnRoadDieselAltFuelCH4N2O.builder()
                 .id(3)
                 .mobileCombustionId(3)
                 .vehicleType("Passenger Cars")
@@ -47,13 +47,13 @@ class OnRoadDieselAltFuelCH4N2ODaoImplTest {
                 .ch4FactorGch4PerMile(0.0302f)
                 .n2oFactorGn2oPerMile(0.0192f)
                 .build();
-        OnRoadDieselAltFuelCH4N2O result = onRoadDieselAltFuelCH4N2ODao.selectByTypeNFuelNYear("Passenger Cars", "Diesel", "2007-2024");
-        assertEquals(onroaddieselaltfuelch4n2o, result);
+        OnRoadDieselAltFuelCH4N2O actual = onRoadDieselAltFuelCH4N2ODao.selectByTypeNFuelNYear("Passenger Cars", "Diesel", "2007-2024");
+        assertEquals(expect, actual);
     }
 
     @Test
     void selectByTypeNFuel() {
-        OnRoadDieselAltFuelCH4N2O onroaddieselaltfuelch4n2o = OnRoadDieselAltFuelCH4N2O.builder()
+        OnRoadDieselAltFuelCH4N2O expect = OnRoadDieselAltFuelCH4N2O.builder()
                 .id(30)
                 .mobileCombustionId(3)
                 .vehicleType("Buses")
@@ -61,8 +61,8 @@ class OnRoadDieselAltFuelCH4N2ODaoImplTest {
                 .ch4FactorGch4PerMile(0.19f)
                 .n2oFactorGn2oPerMile(0.029f)
                 .build();
-        OnRoadDieselAltFuelCH4N2O result = onRoadDieselAltFuelCH4N2ODao.selectByTypeNFuel("Buses", "Ethanol");
-        assertEquals(onroaddieselaltfuelch4n2o, result);
+        OnRoadDieselAltFuelCH4N2O actual = onRoadDieselAltFuelCH4N2ODao.selectByTypeNFuel("Buses", "Ethanol");
+        assertEquals(expect, actual);
     }
 
     @Test

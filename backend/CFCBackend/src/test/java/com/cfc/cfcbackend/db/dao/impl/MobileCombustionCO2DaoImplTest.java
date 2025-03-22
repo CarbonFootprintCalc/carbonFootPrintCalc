@@ -38,15 +38,15 @@ class MobileCombustionCO2DaoImplTest {
 
     @Test
     void selectByFuelType() {
-        MobileCombustionCO2 mobilecombustionco2 = MobileCombustionCO2.builder()
+        MobileCombustionCO2 expect = MobileCombustionCO2.builder()
                 .id(9)
                 .mobileCombustionId(1)
                 .fuelType("Motor Gasoline")
                 .co2FactorKgco2PerUnit(8.78f)
                 .unit("gallon")
                 .build();
-        MobileCombustionCO2 result = mobileCombustionCO2Dao.selectByFuelType("Motor Gasoline");
-        assertEquals(mobilecombustionco2, result);
+        MobileCombustionCO2 actual = mobileCombustionCO2Dao.selectByFuelType("Motor Gasoline");
+        assertEquals(expect, actual);
     }
 
     @Test

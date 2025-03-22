@@ -38,4 +38,11 @@ public class Scope1ControllerTest {
                 "1994", 2122, true);
         assertEquals(expect, actual);
     }
+
+    @Test
+    public void refrigerationAC() {
+        Double expect = 1015.5;
+        Double actual = scope1Controller.refrigerationAC("HFC-32", 2, 1.5, 1, 1,1);
+        assertEquals(expect, actual);
+    }
 }
