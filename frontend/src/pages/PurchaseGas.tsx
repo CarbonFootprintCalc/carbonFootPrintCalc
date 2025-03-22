@@ -19,7 +19,7 @@ const PurchaseGas: React.FC = () => {
 
         <main className="pt-20 px-4 flex flex-col items-center justify-center">
           <h2 className="text-2xl font-bold text-center mb-8 dark:text-white">
-            Purchase Gas
+            Purchased Gas
           </h2>
 
           <PurchaseGasFuelSelection
