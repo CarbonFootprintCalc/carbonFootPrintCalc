@@ -25,7 +25,7 @@ public class RefrigerationACService {
      */
     public double CO2EqEmissions(String gasType, double newCharge, double newCapacity, 
                                  double recharge, double disposedCapacity, double disposedRecovered) {
-        return gwpDao.selectByGasType(gasType).getGwp100Year() * 
-            ((newCharge - newCapacity) + recharge + (disposedCapacity - disposedRecovered));
+        return Math.max(gwpDao.selectByGasType(gasType).getGwp100Year() * 
+            ((newCharge - newCapacity) + recharge + (disposedCapacity - disposedRecovered)), 0);
     }
 }

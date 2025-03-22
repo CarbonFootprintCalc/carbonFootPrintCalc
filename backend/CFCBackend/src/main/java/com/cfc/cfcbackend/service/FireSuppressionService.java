@@ -22,6 +22,6 @@ public class FireSuppressionService {
      */
     public double fireSuppEmissions(String gas, double inventoryChange, double transferredAmount, double capacityChange) {
 
-        return gwpDao.selectByGasType(gas).getGwp100Year() * (inventoryChange + transferredAmount + capacityChange);
+        return Math.max(gwpDao.selectByGasType(gas).getGwp100Year() * (inventoryChange + transferredAmount + capacityChange), 0);
     }
 }
