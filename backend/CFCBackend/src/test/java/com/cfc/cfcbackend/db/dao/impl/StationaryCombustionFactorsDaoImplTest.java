@@ -38,7 +38,7 @@ class StationaryCombustionFactorsDaoImplTest {
 
     @Test
     void selectByFuelType() {
-        StationaryCombustionFactors stationarycombustionfactors = StationaryCombustionFactors.builder()
+        StationaryCombustionFactors expect = StationaryCombustionFactors.builder()
                 .id(13)
                 .factorId(1)
                 .fuelType("Tires")
@@ -50,8 +50,8 @@ class StationaryCombustionFactorsDaoImplTest {
                 .n2oFactorGn2oPerUnit(118f)
                 .unit("short ton")
                 .build();
-        StationaryCombustionFactors result = stationaryCombustionFactorsDao.selectByFuelType("Tires");
-        assertEquals(stationarycombustionfactors, result);
+        StationaryCombustionFactors actual = stationaryCombustionFactorsDao.selectByFuelType("Tires");
+        assertEquals(expect, actual);
     }
 
     @Test

@@ -72,6 +72,8 @@ public class Scope1Controller {
         //test only, need to change database and backend to make sure fuel type are consistent
         if (fuelType.equals("Gasoline") || fuelType.equals("Gasoline (4 stroke)") || fuelType.equals("Gasoline (2 stroke)")) {
             mobileSources.put("CO2", mobileSourcesService.emissionCO2("Motor Gasoline", fuelUsage));
+        } else if (fuelType.equals("Methanol")) {
+            mobileSources.put("CO2", mobileSourcesService.emissionCO2("Ethanol", fuelUsage));
         } else {
             mobileSources.put("CO2", mobileSourcesService.emissionCO2(fuelType, fuelUsage));
         }

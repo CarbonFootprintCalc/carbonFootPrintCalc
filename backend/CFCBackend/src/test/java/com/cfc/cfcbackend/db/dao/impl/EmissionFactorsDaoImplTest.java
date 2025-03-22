@@ -22,13 +22,13 @@ class EmissionFactorsDaoImplTest {
 
     @Test
     void getEmissionFactors() {
-        EmissionFactors emissionfactors = EmissionFactors.builder()
+        EmissionFactors expect = EmissionFactors.builder()
                 .factorId(1)
                 .scope("Scope1")
                 .category("Stationary Combustion")
                 .unit("mmBtu")
                 .build();
-        EmissionFactors result = emissionfactorsDao.getEmissionfactors(1);
-        assertEquals(emissionfactors, result);
+        EmissionFactors actual = emissionfactorsDao.getEmissionfactors(1);
+        assertEquals(expect, actual);
     }
 }
