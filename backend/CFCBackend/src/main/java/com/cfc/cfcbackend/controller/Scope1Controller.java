@@ -1,5 +1,6 @@
 package com.cfc.cfcbackend.controller;
 
+import com.cfc.cfcbackend.service.FireSuppressionService;
 import com.cfc.cfcbackend.service.MobileSourcesService;
 import com.cfc.cfcbackend.service.RefrigerationACService;
 import com.cfc.cfcbackend.service.StationaryCombustionService;
@@ -28,6 +29,8 @@ public class Scope1Controller {
     MobileSourcesService mobileSourcesService;
     @Resource
     RefrigerationACService refrigerationACService;
+    @Resource
+    FireSuppressionService fireSuppressionService;
 
     @ResponseBody
     @GetMapping("/")
@@ -102,4 +105,11 @@ public class Scope1Controller {
         return refrigerationACService.CO2EqEmissions(gasType, newCharge, newCapacity, recharge, disposedCapacity, disposedRecovered);
     }
 
+    // Method to calculate CO2 emissions for gases used in fire suppression
+    @ResponseBody
+    @GetMapping("/fire-suppression")
+    public double fireSuppression(@RequestParam String gas, @RequestParam double inventoryChange, 
+                                  @RequestParam double transferredAmount, @RequestParam double capacityChange) {
+        return fireSuppressionService.fireSuppEmissions(gas, inventoryChange, transferredAmount, capacityChange);
+    }
 }
