@@ -2,6 +2,7 @@ package com.cfc.cfcbackend.controller;
 
 import com.cfc.cfcbackend.service.FireSuppressionService;
 import com.cfc.cfcbackend.service.MobileSourcesService;
+import com.cfc.cfcbackend.service.PurchasedGasesService;
 import com.cfc.cfcbackend.service.RefrigerationACService;
 import com.cfc.cfcbackend.service.StationaryCombustionService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +32,8 @@ public class Scope1Controller {
     RefrigerationACService refrigerationACService;
     @Resource
     FireSuppressionService fireSuppressionService;
+    @Resource
+    PurchasedGasesService purchasedGasesService;
 
     @ResponseBody
     @GetMapping("/")
@@ -111,5 +114,12 @@ public class Scope1Controller {
     public double fireSuppression(@RequestParam String gas, @RequestParam double inventoryChange, 
                                   @RequestParam double transferredAmount, @RequestParam double capacityChange) {
         return fireSuppressionService.fireSuppEmissions(gas, inventoryChange, transferredAmount, capacityChange);
+    }
+
+    // Method to calculate CO2 emissions for purchased gases that were combusted onsite
+    @ResponseBody
+    @GetMapping("/purchase-gas")
+    public double purchasedGases(@RequestParam String gas, @RequestParam double amount) {
+        return purchasedGasesService.purchGasEmissions(gas, amount);
     }
 }
