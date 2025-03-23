@@ -4,20 +4,20 @@ import axios from "axios";
 
 interface ScopeSectionProps {
   title: string;
-  description: string;
+  description: React.ReactNode;
 }
 
 // fuel project
 const mobileSourcesVehicleOptions: Record<string, string[]> = {
-  "Motor Vehicles": ["to be added"],
-  "Equipment Vehicles": ["to be added"],
-  "Other Vehicles": ["to be added"],
+  "Motor Vehicles": ["Passenger Cars", "Light-Duty Trucks", "Medium-Duty Trucks", "Heavy-Duty Trucks", "Buses", "Motorcycles"],
+  "Equipment Vehicles": ["Agricultural Equipment", "Construction/Mining Equipment", "Lawn and Garden Equipment", "Airport Equipment", "Industrial/Commericial Equipment", "Logging Equipment", "Railroad Equipment", "Recreational Equipment"],
+  "Other Vehicles": ["Ship/Boat", "Locomotive", "Aircraft"],
 };
 
 const mobileSourcesFuelOptions: Record<string, string[]> = {
-  "Motor Vehicles": ["to be added"],
-  "Equipment Vehicles": ["to be added"],
-  "Other Vehicles": ["to be added"],
+  "Motor Vehicles": ["Gasoline", "Diesel", "Methanol", "Ethanol", "CNG", "LPG", "LNG", "Biodiesel"],
+  "Equipment Vehicles": ["Gasoline (2 stroke)", "Gasoline (4 stroke)", "Diesel Equipment", "Diesel Off-Road Trucks", "Diesel", "LPG", ""],
+  "Other Vehicles": ["Residual Fuel Oil", "Gasoline (2 stroke)", "Gasoline (4 stroke", "Diesel", "Jet Fuel", "Aviation Gasoline"],
 };
 
 const unitOptions = ["Gallons", "Liters", "MMBtu"];
@@ -114,6 +114,7 @@ const MobileSourcesSelection: React.FC<ScopeSectionProps> = ({ title, descriptio
           vehicleOptions={mobileSourcesVehicleOptions[title] || []}
           fuelOptions={mobileSourcesFuelOptions[title] || []}
           unitOptions={unitOptions}
+          disableYear={title === "Equipment Vehicles" || title === "Other Vehicles"}
         />
       </div>
     </div>

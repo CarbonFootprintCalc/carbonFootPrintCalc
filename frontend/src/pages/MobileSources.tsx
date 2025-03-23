@@ -26,21 +26,41 @@ const MobileSources: React.FC = () => {
           </h2>
           <div className="max-w-3xl text-center mb-8 dark:text-white">
             <p>
-              *mobile sources description goes here*
+              Mobile sources refer to greenhouse gas emissions from fuel burned in company-operated vehicles or equipment used for transportation or industrial activites.
+              This includes: </p><br />
+            <ul>
+                
+                <li><strong>On-Road Vehicles:</strong> Cars, trucks, vans, buses, or other road licensed vehicles owned or leased by your company. </li>
+                <li><strong>Equipment Vehicles: </strong>Industrial equipment such as forklifts, bulldozers, backhoes, or other heavy-duty mobile machinery. </li>
+                <li><strong>Other Vehicles: </strong> Miscellaneous vehicles such as ships, boats, locomotives, and airplanes. </li>
+            </ul> <br />
+            <p>
+                Please enter the fuel type, fuel usage, vehicle type, vehicle year (only on-road vehicles), and the appropriate units (e.g. gallons, liters, MMBtu) for each
+                vehicle or piece of equipment your organization operated during the reporting period.
             </p>
           </div>
 
-          <MobileSourcesSelection
-            title="Motor Vehicles"
-            description="N/A"
-          />
+        <MobileSourcesSelection
+            title="On-Road Vehicles"
+            description={
+                <>
+                    Include company-owned or operated vehicles. Choose the category that best matches your vehcile type:"
+                    <ul className="list-disc list-inside ml-4 mt-2">
+                        <li><strong>Passenger Cars</strong> (sedans, coupes, hatchbacks) primarily transport passengers.</li>
+                        <li><strong>Light-Duty Trucks</strong> (pickups, SUVs, vans) transport passengers or carry smaller loads, typically weighing under 8,500 lbs. </li>
+                        <li><strong>Medium-Duty Trucks</strong> are larger commercial vehicles designed for heavier cargo, generally weighing between 8,500 lbs and 26,000 lbs.</li>
+                        <li><strong>Heavy-Duty Trucks</strong> include large freight or tractor-trailer vehicles exceeding 26,000 lbs.</li>
+                    </ul>
+                </>
+            }
+        />
           <MobileSourcesSelection
             title="Equipment Vehicles"
-            description="N/A"
+            description="Equipment vehicles refer to specialized off-road machinery used in industries such as agriculture, construction, mining, landscaping and more. "
           />
           <MobileSourcesSelection
             title="Other Vehicles"
-            description="N/A"
+            description="Other vehicles that don't fall under typical on-road or equipment categories, This group encompasses ships, boats, locomotives, and aircrafts."
           />
 
 

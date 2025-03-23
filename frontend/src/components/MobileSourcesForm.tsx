@@ -6,7 +6,7 @@ interface MobileSourceInput {
   vehicleType: string;
   fuelType: string;
   vehicleYear: number | "";
-  fuelUsage: number;
+  fuelUsage: number | "";
   unit: string;
 }
 
@@ -24,6 +24,7 @@ interface AddSourceFormProps {
   vehicleOptions: string[];
   fuelOptions: string[];
   unitOptions: string[];
+  disableYear?: boolean;
 }
 
 const MobileSourcesForm: React.FC<AddSourceFormProps> = ({
@@ -31,9 +32,10 @@ const MobileSourcesForm: React.FC<AddSourceFormProps> = ({
   vehicleOptions,
   fuelOptions,
   unitOptions,
+  disableYear,
 }) => {
   const [rows, setRows] = useState<MobileSourceInput[]>([
-    { description: "", vehicleType: "", fuelType: "", vehicleYear: "", fuelUsage: 0, unit: "" },
+    { description: "", vehicleType: "", fuelType: "", vehicleYear: "", fuelUsage: "", unit: "" },
   ]);
 
   // Generic change handler with explicit typing.
@@ -57,7 +59,7 @@ const MobileSourcesForm: React.FC<AddSourceFormProps> = ({
   const handleAddRow = () => {
     setRows((prev) => [
       ...prev,
-      { description: "", vehicleType: "", fuelType: "", vehicleYear: "", fuelUsage: 0, unit: "" },
+      { description: "", vehicleType: "", fuelType: "", vehicleYear: "", fuelUsage: "", unit: "" },
     ]);
   };
 
@@ -77,12 +79,14 @@ const MobileSourcesForm: React.FC<AddSourceFormProps> = ({
     const validatedRows = rows.map(row => ({
       ...row,
       vehicleYear: Number(row.vehicleYear),
+      fuelUsage: Number(row.fuelUsage)
     }));
 
     onAdd(validatedRows);
     // Reset the form.
-    setRows([{ description: "", vehicleType: "", fuelType: "", vehicleYear: "", fuelUsage: 0, unit: "" }]);
+    setRows([{ description: "", vehicleType: "", fuelType: "", vehicleYear: "", fuelUsage: "", unit: "" }]);
   };
+
 
   return (
     <form
@@ -90,11 +94,13 @@ const MobileSourcesForm: React.FC<AddSourceFormProps> = ({
       className="mt-4 p-4 border rounded bg-gray-100 dark:bg-gray-800 w-[1100px] mx-auto"
     >
       {rows.map((row, index) => (
+
         <div key={index} className="mb-4 border p-4 rounded">
             <div className="grid grid-cols-3 gap-4">
+            {/* first row */}
 
                 {/* Description */}
-                <div className="w-[200px]">
+                <div className="col-span-1">
                     <input
                     type="text"
                     value={row.description}
@@ -105,7 +111,7 @@ const MobileSourcesForm: React.FC<AddSourceFormProps> = ({
                 </div>
 
                 {/* Vehicle Type */}
-                <div className="w-[200px] relative">
+                <div className="col-span-1">
                     <select
                     value={row.vehicleType}
                     onChange={(e) => handleInputChange(index, "vehicleType", e.target.value)}
@@ -121,7 +127,7 @@ const MobileSourcesForm: React.FC<AddSourceFormProps> = ({
                 </div>
 
                 {/* Fuel Type */}
-                <div className="w-[200px] relative">
+                <div className="col-span-1">
                     <select
                     value={row.fuelType}
                     onChange={(e) => handleInputChange(index, "fuelType", e.target.value)}
@@ -136,8 +142,9 @@ const MobileSourcesForm: React.FC<AddSourceFormProps> = ({
                     </select>
                 </div>
 
+            {/* second row */}
                 {/* Vehicle Year as a number input with placeholder */}
-                <div className="w-[150px]">
+                <div className="col-span-1">
                     <input
                     type="number"
                     min="1972"
@@ -152,12 +159,13 @@ const MobileSourcesForm: React.FC<AddSourceFormProps> = ({
                         )
                     }
                     placeholder="Year"
+                    disabled={disableYear}
                     className="w-full h-10 p-2 border rounded placeholder-gray-400"
                     />
                 </div>
 
                 {/* Fuel Usage */}
-                <div className="w-[150px]">
+                <div className="col-span-1">
                     <input
                     type="number"
                     min="0"
@@ -172,7 +180,7 @@ const MobileSourcesForm: React.FC<AddSourceFormProps> = ({
                 </div>
 
                 {/* Unit */}
-                <div className="w-[150px] relative">
+                <div className="col-span-1">
                     <select
                     value={row.unit}
                     onChange={(e) => handleInputChange(index, "unit", e.target.value)}
