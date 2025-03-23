@@ -23,7 +23,7 @@ public class RefrigerationACService {
      *      disposedCapacity: The total full gas capacity of disposed units
      *      disposedRecovered: Recovered gases as a result of disposing units
      */
-    public double CO2EqEmissions(String gasType, double newCharge, double newCapacity, 
+    public double refrigACEmissions(String gasType, double newCharge, double newCapacity, 
                                  double recharge, double disposedCapacity, double disposedRecovered) {
         return Math.max(gwpDao.selectByGasType(gasType).getGwp100Year() * 
             ((newCharge - newCapacity) + recharge + (disposedCapacity - disposedRecovered)), 0);

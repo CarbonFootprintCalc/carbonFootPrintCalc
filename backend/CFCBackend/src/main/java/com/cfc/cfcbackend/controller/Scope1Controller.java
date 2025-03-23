@@ -2,6 +2,7 @@ package com.cfc.cfcbackend.controller;
 
 import com.cfc.cfcbackend.service.FireSuppressionService;
 import com.cfc.cfcbackend.service.MobileSourcesService;
+import com.cfc.cfcbackend.service.PurchasedGasesService;
 import com.cfc.cfcbackend.service.RefrigerationACService;
 import com.cfc.cfcbackend.service.StationaryCombustionService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @RestController
 public class Scope1Controller {
 
-    // We might need to move this or shove it into a database so it isn't hardcoded
     private final double SCF_CONVERTER = 97.5; // Convert therms to scf
 
     @Resource
@@ -31,6 +31,8 @@ public class Scope1Controller {
     RefrigerationACService refrigerationACService;
     @Resource
     FireSuppressionService fireSuppressionService;
+    @Resource
+    PurchasedGasesService purchasedGasesService;
 
     @ResponseBody
     @GetMapping("/")
@@ -102,7 +104,7 @@ public class Scope1Controller {
                                   @RequestParam double newCapacity, @RequestParam double recharge, 
                                   @RequestParam double disposedCapacity, @RequestParam double disposedRecovered) {
 
-        return refrigerationACService.CO2EqEmissions(gasType, newCharge, newCapacity, recharge, disposedCapacity, disposedRecovered);
+        return refrigerationACService.refrigACEmissions(gasType, newCharge, newCapacity, recharge, disposedCapacity, disposedRecovered);
     }
 
     // Method to calculate CO2 emissions for gases used in fire suppression
@@ -111,5 +113,12 @@ public class Scope1Controller {
     public double fireSuppression(@RequestParam String gas, @RequestParam double inventoryChange, 
                                   @RequestParam double transferredAmount, @RequestParam double capacityChange) {
         return fireSuppressionService.fireSuppEmissions(gas, inventoryChange, transferredAmount, capacityChange);
+    }
+
+    // Method to calculate CO2 emissions for purchased gases that were combusted onsite
+    @ResponseBody
+    @GetMapping("/purchase-gas")
+    public double purchasedGases(@RequestParam String gas, @RequestParam double amount) {
+        return purchasedGasesService.purchGasEmissions(gas, amount);
     }
 }
