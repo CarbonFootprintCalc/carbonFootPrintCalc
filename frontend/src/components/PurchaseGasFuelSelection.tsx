@@ -85,8 +85,8 @@ const PurchaseGasFuelSelection: React.FC<PurchaseGasFuelSelectionProps> = ({
             <tr className="bg-gray-200">
               <th className="border p-2">Description</th>
               <th className="border p-2">Gas</th>
-              <th className="border p-2">Amount (kg)</th>
-              <th className="border p-2">CO₂ Emissions (kg)</th>
+              <th className="border p-2">Amount (lb)</th>
+              <th className="border p-2">CO₂ Emissions (lb)</th>
             </tr>
           </thead>
           <tbody>
