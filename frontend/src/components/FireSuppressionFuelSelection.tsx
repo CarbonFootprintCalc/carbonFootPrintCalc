@@ -40,7 +40,7 @@ const FireSuppressionFuelSelection: React.FC<FireSuppressionFuelSelectionProps> 
             params: source,
           });
 
-          return { ...source, emissions: response.data.emissions };
+          return { ...source, emissions: response.data };
         } catch (error) {
           console.error("Error fetching emissions data:", error);
           return { ...source, emissions: 0 };
