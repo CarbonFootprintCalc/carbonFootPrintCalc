@@ -19,9 +19,9 @@ class RefrigerationACServiceTest {
     }
 
     @Test
-    void CO2EqEmissions() {
+    void refrigACEmissions() {
         double expect = 1015.5;
-        double actual = refrigerationACService.CO2EqEmissions("HFC-32", 2, 1.5, 1, 1, 1);
+        double actual = refrigerationACService.refrigACEmissions("HFC-32", 2, 1.5, 1, 1, 1);
         assertEquals(expect, actual);
     }
 }

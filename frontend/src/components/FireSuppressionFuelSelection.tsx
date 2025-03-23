@@ -68,7 +68,7 @@ const FireSuppressionFuelSelection: React.FC<RefrigerationACFuelSelectionProps> 
               <th className="border p-2">Recharge (kg)</th>
               <th className="border p-2">Total Capacity (kg)</th>
               <th className="border p-2">Recovered (kg)</th>
-              <th className="border p-2">CO₂e Emissions (kg)</th>
+              <th className="border p-2">CO₂ Emissions (kg)</th>
             </tr>
           </thead>
           <tbody>

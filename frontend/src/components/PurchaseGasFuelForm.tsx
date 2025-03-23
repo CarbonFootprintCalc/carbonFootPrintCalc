@@ -74,7 +74,7 @@ const PurchaseGasFuelForm: React.FC<PurchaseGasFuelFormProps> = ({ onAdd, gasOpt
 
           <input
             type="number"
-            placeholder="Amount (lb)"
+            placeholder="Amount (kg)"
             className="w-[150px] h-10 p-2 border rounded"
             value={row.amount || ""}
             onChange={(e) => handleChange(index, "amount", e.target.value)}
