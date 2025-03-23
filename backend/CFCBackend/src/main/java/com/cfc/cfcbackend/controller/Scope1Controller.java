@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @RestController
 public class Scope1Controller {
 
-    // We might need to move this or shove it into a database so it isn't hardcoded
     private final double SCF_CONVERTER = 97.5; // Convert therms to scf
 
     @Resource
@@ -105,7 +104,7 @@ public class Scope1Controller {
                                   @RequestParam double newCapacity, @RequestParam double recharge, 
                                   @RequestParam double disposedCapacity, @RequestParam double disposedRecovered) {
 
-        return refrigerationACService.CO2EqEmissions(gasType, newCharge, newCapacity, recharge, disposedCapacity, disposedRecovered);
+        return refrigerationACService.refrigACEmissions(gasType, newCharge, newCapacity, recharge, disposedCapacity, disposedRecovered);
     }
 
     // Method to calculate CO2 emissions for gases used in fire suppression
