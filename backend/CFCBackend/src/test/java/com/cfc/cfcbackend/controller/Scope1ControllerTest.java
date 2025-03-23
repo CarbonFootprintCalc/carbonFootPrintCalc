@@ -45,4 +45,11 @@ public class Scope1ControllerTest {
         Double actual = scope1Controller.refrigerationAC("HFC-32", 2, 1.5, 1, 1,1);
         assertEquals(expect, actual);
     }
+
+    @Test
+    public void fireSuppression() {
+        Double expect = 1426500.0;
+        Double actual = scope1Controller.fireSuppression("HFC-125", 100, 300, 50);
+        assertEquals(expect, actual);
+    }
 }
