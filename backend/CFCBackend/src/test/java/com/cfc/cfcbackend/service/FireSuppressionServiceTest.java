@@ -9,19 +9,19 @@ import javax.annotation.Resource;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class RefrigerationACServiceTest {
+class FireSuppressionServiceTest {
 
     @Resource
-    private RefrigerationACService refrigerationACService;
+    private FireSuppressionService fireSuppressionService;
 
     @BeforeEach
     void setUp() {
     }
 
     @Test
-    void refrigACEmissions() {
-        double expect = 1015.5;
-        double actual = refrigerationACService.refrigACEmissions("HFC-32", 2, 1.5, 1, 1, 1);
+    void fireSuppEmissions() {
+        double expect = 1172500.0;
+        double actual = fireSuppressionService.fireSuppEmissions("HFC-227ea", 50, 100, 200);
         assertEquals(expect, actual);
     }
 }
