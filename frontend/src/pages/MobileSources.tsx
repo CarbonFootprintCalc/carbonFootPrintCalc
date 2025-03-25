@@ -8,7 +8,7 @@ const MobileSources: React.FC = () => {
   const { isDarkMode } = useTheme();
 
   const handleNext = () => {
-    navigate("/refrigeration-AC")
+    navigate("/refrigeration-ac")
   };
 
   const handlePrevious = () => {

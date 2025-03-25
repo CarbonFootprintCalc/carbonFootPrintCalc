@@ -11,7 +11,7 @@ const FireSuppression: React.FC = () => {
     navigate("/purchase-gas");
   };
   const handlePrevious = () => {
-    navigate("/refrigeration-AC");
+    navigate("/refrigeration-ac");
   };
 
   return (
