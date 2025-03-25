@@ -19,12 +19,27 @@ const PurchaseGas: React.FC = () => {
 
         <main className="pt-20 px-4 flex flex-col items-center justify-center">
           <h2 className="text-2xl font-bold text-center mb-8 dark:text-white">
-            Purchased Gas
+            Scope 1 - Purchased Gas
           </h2>
 
+          <div className="max-w-3xl text-center mb-8 dark:text-white">
+            <p>
+              Industrial gases like CO₂, CH₄, N₂O, HFCs, PFCs, SF₆, and NF₃ are commonly used in manufacturing, lab testing, or other operational processes, and are typically released after use.
+              Any purchase and release of these greenhouse gases must be included.
+              <br /><br />If you made a bulk purchase intended for use over multiple years, divide the total by the expected number of years and report only the annual portion. If your records are in volume (not mass), convert to kilograms using the gas's density.
+              It is assumed that the entire quantity purchased is used and released within that year.
+
+            </p>
+          </div>
+
           <PurchaseGasFuelSelection
-            title="Scope 1 Emissions from Purchased Gases"
-            description="Report gases such as HFCs, PFCs, CO₂, and SF₆ that were purchased for use in refrigeration, AC, or other applications. Enter the gas type, amount purchased, and a brief description of use."
+            title="Purchased Gas"
+            description={
+              <>
+                <p className="mt-1">
+                  To calculate emissions from purchased gases, report the total amount of each gas purchased during the reporting period in kilograms:</p>
+              </>
+            }
           />
 
           <div className="mt-8 flex gap-4">

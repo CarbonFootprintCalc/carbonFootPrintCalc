@@ -21,12 +21,40 @@ const RefrigerationAC: React.FC = () => {
 
         <main className="pt-20 px-4 flex flex-col items-center justify-center">
           <h2 className="text-2xl font-bold text-center mb-8 dark:text-white">
-            Refrigeration and Air Conditioning Equipment
+            Scope 1 - Refrigeration and Air Conditioning
           </h2>
 
+          <div className="max-w-3xl text-center mb-8 dark:text-white">
+            <p>
+              Emissions fom refrigeration and air conditioning (AC) result from leaks of refrigerant gases during equipment use, maintenance, or disposal.
+              Include emissions of greenhouse gases such as HFCs, PFCs, CO2, and SF6. Do not include ozone-depleting substances like CFCs or HCFCs.
+              <br /><br />If you are unsure specific refrigerant type, select HFC-134a, as it is commonly used in AC systems.
+              If certain details are unavailable, you may skip those inputs, as refrigeant emissions typically account for less than 2% of total emissions in office-based organizations.
+            </p>
+          </div>
+
           <RefrigerationACFuelSelection
-            title="Scope 1 Emissions from Refrigeration and AC"
-            description="Report refrigerant gases such as HFC, PFC, CO2, and SF6 used in refrigeration and air conditioning equipment at your facilities."
+            title="Refrigeration and AC"
+            description={ 
+              <>
+                  <p className="mt-4">Enter refrigerant usage data according to the type of equipment activity:</p>
+                  <p className="mt-2"><strong>New Units:</strong></p>
+                  <ul className="list-disc list-inside ml-8 mt-1">
+                    <li><strong>Charge: </strong>Refrigerant added to brand new units during installation (do not include refrigerant already pre-charged by the manufacturer).</li>
+                    <li><strong>Capacity: </strong>Total refrigerant capacity of these newly installed units.</li>
+                  </ul>
+                  <p className="mt-2"><strong>Existing Units:</strong></p>
+                  <ul className="list-disc list-inside ml-8 mt-1">
+                    <li ><strong>Recharge: </strong>Refrigerant added to existing untis during maintenance or servicing.</li>
+                  </ul>
+                  <p className="mt-2"><strong>Disposed Units:</strong></p>
+                  <ul className="list-disc list-inside ml-8 mt-1">
+                    <li><strong>Capacity: </strong>Total refrigerant capacity of units removed from service</li>
+                    <li><strong>Recovered: </strong>Amount of refrigerant recovered from disposed or retired units.</li>
+                  </ul>
+                  <p className="mt-2">You can typically find this information in refrigerant inventory logs, service and maintenance records, purchase documentation, or reports from contractors who handle HVAC systems.</p>
+              </>
+            }
           />
 
           <div className="mt-8 flex gap-4">

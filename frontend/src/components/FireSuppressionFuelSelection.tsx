@@ -4,7 +4,7 @@ import axios from "axios";
 
 interface FireSuppressionFuelSelectionProps {
   title: string;
-  description: string;
+  description: React.ReactNode;
 }
 
 interface FireSuppressionSource {

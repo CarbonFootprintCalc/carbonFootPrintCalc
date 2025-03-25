@@ -4,7 +4,7 @@ import axios from "axios";
 
 interface RefrigerationACFuelSelectionProps {
   title: string;
-  description: string;
+  description: React.ReactNode;
 }
 
 interface RefrigerationSource {
