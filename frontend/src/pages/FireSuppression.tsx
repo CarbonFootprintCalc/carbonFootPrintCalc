@@ -21,12 +21,31 @@ const FireSuppression: React.FC = () => {
 
         <main className="pt-20 px-4 flex flex-col items-center justify-center">
           <h2 className="text-2xl font-bold text-center mb-8 dark:text-white">
-            Fire Suppression Systems
+            Scope 1 - Fire Suppression Systems
           </h2>
 
+          <div className="max-w-3xl text-center mb-8 dark:text-white">
+            <p>
+              Emissions from fire suppression systems arise from the release of specific chemicals, primarily HFCs, PFCs, and CO₂, from fire suppression devices during use, maintenance or disposal.
+              These sources range from small portable extinguishers to large-scale systems in office buildings or warehouses. Note that other agents (such as Halon compounds, HCFCs, aqueous solutions or inert gases) are typically excluded from the GHG inventory.
+            </p>
+          </div>
+
+
           <FireSuppressionFuelSelection
-            title="Scope 1 Emissions from Fire Suppression"
-            description="Report emissions from fire suppression systems using gases such as HFC-23, HFC-125, HFC-134a, HFC-227ea, HFC-236fa, PFC-14, PFC-31-10, and Carbon dioxide."
+            title="Fire Suppression"
+            description={
+              <>
+                <p className="mt-2">Enter your organization's total fire suppressant data as follows:</p>
+                  <ul className="list-disc list-inside ml-8 mt-1">
+                    <li><strong>Inventory Change: </strong>The difference in refrigerant stored on-site (in pounds) from the beginning to the end of the reporting period</li>
+                    <li><strong>Transferred Amount: </strong>The net amount calculated by subtracting gas sold or disposed (including returns, sales, disposals, and off-site recycling) from gas purchased (including inventory purchases, service-related charges and returned gas).</li>
+                    <li><strong>Capacity Change: </strong>The difference in total equipment capacity between the start and the end of the reporting period (or, equivalently, the capcity of retired units minus that of new units).</li>
+                  </ul>
+                <p className="mt-1">Data are typicaly available from maintenance records, inspection logs, work orders or contractor invoices.</p>
+
+              </>
+            }
           />
 
           <div className="mt-8 flex gap-4">

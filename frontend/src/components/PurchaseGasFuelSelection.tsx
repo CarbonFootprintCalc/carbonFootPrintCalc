@@ -4,7 +4,7 @@ import axios from "axios";
 
 interface PurchaseGasFuelSelectionProps {
   title: string;
-  description: string;
+  description: React.ReactNode;
 }
 
 interface PurchaseGasSource {
