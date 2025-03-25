@@ -8,11 +8,11 @@ const MobileSources: React.FC = () => {
   const { isDarkMode } = useTheme();
 
   const handleNext = () => {
-    // logic for move to next page
+    navigate("/refrigeration-AC")
   };
 
   const handlePrevious = () => {
-    navigate("/");
+    navigate("/stationary-combustion");
   };
 
   return (
