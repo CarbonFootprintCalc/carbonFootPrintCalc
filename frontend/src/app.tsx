@@ -13,7 +13,7 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/stationary-combustion" element={<StationaryCombustion />} />
       <Route path="/mobile-sources" element={<MobileSources />} />
-      <Route path="/refrigeration-AC" element={<Refrige />} />
+      <Route path="/refrigeration-ac" element={<Refrige />} />
       <Route path="/fire-suppression" element={<FireSuppression />} />
       <Route path="/purchase-gas" element={<PurchaseGas />} />
     </Routes>

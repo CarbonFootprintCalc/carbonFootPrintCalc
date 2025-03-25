@@ -8,7 +8,7 @@ const StationaryCombustion: React.FC = () => {
   const { isDarkMode } = useTheme();
 
   const handleNext = () => {
-    // logic for move to next page
+    navigate("/mobile-sources");
   };
 
   const handlePrevious = () => {

@@ -11,7 +11,7 @@ const RefrigerationAC: React.FC = () => {
     navigate("/fire-suppression");
   };
   const handlePrevious = () => {
-    navigate("/stationary-combustion");
+    navigate("/mobile-sources");
   };
 
   return (
