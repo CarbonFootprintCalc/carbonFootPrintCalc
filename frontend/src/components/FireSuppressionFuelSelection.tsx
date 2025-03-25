@@ -8,6 +8,7 @@ interface FireSuppressionFuelSelectionProps {
 }
 
 interface FireSuppressionSource {
+  description: string;
   gas: string;
   inventoryChange: number;
   transferredAmount: number;
@@ -60,6 +61,7 @@ const FireSuppressionFuelSelection: React.FC<FireSuppressionFuelSelectionProps> 
         <table className="mt-4 w-full border-collapse text-center">
           <thead>
             <tr className="bg-gray-200">
+            <th className="border p-2">Description</th>
               <th className="border p-2">Gas</th>
               <th className="border p-2">Inventory Change (kg)</th>
               <th className="border p-2">Transferred Amount (kg)</th>
@@ -70,6 +72,7 @@ const FireSuppressionFuelSelection: React.FC<FireSuppressionFuelSelectionProps> 
           <tbody>
             {sources.map((src, idx) => (
               <tr key={idx}>
+                <td className="border p-2">{src.description}</td>
                 <td className="border p-2">{src.gas}</td>
                 <td className="border p-2">{src.inventoryChange}</td>
                 <td className="border p-2">{src.transferredAmount}</td>
