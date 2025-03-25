@@ -44,7 +44,7 @@ const MobileSources: React.FC = () => {
             title="On-Road Vehicles"
             description={
                 <>
-                    Include company-owned or operated vehicles. Choose the category that best matches your vehcile type:"
+                    Include company-owned or operated vehicles. Choose the category that best matches your vehicle type:"
                     <ul className="list-disc list-inside ml-4 mt-2">
                         <li><strong>Passenger Cars</strong> (sedans, coupes, hatchbacks) primarily transport passengers.</li>
                         <li><strong>Light-Duty Trucks</strong> (pickups, SUVs, vans) transport passengers or carry smaller loads, typically weighing under 8,500 lbs. </li>
@@ -60,7 +60,7 @@ const MobileSources: React.FC = () => {
           />
           <MobileSourcesSelection
             title="Other Vehicles"
-            description="Other vehicles that don't fall under typical on-road or equipment categories, This group encompasses ships, boats, locomotives, and aircrafts."
+            description="Other vehicles that don't fall under typical on-road or equipment categories. This group encompasses ships, boats, locomotives, and aircrafts."
           />
 
 
