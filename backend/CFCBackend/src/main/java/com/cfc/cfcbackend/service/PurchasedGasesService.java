@@ -12,7 +12,7 @@ public class PurchasedGasesService {
     private GWPDao gwpDao;
 
     /*
-     * Calculate the emissions from puchased gases that were combusted onsite
+     * Calculate the emissions from purchased gases that were combusted onsite
      * 
      * The calculation is the GWP multiplied by the amount used
      */
