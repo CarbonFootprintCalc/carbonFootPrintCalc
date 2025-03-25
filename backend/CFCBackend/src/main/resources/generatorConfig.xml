@@ -3,6 +3,8 @@
 Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
     <context id="testTables" targetRuntime="MyBatis3">
+        <property name="overwrite" value="true" />
+        <property name="mergeable" value="true" />
         <commentGenerator>
             <property name="suppressAllComments" value="true" />
         </commentGenerator>
@@ -36,45 +38,107 @@ serverTimezone=UTC"
             <!-- enableSubPackages:let schema be the suffix of package -->
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
-        <table schema="" tableName="cfcusers"
-               domainObjectName="Cfcusers" enableCountByExample="false"
+<!--        <table schema="" tableName="cfcusers"-->
+<!--               domainObjectName="CFCUsers" enableCountByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               enableUpdateByExample="false" selectByExampleQueryId="false">-->
+<!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+<!--        </table>-->
+<!--        <table schema="" tableName="usersessions"-->
+<!--               domainObjectName="UserSessions" enableCountByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               enableUpdateByExample="false" selectByExampleQueryId="false">-->
+<!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+<!--        </table>-->
+<!--        <table schema="" tableName="emissionfactors"-->
+<!--               domainObjectName="EmissionFactors" enableCountByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               enableUpdateByExample="false" selectByExampleQueryId="false">-->
+<!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+<!--        </table>-->
+<!--        <table schema="" tableName="stationarycombustionfactors"-->
+<!--               domainObjectName="StationaryCombustionFactors" enableCountByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               enableUpdateByExample="false" selectByExampleQueryId="false">-->
+<!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+<!--        </table>-->
+<!--        <table schema="" tableName="mobilecombustion"-->
+<!--               domainObjectName="MobileCombustion" enableCountByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               enableUpdateByExample="false" selectByExampleQueryId="false">-->
+<!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+<!--        </table>-->
+<!--        <table schema="" tableName="mobilecombustionco2"-->
+<!--               domainObjectName="MobileCombustionCO2" enableCountByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               enableUpdateByExample="false" selectByExampleQueryId="false">-->
+<!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+<!--        </table>-->
+<!--        <table schema="" tableName="onroadgasolinech4n2o"-->
+<!--               domainObjectName="OnRoadGasolineCH4N2O" enableCountByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               enableUpdateByExample="false" selectByExampleQueryId="false">-->
+<!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+<!--        </table>-->
+<!--        <table schema="" tableName="onroaddieselaltfuelch4n2o"-->
+<!--               domainObjectName="OnRoadDieselAltFuelCH4N2O" enableCountByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               enableUpdateByExample="false" selectByExampleQueryId="false">-->
+<!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+<!--        </table>-->
+<!--        <table schema="" tableName="nonroadch4n2o"-->
+<!--               domainObjectName="NonRoadCH4N2O" enableCountByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               enableUpdateByExample="false" selectByExampleQueryId="false">-->
+<!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+<!--        </table>-->
+<!--        <table schema="" tableName="unitconversions"-->
+<!--               domainObjectName="UnitConversions" enableCountByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               enableUpdateByExample="false" selectByExampleQueryId="false">-->
+<!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+<!--        </table>-->
+<!--        <table schema="" tableName="electricity"-->
+<!--               domainObjectName="Electricity" enableCountByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               enableUpdateByExample="false" selectByExampleQueryId="false">-->
+<!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+<!--        </table>-->
+<!--        <table schema="" tableName="heatcontent"-->
+<!--               domainObjectName="HeatContent" enableCountByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               enableUpdateByExample="false" selectByExampleQueryId="false">-->
+<!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+<!--        </table>-->
+<!--        <table schema="" tableName="firesuppressionresults"-->
+<!--               domainObjectName="FireSuppressionResults" enableCountByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               enableUpdateByExample="false" selectByExampleQueryId="false">-->
+<!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+<!--        </table>-->
+<!--        <table schema="" tableName="gwp"-->
+<!--               domainObjectName="GWP" enableCountByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               enableUpdateByExample="false" selectByExampleQueryId="false">-->
+<!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+<!--        </table>-->
+<!--        <table schema="" tableName="refrigerationacresults"-->
+<!--               domainObjectName="RefrigerationACResults" enableCountByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               enableUpdateByExample="false" selectByExampleQueryId="false">-->
+<!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+<!--        </table>-->
+        <table schema="" tableName="mobilecombustionresults"
+               domainObjectName="MobileCombustionResults" enableCountByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
-               enableUpdateByExample="false" selectByExampleQueryId="false"></table>
-        <table schema="" tableName="usersessions"
-               domainObjectName="Usersessions" enableCountByExample="false"
+               enableUpdateByExample="false" selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table schema="" tableName="stationarycombustionresults"
+               domainObjectName="StationaryCombustionResults" enableCountByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
-               enableUpdateByExample="false" selectByExampleQueryId="false"></table>
-        <table schema="" tableName="emissionfactors"
-               domainObjectName="Emissionfactors" enableCountByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               enableUpdateByExample="false" selectByExampleQueryId="false"></table>
-        <table schema="" tableName="stationarycombustionfactors"
-               domainObjectName="Stationarycombustionfactors" enableCountByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               enableUpdateByExample="false" selectByExampleQueryId="false"></table>
-        <table schema="" tableName="mobilecombustion"
-               domainObjectName="Mobilecombustion" enableCountByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               enableUpdateByExample="false" selectByExampleQueryId="false"></table>
-        <table schema="" tableName="mobilecombustionco2"
-               domainObjectName="Mobilecombustionco2" enableCountByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               enableUpdateByExample="false" selectByExampleQueryId="false"></table>
-        <table schema="" tableName="onroadgasolinech4n2o"
-               domainObjectName="Onroadgasolinech4n2o" enableCountByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               enableUpdateByExample="false" selectByExampleQueryId="false"></table>
-        <table schema="" tableName="onroaddieselaltuelch4n2o"
-               domainObjectName="Onroaddieselaltuelch4n2o" enableCountByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               enableUpdateByExample="false" selectByExampleQueryId="false"></table>
-        <table schema="" tableName="nonroadch4n2o"
-               domainObjectName="Nonroadch4n2o" enableCountByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               enableUpdateByExample="false" selectByExampleQueryId="false"></table>
-        <table schema="" tableName="unitconversions"
-               domainObjectName="Unitconversions" enableCountByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               enableUpdateByExample="false" selectByExampleQueryId="false"></table>
+               enableUpdateByExample="false" selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
     </context>
 </generatorConfiguration>

@@ -1,12 +1,12 @@
 name: Deploy Backend to Elastic Beanstalk
-break this
-on:
-  workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths:
-      - 'backend/**'
+
+#on:
+#  workflow_dispatch:
+#  push:
+#    branches:
+#      - main
+#    paths:
+#      - 'backend/**'
 
 jobs:
   build-and-deploy:

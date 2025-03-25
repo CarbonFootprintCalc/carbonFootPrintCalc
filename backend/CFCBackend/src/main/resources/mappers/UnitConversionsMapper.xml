@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cfc.cfcbackend.db.mappers.UnitConversionsMapper">
+  <resultMap id="BaseResultMap" type="com.cfc.cfcbackend.db.po.UnitConversions">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="category" jdbcType="CHAR" property="category" />
+    <result column="convert_from" jdbcType="VARCHAR" property="convertFrom" />
+    <result column="convert_to" jdbcType="VARCHAR" property="convertTo" />
+    <result column="multiply_by" jdbcType="REAL" property="multiplyBy" />
+    <result column="units" jdbcType="VARCHAR" property="units" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, category, convert_from, convert_to, multiply_by, units
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from unitconversions
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from unitconversions
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cfc.cfcbackend.db.po.UnitConversions">
+    insert into unitconversions (id, category, convert_from, 
+      convert_to, multiply_by, units
+      )
+    values (#{id,jdbcType=INTEGER}, #{category,jdbcType=CHAR}, #{convertFrom,jdbcType=VARCHAR}, 
+      #{convertTo,jdbcType=VARCHAR}, #{multiplyBy,jdbcType=REAL}, #{units,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cfc.cfcbackend.db.po.UnitConversions">
+    insert into unitconversions
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+      <if test="convertFrom != null">
+        convert_from,
+      </if>
+      <if test="convertTo != null">
+        convert_to,
+      </if>
+      <if test="multiplyBy != null">
+        multiply_by,
+      </if>
+      <if test="units != null">
+        units,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=CHAR},
+      </if>
+      <if test="convertFrom != null">
+        #{convertFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="convertTo != null">
+        #{convertTo,jdbcType=VARCHAR},
+      </if>
+      <if test="multiplyBy != null">
+        #{multiplyBy,jdbcType=REAL},
+      </if>
+      <if test="units != null">
+        #{units,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cfc.cfcbackend.db.po.UnitConversions">
+    update unitconversions
+    <set>
+      <if test="category != null">
+        category = #{category,jdbcType=CHAR},
+      </if>
+      <if test="convertFrom != null">
+        convert_from = #{convertFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="convertTo != null">
+        convert_to = #{convertTo,jdbcType=VARCHAR},
+      </if>
+      <if test="multiplyBy != null">
+        multiply_by = #{multiplyBy,jdbcType=REAL},
+      </if>
+      <if test="units != null">
+        units = #{units,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cfc.cfcbackend.db.po.UnitConversions">
+    update unitconversions
+    set category = #{category,jdbcType=CHAR},
+      convert_from = #{convertFrom,jdbcType=VARCHAR},
+      convert_to = #{convertTo,jdbcType=VARCHAR},
+      multiply_by = #{multiplyBy,jdbcType=REAL},
+      units = #{units,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
