@@ -1,55 +1,50 @@
 import React, { useState } from "react";
 
-// Define the input type for mobile sources; vehicleYear can be a number or an empty string initially.
-interface MobileSourceInput {
-  description: string;
-  vehicleType: string;
-  fuelType: string;
-  vehicleYear: number | "";
-  fuelUsage: number | "";
-  unit: string;
-}
-
-interface AddSourceFormProps {
+interface MobileSourcesFormProps {
   onAdd: (
     sources: {
       description: string;
       vehicleType: string;
       fuelType: string;
-      vehicleYear: number;
+      modelYear: number;
       fuelUsage: number;
       unit: string;
+      mileage: number;
     }[]
-  ) => void | Promise<void>;
+  ) => void;
   vehicleOptions: string[];
   fuelOptions: string[];
   unitOptions: string[];
   disableYear?: boolean;
 }
 
-const MobileSourcesForm: React.FC<AddSourceFormProps> = ({
+const MobileSourcesForm: React.FC<MobileSourcesFormProps> = ({
   onAdd,
   vehicleOptions,
   fuelOptions,
   unitOptions,
   disableYear,
 }) => {
-  const [rows, setRows] = useState<MobileSourceInput[]>([
-    { description: "", vehicleType: "", fuelType: "", vehicleYear: "", fuelUsage: "", unit: "" },
+  const [rows, setRows] = useState([
+    {
+      description: "",
+      vehicleType: "",
+      fuelType: "",
+      modelYear: "",
+      fuelUsage: "",
+      unit: "",
+      mileage: "",
+    },
   ]);
 
-  // Generic change handler with explicit typing.
-  const handleInputChange = <T extends keyof MobileSourceInput>(
+  const handleChange = (
     index: number,
-    field: T,
-    value: MobileSourceInput[T]
+    field: keyof typeof rows[number],
+    value: string
   ) => {
     const updatedRows = [...rows];
-    if (field === "vehicleYear") {
-      // For vehicleYear, if the value is an empty string, keep it as "", else convert to number.
-      updatedRows[index][field] = (value === "" ? "" : Number(value)) as any;
-    } else if (field === "fuelUsage") {
-      updatedRows[index][field] = Number(value) as any;
+    if (["modelYear", "fuelUsage", "mileage"].includes(field)) {
+      updatedRows[index][field] = Number(value) || "";
     } else {
       updatedRows[index][field] = value;
     }
@@ -59,34 +54,53 @@ const MobileSourcesForm: React.FC<AddSourceFormProps> = ({
   const handleAddRow = () => {
     setRows((prev) => [
       ...prev,
-      { description: "", vehicleType: "", fuelType: "", vehicleYear: "", fuelUsage: "", unit: "" },
+      {
+        description: "",
+        vehicleType: "",
+        fuelType: "",
+        modelYear: "",
+        fuelUsage: "",
+        unit: "",
+        mileage: "",
+      },
     ]);
+  };
+
+  const handleRemoveRow = (index: number) => {
+    setRows(rows.filter((_, i) => i !== index));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validate each row's vehicleYear: must not be empty and within [1972, 2025].
     for (const row of rows) {
-      const yearNumber = row.vehicleYear === "" ? NaN : Number(row.vehicleYear);
-      if (isNaN(yearNumber) || yearNumber < 1972 || yearNumber > 2025) {
-        alert("Please enter a valid vehicle year between 1972 and 2025.");
+      const year = Number(row.modelYear);
+      if (!disableYear && (isNaN(year) || year < 1972 || year > 2025)) {
+        alert("Please enter a valid model year between 1972 and 2025.");
         return;
       }
     }
 
-    // Convert rows so that vehicleYear is guaranteed to be a number.
-    const validatedRows = rows.map(row => ({
-      ...row,
-      vehicleYear: Number(row.vehicleYear),
-      fuelUsage: Number(row.fuelUsage)
+    const validated = rows.map((r) => ({
+      ...r,
+      modelYear: Number(r.modelYear),
+      fuelUsage: Number(r.fuelUsage),
+      mileage: Number(r.mileage),
     }));
 
-    onAdd(validatedRows);
-    // Reset the form.
-    setRows([{ description: "", vehicleType: "", fuelType: "", vehicleYear: "", fuelUsage: "", unit: "" }]);
+    onAdd(validated);
+    setRows([
+      {
+        description: "",
+        vehicleType: "",
+        fuelType: "",
+        modelYear: "",
+        fuelUsage: "",
+        unit: "",
+        mileage: "",
+      },
+    ]);
   };
-
 
   return (
     <form
@@ -94,133 +108,104 @@ const MobileSourcesForm: React.FC<AddSourceFormProps> = ({
       className="mt-4 p-4 border rounded bg-gray-100 dark:bg-gray-800 w-[1100px] mx-auto"
     >
       {rows.map((row, index) => (
+        <div key={index} className="flex flex-wrap items-center gap-2 my-2">
+          <input
+            type="text"
+            placeholder="Description"
+            className="w-[180px] h-10 p-2 border rounded"
+            value={row.description}
+            onChange={(e) => handleChange(index, "description", e.target.value)}
+          />
 
-        <div key={index} className="mb-4 border p-4 rounded">
-            <div className="grid grid-cols-3 gap-4">
-            {/* first row */}
+          <select
+            value={row.vehicleType}
+            onChange={(e) => handleChange(index, "vehicleType", e.target.value)}
+            className="w-[160px] h-10 p-2 border rounded bg-white"
+          >
+            <option value="">Vehicle Type</option>
+            {vehicleOptions.map((v, i) => (
+              <option key={i} value={v}>
+                {v}
+              </option>
+            ))}
+          </select>
 
-                {/* Description */}
-                <div className="col-span-1">
-                    <input
-                    type="text"
-                    value={row.description}
-                    onChange={(e) => handleInputChange(index, "description", e.target.value)}
-                    placeholder="Description"
-                    className="w-full h-10 p-2 border rounded placeholder-gray-400"
-                    />
-                </div>
+          <select
+            value={row.fuelType}
+            onChange={(e) => handleChange(index, "fuelType", e.target.value)}
+            className="w-[160px] h-10 p-2 border rounded bg-white"
+          >
+            <option value="">Fuel Type</option>
+            {fuelOptions.map((f, i) => (
+              <option key={i} value={f}>
+                {f}
+              </option>
+            ))}
+          </select>
 
-                {/* Vehicle Type */}
-                <div className="col-span-1">
-                    <select
-                    value={row.vehicleType}
-                    onChange={(e) => handleInputChange(index, "vehicleType", e.target.value)}
-                    className="w-full h-10 p-2 border rounded bg-white"
-                    >
-                    <option value="">Select Vehicle Type</option>
-                    {vehicleOptions.map((vehicle, i) => (
-                        <option key={i} value={vehicle}>
-                        {vehicle}
-                        </option>
-                    ))}
-                    </select>
-                </div>
+          <input
+            type="number"
+            min="1972"
+            max="2025"
+            placeholder="Model Year"
+            disabled={disableYear}
+            className="w-[130px] h-10 p-2 border rounded"
+            value={row.modelYear}
+            onChange={(e) => handleChange(index, "modelYear", e.target.value)}
+          />
 
-                {/* Fuel Type */}
-                <div className="col-span-1">
-                    <select
-                    value={row.fuelType}
-                    onChange={(e) => handleInputChange(index, "fuelType", e.target.value)}
-                    className="w-full h-10 p-2 border rounded bg-white"
-                    >
-                    <option value="">Select Fuel Type</option>
-                    {fuelOptions.map((fuel, i) => (
-                        <option key={i} value={fuel}>
-                        {fuel}
-                        </option>
-                    ))}
-                    </select>
-                </div>
+          <input
+            type="number"
+            placeholder="Fuel Usage"
+            className="w-[130px] h-10 p-2 border rounded"
+            value={row.fuelUsage}
+            onChange={(e) => handleChange(index, "fuelUsage", e.target.value)}
+          />
 
-            {/* second row */}
-                {/* Vehicle Year as a number input with placeholder */}
-                <div className="col-span-1">
-                    <input
-                    type="number"
-                    min="1972"
-                    max="2025"
-                    step="1"
-                    value={row.vehicleYear}
-                    onChange={(e) =>
-                        handleInputChange(
-                        index,
-                        "vehicleYear",
-                        e.target.value === "" ? "" : Number(e.target.value)
-                        )
-                    }
-                    placeholder="Year"
-                    disabled={disableYear}
-                    className="w-full h-10 p-2 border rounded placeholder-gray-400"
-                    />
-                </div>
+          <select
+            value={row.unit}
+            onChange={(e) => handleChange(index, "unit", e.target.value)}
+            className="w-[120px] h-10 p-2 border rounded bg-white"
+          >
+            <option value="">Unit</option>
+            {unitOptions.map((u, i) => (
+              <option key={i} value={u}>
+                {u}
+              </option>
+            ))}
+          </select>
 
-                {/* Fuel Usage */}
-                <div className="col-span-1">
-                    <input
-                    type="number"
-                    min="0"
-                    step="any"
-                    value={row.fuelUsage}
-                    onChange={(e) =>
-                        handleInputChange(index, "fuelUsage", e.target.value === "" ? 0 : Number(e.target.value))
-                    }
-                    placeholder="Fuel Usage"
-                    className="w-full h-10 p-2 border rounded placeholder-gray-400"
-                    />
-                </div>
+          <input
+            type="number"
+            placeholder="Mileage"
+            className="w-[120px] h-10 p-2 border rounded"
+            value={row.mileage}
+            onChange={(e) => handleChange(index, "mileage", e.target.value)}
+          />
 
-                {/* Unit */}
-                <div className="col-span-1">
-                    <select
-                    value={row.unit}
-                    onChange={(e) => handleInputChange(index, "unit", e.target.value)}
-                    className="w-full h-10 p-2 border rounded bg-white"
-                    >
-                    <option value="">Select Unit</option>
-                    {unitOptions.map((unit, i) => (
-                        <option key={i} value={unit}>
-                        {unit}
-                        </option>
-                    ))}
-                    </select>
-                </div>
-            </div>
-
-            {/* Remove Button */}
-            {rows.length > 1 && (
-                <button
-                type="button"
-                onClick={() => setRows(rows.filter((_, idx) => idx !== index))}
-                className="w-[50px] h-10 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-200"
-                >
-                ✕
-                </button>
+          {rows.length > 1 && (
+            <button
+              type="button"
+              onClick={() => handleRemoveRow(index)}
+              className="w-[40px] h-10 bg-red-500 text-white rounded hover:bg-red-600"
+            >
+              ✕
+            </button>
           )}
         </div>
       ))}
 
-      {/* Bottom Buttons */}
-      <div className="flex justify-between mt-2">
+      <div className="flex justify-between mt-4">
         <button
           type="button"
           onClick={handleAddRow}
-          className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors duration-200"
+          className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
         >
           + Add Row
         </button>
         <button
           type="submit"
-          className="w-[100px] h-10 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors duration-200 flex-shrink-0"
+          className="w-[100px] h-10 bg-blue-500 text-white rounded hover:bg-blue-600"
         >
           Submit
         </button>
