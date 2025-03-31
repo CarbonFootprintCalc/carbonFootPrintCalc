@@ -7,6 +7,7 @@ const Home = () => {
 
   const handleNext = () => {
     navigate('/stationary-combustion');
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (

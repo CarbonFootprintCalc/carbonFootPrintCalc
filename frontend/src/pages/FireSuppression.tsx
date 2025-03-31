@@ -9,9 +9,11 @@ const FireSuppression: React.FC = () => {
   const { isDarkMode } = useTheme();
   const handleNext = () => {
     navigate("/purchase-gas");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
   const handlePrevious = () => {
     navigate("/refrigeration-ac");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
