@@ -9,13 +9,13 @@ interface ScopeSectionProps {
 
 // fuel project
 const mobileSourcesVehicleOptions: Record<string, string[]> = {
-  "Motor Vehicles": ["Passenger Cars", "Light-Duty Trucks", "Medium-Duty Trucks", "Heavy-Duty Trucks", "Buses", "Motorcycles"],
+  "On-Road Vehicles": ["Passenger Cars", "Light-Duty Trucks", "Medium-Duty Trucks", "Heavy-Duty Trucks", "Buses", "Motorcycles"],
   "Equipment Vehicles": ["Agricultural Equipment", "Construction/Mining Equipment", "Lawn and Garden Equipment", "Airport Equipment", "Industrial/Commericial Equipment", "Logging Equipment", "Railroad Equipment", "Recreational Equipment"],
   "Other Vehicles": ["Ship/Boat", "Locomotive", "Aircraft"],
 };
 
 const mobileSourcesFuelOptions: Record<string, string[]> = {
-  "Motor Vehicles": ["Gasoline", "Diesel", "Methanol", "Ethanol", "CNG", "LPG", "LNG", "Biodiesel"],
+  "On-Road Vehicles": ["Gasoline", "Diesel", "Methanol", "Ethanol", "CNG", "LPG", "LNG", "Biodiesel"],
   "Equipment Vehicles": ["Gasoline (2 stroke)", "Gasoline (4 stroke)", "Diesel Equipment", "Diesel Off-Road Trucks", "Diesel", "LPG", ""],
   "Other Vehicles": ["Residual Fuel Oil", "Gasoline (2 stroke)", "Gasoline (4 stroke", "Diesel", "Jet Fuel", "Aviation Gasoline"],
 };

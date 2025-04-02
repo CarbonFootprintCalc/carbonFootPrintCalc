@@ -8,6 +8,7 @@ interface MobileSourceInput {
   vehicleYear: number | "";
   fuelUsage: number | "";
   unit: string;
+  onRoad: boolean;
 }
 
 interface AddSourceFormProps {
@@ -19,12 +20,14 @@ interface AddSourceFormProps {
       vehicleYear: number;
       fuelUsage: number;
       unit: string;
+      onRoad: boolean;
     }[]
   ) => void | Promise<void>;
   vehicleOptions: string[];
   fuelOptions: string[];
   unitOptions: string[];
   disableYear?: boolean;
+  isOnRoad: boolean;
 }
 
 const MobileSourcesForm: React.FC<AddSourceFormProps> = ({
@@ -33,9 +36,10 @@ const MobileSourcesForm: React.FC<AddSourceFormProps> = ({
   fuelOptions,
   unitOptions,
   disableYear,
+  isOnRoad,
 }) => {
   const [rows, setRows] = useState<MobileSourceInput[]>([
-    { description: "", vehicleType: "", fuelType: "", vehicleYear: "", fuelUsage: "", unit: "" },
+    { description: "", vehicleType: "", fuelType: "", vehicleYear: "", fuelUsage: "", unit: "", onRoad: isOnRoad },
   ]);
 
   // Generic change handler with explicit typing.
@@ -59,7 +63,7 @@ const MobileSourcesForm: React.FC<AddSourceFormProps> = ({
   const handleAddRow = () => {
     setRows((prev) => [
       ...prev,
-      { description: "", vehicleType: "", fuelType: "", vehicleYear: "", fuelUsage: "", unit: "" },
+      { description: "", vehicleType: "", fuelType: "", vehicleYear: "", fuelUsage: "", unit: "", onRoad: isOnRoad },
     ]);
   };
 
@@ -68,10 +72,12 @@ const MobileSourcesForm: React.FC<AddSourceFormProps> = ({
 
     // Validate each row's vehicleYear: must not be empty and within [1972, 2025].
     for (const row of rows) {
-      const yearNumber = row.vehicleYear === "" ? NaN : Number(row.vehicleYear);
-      if (isNaN(yearNumber) || yearNumber < 1972 || yearNumber > 2025) {
-        alert("Please enter a valid vehicle year between 1972 and 2025.");
-        return;
+      if (row.vehicleType === "On-Road Vehicles") {
+        const yearNumber = row.vehicleYear === "" ? NaN : Number(row.vehicleYear);
+        if (isNaN(yearNumber) || yearNumber < 1972 || yearNumber > 2025) {
+          alert("Please enter a valid vehicle year between 1972 and 2025.");
+          return;
+        }
       }
     }
 
@@ -79,12 +85,13 @@ const MobileSourcesForm: React.FC<AddSourceFormProps> = ({
     const validatedRows = rows.map(row => ({
       ...row,
       vehicleYear: Number(row.vehicleYear),
-      fuelUsage: Number(row.fuelUsage)
+      fuelUsage: Number(row.fuelUsage),
+      onRoad: row.onRoad
     }));
 
     onAdd(validatedRows);
     // Reset the form.
-    setRows([{ description: "", vehicleType: "", fuelType: "", vehicleYear: "", fuelUsage: "", unit: "" }]);
+    setRows([{ description: "", vehicleType: "", fuelType: "", vehicleYear: "", fuelUsage: "", unit: "", onRoad: isOnRoad}]);
   };
 
 
