@@ -1,9 +1,8 @@
-package com.cfc.cfcbackend.db.mappers;
+package com.cfc.cfcbackend.db.dao;
 
 import com.cfc.cfcbackend.db.po.UnitConversions;
-import org.apache.ibatis.annotations.Param;
 
-public interface UnitConversionsMapper {
+public interface UnitConversionsDao {
     int deleteByPrimaryKey(Integer id);
 
     int insert(UnitConversions record);
@@ -12,7 +11,7 @@ public interface UnitConversionsMapper {
 
     UnitConversions selectByPrimaryKey(Integer id);
 
-    UnitConversions selectByUnits(@Param("from") String from, @Param("to") String to);
+    UnitConversions selectByUnits(String convertFrom, String to);
 
     int updateByPrimaryKeySelective(UnitConversions record);
 

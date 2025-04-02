@@ -18,7 +18,14 @@
     from unitconversions
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="selectByUnits" resultType="com.cfc.cfcbackend.db.po.UnitConversions">
+      select
+      <include refid="Base_Column_List" />
+      from unitconversions
+      where convert_from = #{from,jdbcType=VARCHAR}
+      and convert_to = #{to,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from unitconversions
     where id = #{id,jdbcType=INTEGER}
   </delete>

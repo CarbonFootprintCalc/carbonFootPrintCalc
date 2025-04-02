@@ -11,6 +11,12 @@ public class StationaryCombustionService {
     @Resource
     private StationaryCombustionFactorsDao stationarycombustionfactorsDao;
 
+    /* Calculate CO2, CH4, N2O emissions from stationary combustion with default units
+     * Such as scf, gallons, short tons,
+     * Parameters:
+     *    quantity: amount of fuel combusted
+     *    factorName: fuel type, used to grab emission factors from data base
+     */
     public double CO2PerUnit(double quantity, String factorName) {
         return quantity * stationarycombustionfactorsDao.selectByFuelType(factorName).getCo2FactorKgco2PerUnit();
     }
@@ -20,6 +26,12 @@ public class StationaryCombustionService {
     public double N2OPerUnit(double quantity, String factorName) {
         return quantity * stationarycombustionfactorsDao.selectByFuelType(factorName).getN2oFactorGn2oPerUnit();
     }
+
+    /* Calculate CO2, CH4, N2O emissions from stationary combustion with unit mmBtu
+     * Parameters:
+     *    quantity: amount of fuel combusted
+     *    factorName: fuel type, used to grab emission factors from data base
+     */
     public double CO2PerMMBtu(double quantity, String factorName) {
         return quantity * stationarycombustionfactorsDao.selectByFuelType(factorName).getCo2FactorKgco2PerMmbtu();
     }
