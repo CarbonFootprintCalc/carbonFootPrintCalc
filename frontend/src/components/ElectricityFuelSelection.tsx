@@ -115,6 +115,15 @@ const ElectricityFuelSelection: React.FC<ElectricityFuelSelectionProps> = ({
     
       ) : (
         <>
+          <div className="flex justify-center mt-6">
+            <button
+              onClick={() => setUseMarketBased(null)}
+              className="flex items-center px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+            >
+              <span className="  text-white-600 mr-2">←</span>
+                Back to selection
+            </button>
+          </div>
           {sources.length > 0 && (
             <div className="overflow-x-auto">
             <table className="mt-4 w-full border-collapse text-center">

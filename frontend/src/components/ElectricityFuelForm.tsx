@@ -134,7 +134,7 @@ const ElectricityFuelForm: React.FC<ElectricityFuelFormProps> = ({
               <div className="flex items-center space-x-1">
                 <input
                   type="number"
-                  placeholder="CO2"
+                  placeholder="CO2 factor"
                   className="w-[150px] h-10 p-2 border rounded"
                   value={row.co2 || ""}
                   onChange={(e) => handleChange(index, "co2", e.target.value)}
@@ -144,7 +144,7 @@ const ElectricityFuelForm: React.FC<ElectricityFuelFormProps> = ({
               <div className="flex items-center space-x-1">
                 <input
                   type="number"
-                  placeholder="CH4"
+                  placeholder="CH4 factor"
                   className="w-[150px] h-10 p-2 border rounded"
                   value={row.ch4 || ""}
                   onChange={(e) => handleChange(index, "ch4", e.target.value)}
@@ -154,7 +154,7 @@ const ElectricityFuelForm: React.FC<ElectricityFuelFormProps> = ({
               <div className="flex items-center space-x-1">
                 <input
                   type="number"
-                  placeholder="N2O"
+                  placeholder="N2O factor"
                   className="w-[150px] h-10 p-2 border rounded"
                   value={row.n2o || ""}
                   onChange={(e) => handleChange(index, "n2o", e.target.value)}
