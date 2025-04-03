@@ -1,10 +1,6 @@
 package com.cfc.cfcbackend.controller;
 
-import com.cfc.cfcbackend.service.FireSuppressionService;
-import com.cfc.cfcbackend.service.MobileSourcesService;
-import com.cfc.cfcbackend.service.PurchasedGasesService;
-import com.cfc.cfcbackend.service.RefrigerationACService;
-import com.cfc.cfcbackend.service.StationaryCombustionService;
+import com.cfc.cfcbackend.service.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,6 +29,8 @@ public class Scope1Controller {
     FireSuppressionService fireSuppressionService;
     @Resource
     PurchasedGasesService purchasedGasesService;
+    @Resource
+    ModelYearConversionService modelYearConversionService;
 
     @ResponseBody
     @GetMapping("/")
@@ -71,9 +69,12 @@ public class Scope1Controller {
     @ResponseBody
     @GetMapping("/mobile-sources")
     public Map<String, Double> mobileSources(@RequestParam String fuelType, @RequestParam double fuelUsage,
-                                             @RequestParam String vehicleType, @RequestParam String modelYear,
+                                             @RequestParam String vehicleType, @RequestParam int modelYear,
                                              @RequestParam int mileage, @RequestParam boolean onRoad) {
         Map<String, Double> mobileSources = new HashMap<>();
+
+        String modelYearString = "";
+
         //test only, need to change database and backend to make sure fuel type are consistent
         if (fuelType.equals("Gasoline") || fuelType.equals("Gasoline (4 stroke)") || fuelType.equals("Gasoline (2 stroke)")) {
             mobileSources.put("CO2", mobileSourcesService.emissionCO2("Motor Gasoline", fuelUsage));
@@ -84,11 +85,44 @@ public class Scope1Controller {
         }
         if (onRoad) {
             if (fuelType.equals("Gasoline")) {
-                mobileSources.put("CH4", mobileSourcesService.emissionOnRoadGasCH4(vehicleType, modelYear, mileage));
-                mobileSources.put("N2O", mobileSourcesService.emissionOnRoadGasN2O(vehicleType, modelYear, mileage));
+                // Assign value to string model year according to the integer model year since database uses string for gasoline vehicles
+                switch (vehicleType) {
+                    case "Passenger Cars":
+                        modelYearString = modelYearConversionService.getPassengerCarYear(modelYear);
+                        break;
+                    case "Light-Duty Trucks":
+                        modelYearString = modelYearConversionService.getLightDutyTruckYear(modelYear);
+                        break;
+                    case "Heavy-Duty Vehicles":
+                        modelYearString = modelYearConversionService.getHeavyDutyVehicleYear(modelYear);
+                        break;
+                    case "Motorcycles":
+                        modelYearString = modelYearConversionService.getMotorcycleYear(modelYear);
+                        break;
+                    default:
+                        modelYearString = Integer.toString(modelYear);
+                        break;
+                }
+                mobileSources.put("CH4", mobileSourcesService.emissionOnRoadGasCH4(vehicleType, modelYearString, mileage));
+                mobileSources.put("N2O", mobileSourcesService.emissionOnRoadGasN2O(vehicleType, modelYearString, mileage));
             } else {
-                mobileSources.put("CH4", mobileSourcesService.emissionOnRoadNonGasCH4(fuelType, vehicleType, modelYear, mileage));
-                mobileSources.put("N2O", mobileSourcesService.emissionOnRoadNonGasN2O(fuelType, vehicleType, modelYear, mileage));
+                // Assign value to string model year according to the integer model year since database uses string for non gasoline vehicles
+                if (fuelType.equals("Diesel")) {
+                    switch (vehicleType) {
+                        case "Passenger Cars":
+                        case "Light-Duty Trucks":
+                            modelYearString = modelYearConversionService.getYearCategory(modelYear, 1982, 2006);
+                            break;
+                        case "Medium- and Heavy-Duty Vehicles":
+                            modelYearString = modelYearConversionService.getYearCategory(modelYear, 2006, 2006);
+                            break;
+                        default:
+                            modelYearString = Integer.toString(modelYear);
+                            break;
+                    }
+                }
+                mobileSources.put("CH4", mobileSourcesService.emissionOnRoadNonGasCH4(fuelType, vehicleType, modelYearString, mileage));
+                mobileSources.put("N2O", mobileSourcesService.emissionOnRoadNonGasN2O(fuelType, vehicleType, modelYearString, mileage));
             }
         } else {
             mobileSources.put("CH4", mobileSourcesService.emissionNonRoadCH4(fuelType ,vehicleType, fuelUsage));

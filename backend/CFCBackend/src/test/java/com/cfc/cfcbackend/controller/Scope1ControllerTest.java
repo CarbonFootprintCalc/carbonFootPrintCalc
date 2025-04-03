@@ -34,8 +34,8 @@ public class Scope1ControllerTest {
         expect.put("CO2", 1158.9599647521973);
         expect.put("N2O", 127.95659637451172);
         expect.put("CH4", 130.92739868164062);
-        Map<String, Double> actual = scope1Controller.mobileSources("Gasoline", 132, "Gasoline Passenger Cars",
-                "1994", 2122, true);
+        Map<String, Double> actual = scope1Controller.mobileSources("Gasoline", 132, "Passenger Cars",
+                1994, 2122, true);
         assertEquals(expect, actual);
     }
 
