@@ -31,7 +31,8 @@ const MobileSourcesForm: React.FC<MobileSourcesFormProps> = ({
   // Gasoline x-car -> x-car
   // Light-Duty Cars -> Passenger Cars
   // Medium- and Heavy-Duty Vehicles -> Medium-Duty Vehicles, Heavy-Duty Vehicles
-  //
+  // converter in back end from number to string
+  // e.g. int 1984 -> string 1983-2006, which is in backend
  
 
 
@@ -42,6 +43,7 @@ const MobileSourcesForm: React.FC<MobileSourcesFormProps> = ({
     "Medium-Duty Trucks": ["Gasoline", "Diesel", "CNG", "LPG", "LNG", "Biodiesel"],
     "Heavy-Duty Trucks": ["Gasoline", "Diesel", "Methanol", "Ethanol", "CNG", "LPG", "LNG", "Biodiesel"],
     "Buses": ["Methanol", "Ethanol", "CNG", "LPG", "LNG", "Biodiesel"],
+    "Motorcycles": ["Gasoline"],
     "Ships and Boats": ["Residual Fuel Oil", "Gasoline (2 stroke)", "Gasoline (4 stroke)", "Diesel"],
     "Locomotives": ["Diesel"],
     "Aircraft": ["Jet Fuel", "Aviation Gasoline"],

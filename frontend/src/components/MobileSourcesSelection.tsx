@@ -24,10 +24,10 @@ interface MobileSource {
 
 const vehicleOptionsMap: Record<string, string[]> = {
   "On-Road Vehicles": [
-    "Gasoline Passenger Cars",
-    "Gasoline Light-Duty Trucks",
-    "Gasoline Medium-Duty Trucks",
-    "Gasoline Heavy-Duty Trucks",
+    "Passenger Cars",
+    "Light-Duty Trucks",
+    "Medium-Duty Trucks",
+    "Heavy-Duty Trucks",
     "Buses",
     "Motorcycles",
   ],
