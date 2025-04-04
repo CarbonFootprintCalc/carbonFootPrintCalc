@@ -23,8 +23,9 @@ public class Scope2Controller {
     // Method to calculate emissions for purchased electricity
     @ResponseBody
     @GetMapping("/electricity")
-    public Map<String, Double> purchasedElectricity(@RequestParam String egridSubregion, @RequestParam double electricityPurchased,
-                                                    @RequestParam double co2, @RequestParam double ch4, @RequestParam double n2o) {
+    public Map<String, Double> purchasedElectricity(@RequestParam(required = false) String egridSubregion, @RequestParam(required = false) Double electricityPurchased,
+                                                    @RequestParam(required = false) Double co2, @RequestParam(required = false) Double ch4, 
+                                                    @RequestParam(required = false) Double n2o) {
 
         Map<String, Double> emissions = new HashMap<>();
 
