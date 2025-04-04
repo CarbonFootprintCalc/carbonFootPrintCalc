@@ -44,7 +44,7 @@ const egridOptions = [
   "SRSO",
   "SRTV",
   "SRVC",
-  "US Average"
+  "US Average",
 ];
 
 const ElectricityFuelSelection: React.FC<ElectricityFuelSelectionProps> = ({
@@ -82,37 +82,41 @@ const ElectricityFuelSelection: React.FC<ElectricityFuelSelectionProps> = ({
     <div className="mt-8 p-4 border rounded-lg shadow-sm bg-white w-[1400px] mx-auto">
       <h2 className="text-xl font-bold">{title}</h2>
       <p className="text-gray-600">{description}</p>
-      <div className="flex justify-center">
-        <img
-          src="/egrid-subregion-map.png"
-          alt="eGRID Subregion Map"
-          className="mt-4 rounded shadow-lg w-full max-w-3xl z-0"
-        />
-      </div>
+      {useMarketBased === false && (
+        <div className="flex justify-center">
+          <img
+            src="/egrid-subregion-map.png"
+            alt="eGRID Subregion Map"
+            className="mt-4 rounded shadow-lg w-full max-w-3xl z-0"
+          />
+        </div>
+      )}
       {useMarketBased === null ? (
-      <div className="mt-6 w-full max-w-xl mx-auto p-6 bg-white border border-gray-300 rounded-xl shadow-sm dark:bg-gray-800 dark:border-gray-700">
-      <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-3 text-center">
-        Market-Based Emission Factor
-      </h3>
-      <p className="text-gray-600 dark:text-gray-300 text-center mb-6">
-        Do you know what a <span className="font-medium">market-based emission factor</span> is? If yes, we’ll use that for your electricity emissions. If not, we’ll default to location-based data.
-      </p>
-      <div className="flex justify-center gap-6">
-        <button
-          onClick={() => setUseMarketBased(true)}
-          className="px-6 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-md shadow-md transition"
-        >
-          Yes, I do
-        </button>
-        <button
-          onClick={() => setUseMarketBased(false)}
-          className="px-6 py-2 bg-gray-500 hover:bg-gray-600 text-white text-sm font-medium rounded-md shadow-md transition"
-        >
-          No, use default
-        </button>
-      </div>
-    </div>
-    
+        <div className="mt-6 w-full max-w-xl mx-auto p-6 bg-white border border-gray-300 rounded-xl shadow-sm dark:bg-gray-800 dark:border-gray-700">
+          <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-3 text-center">
+            Market-Based Emission Factor
+          </h3>
+          <p className="text-gray-600 dark:text-gray-300 text-center mb-6">
+            Do you know what a{" "}
+            <span className="font-medium">market-based emission factor</span>{" "}
+            is? If yes, we’ll use that for your electricity emissions. If not,
+            we’ll default to location-based data.
+          </p>
+          <div className="flex justify-center gap-6">
+            <button
+              onClick={() => setUseMarketBased(true)}
+              className="px-6 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-md shadow-md transition"
+            >
+              Yes, I do
+            </button>
+            <button
+              onClick={() => setUseMarketBased(false)}
+              className="px-6 py-2 bg-gray-500 hover:bg-gray-600 text-white text-sm font-medium rounded-md shadow-md transition"
+            >
+              No, use default
+            </button>
+          </div>
+        </div>
       ) : (
         <>
           <div className="flex justify-center mt-6">
@@ -121,35 +125,35 @@ const ElectricityFuelSelection: React.FC<ElectricityFuelSelectionProps> = ({
               className="flex items-center px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
             >
               <span className="  text-white-600 mr-2">←</span>
-                Back to selection
+              Back to selection
             </button>
           </div>
           {sources.length > 0 && (
             <div className="overflow-x-auto">
-            <table className="mt-4 w-full border-collapse text-center">
-              <thead>
-                <tr className="bg-gray-200">
-                  <th className="border p-2">Description</th>
-                  <th className="border p-2">eGRID Subregion</th>
-                  <th className="border p-2">Electricity Purchased (MWh)</th>
-                  <th className="border p-2">CO₂ (kg)</th>
-                  <th className="border p-2">CH₄ (kg)</th>
-                  <th className="border p-2">N₂O (kg)</th>
-                </tr>
-              </thead>
-              <tbody>
-                {sources.map((s, i) => (
-                  <tr key={i}>
-                    <td className="border p-2">{s.description}</td>
-                    <td className="border p-2">{s.egridSubregion}</td>
-                    <td className="border p-2">{s.electricityPurchased}</td>
-                    <td className="border p-2">{s.co2?.toFixed(2)}</td>
-                    <td className="border p-2">{s.ch4?.toFixed(6)}</td>
-                    <td className="border p-2">{s.n2o?.toFixed(6)}</td>
+              <table className="mt-4 w-full border-collapse text-center">
+                <thead>
+                  <tr className="bg-gray-200">
+                    <th className="border p-2">Description</th>
+                    <th className="border p-2">eGRID Subregion</th>
+                    <th className="border p-2">Electricity Purchased (MWh)</th>
+                    <th className="border p-2">CO₂ (kg)</th>
+                    <th className="border p-2">CH₄ (kg)</th>
+                    <th className="border p-2">N₂O (kg)</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {sources.map((s, i) => (
+                    <tr key={i}>
+                      <td className="border p-2">{s.description}</td>
+                      <td className="border p-2">{s.egridSubregion}</td>
+                      <td className="border p-2">{s.electricityPurchased}</td>
+                      <td className="border p-2">{s.co2?.toFixed(2)}</td>
+                      <td className="border p-2">{s.ch4?.toFixed(6)}</td>
+                      <td className="border p-2">{s.n2o?.toFixed(6)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           )}
 

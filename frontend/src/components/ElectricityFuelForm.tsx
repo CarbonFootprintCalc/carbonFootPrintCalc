@@ -101,20 +101,22 @@ const ElectricityFuelForm: React.FC<ElectricityFuelFormProps> = ({
             onChange={(e) => handleChange(index, "description", e.target.value)}
           />
 
-          <select
-            value={row.egridSubregion}
-            onChange={(e) =>
-              handleChange(index, "egridSubregion", e.target.value)
-            }
-            className="min-w-[180px] h-10 p-2 border rounded bg-white"
-          >
-            <option value="">Select eGRID Subregion</option>
-            {egridOptions.map((region, i) => (
-              <option key={i} value={region}>
-                {region}
-              </option>
-            ))}
-          </select>
+          {!useMarketBased && (
+            <select
+              value={row.egridSubregion}
+              onChange={(e) =>
+                handleChange(index, "egridSubregion", e.target.value)
+              }
+              className="min-w-[180px] h-10 p-2 border rounded bg-white"
+            >
+              <option value="">Select eGRID Subregion</option>
+              {egridOptions.map((region, i) => (
+                <option key={i} value={region}>
+                  {region}
+                </option>
+              ))}
+            </select>
+          )}
 
           <div className="flex items-center space-x-1">
             <input
