@@ -25,6 +25,36 @@ const MobileSourcesForm: React.FC<MobileSourcesFormProps> = ({
   unitOptions,
   disableYear,
 }) => {
+
+  // DATABASE CHANGES:
+  // Gasoline Passenger Cars -> Passenger Cars
+  // Gasoline x-car -> x-car
+  // Light-Duty Cars -> Passenger Cars
+  // Medium- and Heavy-Duty Vehicles -> Medium-Duty Vehicles, Heavy-Duty Vehicles
+  //
+ 
+
+
+  // mapping from vehicle type to allowed fuel types
+  const vehicleFuelMapping: { [key: string]: string[] } = {
+    "Passenger Cars": ["Gasoline", "Diesel", "Methanol", "Ethanol", "CNG", "LPG", "Biodiesel"],
+    "Light-Duty Trucks": ["Gasoline", "Diesel", "Ethanol", "CNG", "LPG", "LNG", "Biodiiesel"],
+    "Medium-Duty Trucks": ["Gasoline", "Diesel", "CNG", "LPG", "LNG", "Biodiesel"],
+    "Heavy-Duty Trucks": ["Gasoline", "Diesel", "Methanol", "Ethanol", "CNG", "LPG", "LNG", "Biodiesel"],
+    "Buses": ["Methanol", "Ethanol", "CNG", "LPG", "LNG", "Biodiesel"],
+    "Ships and Boats": ["Residual Fuel Oil", "Gasoline (2 stroke)", "Gasoline (4 stroke)", "Diesel"],
+    "Locomotives": ["Diesel"],
+    "Aircraft": ["Jet Fuel", "Aviation Gasoline"],
+    "Agricultural Equipment": ["Gasoline (2 stroke)", "Gasoline (4 stroke)", "Gasoline Off-Road Trucks", "Diesel Equipment", "Diesel Off-Road Trucks", "LPG"],
+    "Construction/Mining Equipment": ["Gasoline (2 stroke)", "Gasoline (4 stroke)", "Gasoline Off-Road Trucks", "Diesel Equipment", "Diesel Off-Road Trucks", "LPG"],
+    "Lawn and Garden Equipment": ["Gasoline (2 stroke)", "Gasoline (4 stroke)", "Diesel", "LPG"],
+    "Airport Equipment": ["Gasoline", "Diesel", "LPG"],
+    "Industrial/Commercial Equipment": ["Gasoline (2 stroke)", "Gasoline (4 stroke)", "Diesel", "LPG"],
+    "Logging Equipment": ["Gasoline (2 stroke)", "Gasoline (4 stroke)", "Diesel"],
+    "Railroad Equipment": ["Gasoline", "Diesel", "LPG"],
+    "Recreational Equipment": ["Gasoline (2 stroke)", "Gasoline (4 stroke)", "Diesel", "LPG"]
+  };
+
   const [rows, setRows] = useState([
     {
       description: "",
@@ -47,6 +77,13 @@ const MobileSourcesForm: React.FC<MobileSourcesFormProps> = ({
       updatedRows[index][field] = Number(value) || "";
     } else {
       updatedRows[index][field] = value;
+
+      if(field === "vehicleType") {
+        const allowedFuels = vehicleFuelMapping[value];
+        if (!allowedFuels || !allowedFuels.includes(updatedRows[index].fuelType)) {
+          updatedRows[index].fuelType = "";
+        }
+      }
     }
     setRows(updatedRows);
   };
@@ -75,8 +112,8 @@ const MobileSourcesForm: React.FC<MobileSourcesFormProps> = ({
 
     for (const row of rows) {
       const year = Number(row.modelYear);
-      if (!disableYear && (isNaN(year) || year < 1972 || year > 2025)) {
-        alert("Please enter a valid model year between 1972 and 2025.");
+      if (!disableYear && (isNaN(year) || year < 1960 || year > 2025)) {
+        alert("Please enter a valid model year between 1960 and 2025.");
         return;
       }
     }
@@ -107,7 +144,14 @@ const MobileSourcesForm: React.FC<MobileSourcesFormProps> = ({
       onSubmit={handleSubmit}
       className="mt-4 p-4 border rounded bg-gray-100 dark:bg-gray-800 w-[1100px] mx-auto"
     >
-      {rows.map((row, index) => (
+      {rows.map((row, index) => {
+
+        const validFuelOptions = 
+          row.vehicleType && vehicleFuelMapping[row.vehicleType]
+            ? vehicleFuelMapping[row.vehicleType]
+            : fuelOptions;
+
+        return ( 
         <div key={index} className="flex flex-wrap items-center gap-2 my-2">
           <input
             type="text"
@@ -136,7 +180,7 @@ const MobileSourcesForm: React.FC<MobileSourcesFormProps> = ({
             className="w-[160px] h-10 p-2 border rounded bg-white"
           >
             <option value="">Fuel Type</option>
-            {fuelOptions.map((f, i) => (
+            {validFuelOptions.map((f, i) => (
               <option key={i} value={f}>
                 {f}
               </option>
@@ -193,7 +237,8 @@ const MobileSourcesForm: React.FC<MobileSourcesFormProps> = ({
             </button>
           )}
         </div>
-      ))}
+        );
+          })}
 
       <div className="flex justify-between mt-4">
         <button

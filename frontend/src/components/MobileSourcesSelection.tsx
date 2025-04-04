@@ -36,12 +36,12 @@ const vehicleOptionsMap: Record<string, string[]> = {
     "Construction/Mining Equipment",
     "Lawn and Garden Equipment",
     "Airport Equipment",
-    "Industrial/Commericial Equipment",
+    "Industrial/Commercial Equipment",
     "Logging Equipment",
     "Railroad Equipment",
     "Recreational Equipment",
   ],
-  "Other Vehicles": ["Ship/Boat", "Locomotive", "Aircraft"],
+  "Other Vehicles": ["Ships and Boats", "Locomotives", "Aircraft"],
 };
 
 const fuelOptionsMap: Record<string, string[]> = {
@@ -62,7 +62,6 @@ const fuelOptionsMap: Record<string, string[]> = {
     "Diesel Off-Road Trucks",
     "Diesel",
     "LPG",
-    "",
   ],
   "Other Vehicles": [
     "Residual Fuel Oil",
@@ -76,7 +75,6 @@ const fuelOptionsMap: Record<string, string[]> = {
 
 const unitOptions = ["Gallons", "Liters", "MMBtu"];
 
-// 判断 vehicleType 是否为 On-Road
 const isOnRoadVehicle = (vehicleType: string): boolean =>
   vehicleOptionsMap["On-Road Vehicles"].includes(vehicleType);
 
