@@ -1,15 +1,15 @@
-package com.cfc.cfcbackend.db.mappers;
+package com.cfc.cfcbackend.db.dao;
 
 import com.cfc.cfcbackend.db.po.Electricity;
 
-public interface ElectricityMapper {
-    int deleteByPrimaryKey(Integer id);
+public interface ElectricityMapperDao {
+    int deleteByPrimaryKey(int id);
 
     int insert(Electricity record);
 
     int insertSelective(Electricity record);
 
-    Electricity selectByPrimaryKey(Integer id);
+    Electricity selectByPrimaryKey(int id);
 
     int updateByPrimaryKeySelective(Electricity record);
 
