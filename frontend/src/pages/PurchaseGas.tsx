@@ -11,6 +11,9 @@ const PurchaseGas: React.FC = () => {
   const handlePrevious = () => {
     navigate("/fire-suppression");
   };
+  const handleNext = () => {
+    navigate("/electricity");
+  };
 
   return (
     <div className={isDarkMode ? "dark" : ""}>
@@ -49,12 +52,12 @@ const PurchaseGas: React.FC = () => {
             >
               Previous
             </button>
-            {/* <button
+            <button
               onClick={handleNext}
               className="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors duration-200 shadow-lg"
             >
               Next
-            </button> */}
+            </button>
           </div>
         </main>
       </div>
