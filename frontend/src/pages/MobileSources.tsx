@@ -9,10 +9,12 @@ const MobileSources: React.FC = () => {
 
   const handleNext = () => {
     navigate("/refrigeration-ac")
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handlePrevious = () => {
     navigate("/stationary-combustion");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (

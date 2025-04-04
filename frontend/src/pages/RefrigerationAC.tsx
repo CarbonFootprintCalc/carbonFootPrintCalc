@@ -9,9 +9,11 @@ const RefrigerationAC: React.FC = () => {
   const { isDarkMode } = useTheme();
   const handleNext = () => {
     navigate("/fire-suppression");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
   const handlePrevious = () => {
     navigate("/mobile-sources");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (

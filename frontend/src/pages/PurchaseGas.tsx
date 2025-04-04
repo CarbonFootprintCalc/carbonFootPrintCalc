@@ -10,6 +10,7 @@ const PurchaseGas: React.FC = () => {
 
   const handlePrevious = () => {
     navigate("/fire-suppression");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
   const handleNext = () => {
     navigate("/electricity");

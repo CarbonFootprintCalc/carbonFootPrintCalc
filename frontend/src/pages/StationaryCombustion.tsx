@@ -9,10 +9,12 @@ const StationaryCombustion: React.FC = () => {
 
   const handleNext = () => {
     navigate("/mobile-sources");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handlePrevious = () => {
     navigate("/");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (

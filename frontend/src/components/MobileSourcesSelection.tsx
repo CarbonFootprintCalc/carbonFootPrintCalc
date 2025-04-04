@@ -1,68 +1,115 @@
 import React, { useState } from "react";
-import AddSourceForm from "./MobileSourcesForm";
+import MobileSourcesForm from "./MobileSourcesForm";
 import axios from "axios";
 
-interface ScopeSectionProps {
+interface MobileSourcesSelectionProps {
   title: string;
   description: React.ReactNode;
 }
 
-// fuel project
-const mobileSourcesVehicleOptions: Record<string, string[]> = {
-  "Motor Vehicles": ["Passenger Cars", "Light-Duty Trucks", "Medium-Duty Trucks", "Heavy-Duty Trucks", "Buses", "Motorcycles"],
-  "Equipment Vehicles": ["Agricultural Equipment", "Construction/Mining Equipment", "Lawn and Garden Equipment", "Airport Equipment", "Industrial/Commericial Equipment", "Logging Equipment", "Railroad Equipment", "Recreational Equipment"],
-  "Other Vehicles": ["Ship/Boat", "Locomotive", "Aircraft"],
+interface MobileSource {
+  description: string;
+  vehicleType: string;
+  fuelType: string;
+  modelYear: number;
+  fuelUsage: number;
+  unit: string;
+  mileage: number;
+  emissions?: {
+    CO2: number;
+    CH4: number;
+    N2O: number;
+  };
+}
+
+const vehicleOptionsMap: Record<string, string[]> = {
+  "On-Road Vehicles": [
+    "Passenger Cars",
+    "Light-Duty Trucks",
+    "Medium-Duty Trucks",
+    "Heavy-Duty Trucks",
+    "Buses",
+    "Motorcycles",
+  ],
+  "Equipment Vehicles": [
+    "Agricultural Equipment",
+    "Construction/Mining Equipment",
+    "Lawn and Garden Equipment",
+    "Airport Equipment",
+    "Industrial/Commercial Equipment",
+    "Logging Equipment",
+    "Railroad Equipment",
+    "Recreational Equipment",
+  ],
+  "Other Vehicles": ["Ships and Boats", "Locomotives", "Aircraft"],
 };
 
-const mobileSourcesFuelOptions: Record<string, string[]> = {
-  "Motor Vehicles": ["Gasoline", "Diesel", "Methanol", "Ethanol", "CNG", "LPG", "LNG", "Biodiesel"],
-  "Equipment Vehicles": ["Gasoline (2 stroke)", "Gasoline (4 stroke)", "Diesel Equipment", "Diesel Off-Road Trucks", "Diesel", "LPG", ""],
-  "Other Vehicles": ["Residual Fuel Oil", "Gasoline (2 stroke)", "Gasoline (4 stroke", "Diesel", "Jet Fuel", "Aviation Gasoline"],
+const fuelOptionsMap: Record<string, string[]> = {
+  "On-Road Vehicles": [
+    "Gasoline",
+    "Diesel",
+    "Methanol",
+    "Ethanol",
+    "CNG",
+    "LPG",
+    "LNG",
+    "Biodiesel",
+  ],
+  "Equipment Vehicles": [
+    "Gasoline (2 stroke)",
+    "Gasoline (4 stroke)",
+    "Diesel Equipment",
+    "Diesel Off-Road Trucks",
+    "Diesel",
+    "LPG",
+  ],
+  "Other Vehicles": [
+    "Residual Fuel Oil",
+    "Gasoline (2 stroke)",
+    "Gasoline (4 stroke)",
+    "Diesel",
+    "Jet Fuel",
+    "Aviation Gasoline",
+  ],
 };
 
 const unitOptions = ["Gallons", "Liters", "MMBtu"];
 
-// data type
-interface Source {
-  description: string;
-  vehicleType: string;
-  fuelType: string;
-  vehicleYear: number;
-  fuelUsage: number;
-  unit: string;
-  emissions?: { CO2: number; CH4: number; N2O: number };
-}
+const isOnRoadVehicle = (vehicleType: string): boolean =>
+  vehicleOptionsMap["On-Road Vehicles"].includes(vehicleType);
 
-const MobileSourcesSelection: React.FC<ScopeSectionProps> = ({ title, description }) => {
-  const [sources, setSources] = useState<Source[]>([]);
+const MobileSourcesSelection: React.FC<MobileSourcesSelectionProps> = ({
+  title,
+  description,
+}) => {
+  const [sources, setSources] = useState<MobileSource[]>([]);
 
-  const handleAddSource = async (newSources: Omit<Source, "emissions">[]) => {
+  const handleAddSource = async (
+    newSources: Omit<MobileSource, "emissions">[]
+  ) => {
     const updatedSources = await Promise.all(
-      newSources.map(async (source) => {
+      newSources.map(async (src) => {
+        const onRoad = isOnRoadVehicle(src.vehicleType);
+
         try {
-          console.log("Sending to backend:", {
-            vehicleType: source.vehicleType,
-            fuelType: source.fuelType,
-            vehicleYear: source.vehicleYear,
-            fuelUsage: Number(source.fuelUsage),
-            unit: source.unit,
-          });
+          const response = await axios.get(
+            "http://localhost:8080/mobile-sources",
+            {
+              params: {
+                fuelType: src.fuelType,
+                fuelUsage: src.fuelUsage,
+                vehicleType: src.vehicleType,
+                modelYear: String(src.modelYear),
+                mileage: src.mileage,
+                onRoad: onRoad,
+              },
+            }
+          );
 
-          const response = await axios.get("http://localhost:8080/scope1", {
-            params: {
-              vehicleType: source.vehicleType,
-              fuelType: source.fuelType,
-              vehicleYear: source.vehicleYear,
-              fuelUsage: Number(source.fuelUsage),
-              unit: source.unit,
-            },
-          });
-
-          console.log("Response from backend:", response.data);
-          return { ...source, emissions: response.data };
-        } catch (error) {
-          console.error("Error fetching emissions data:", error);
-          return { ...source, emissions: { CO2: 0, CH4: 0, N2O: 0 } };
+          return { ...src, emissions: response.data };
+        } catch (err) {
+          console.error("Emission fetch failed:", err);
+          return { ...src, emissions: { CO2: 0, CH4: 0, N2O: 0 } };
         }
       })
     );
@@ -71,50 +118,67 @@ const MobileSourcesSelection: React.FC<ScopeSectionProps> = ({ title, descriptio
   };
 
   return (
-    <div className="mt-8 p-4 border border-gray-300 rounded-lg shadow-sm bg-white w-[900px] mx-auto">
+    <div className="mt-8 p-4 border rounded-lg shadow-sm bg-white w-[1200px] mx-auto">
       <h2 className="text-xl font-bold">{title}</h2>
       <p className="text-gray-600">{description}</p>
 
       {sources.length > 0 && (
-        <table className="mt-4 w-full border-collapse border border-gray-300 text-center">
+        <table className="mt-4 w-full border-collapse text-center">
           <thead>
             <tr className="bg-gray-200">
-            <th className="border border-gray-300 p-2">Description</th>
-              <th className="border border-gray-300 p-2">Vehicle Type</th>
-              <th className="border border-gray-300 p-2">Fuel Type</th>
-              <th className="border border-gray-300 p-2">Vehicle Year</th>
-              <th className="border border-gray-300 p-2">Fuel Usage</th>
-              <th className="border border-gray-300 p-2">Unit</th>
-              <th className="border border-gray-300 p-2">CO₂ (kg)</th>
-              <th className="border border-gray-300 p-2">CH₄ (g)</th>
-              <th className="border border-gray-300 p-2">N₂O (g)</th>
+              <th className="border p-2">Description</th>
+              <th className="border p-2">Vehicle</th>
+              <th className="border p-2">Fuel</th>
+              {sources.some((s) => isOnRoadVehicle(s.vehicleType)) && (
+                <th className="border p-2">Model Year</th>
+              )}
+              <th className="border p-2">Fuel Usage</th>
+              <th className="border p-2">Unit</th>
+              <th className="border p-2">Mileage</th>
+              <th className="border p-2">CO₂ (kg)</th>
+              <th className="border p-2">CH₄ (g)</th>
+              <th className="border p-2">N₂O (g)</th>
             </tr>
           </thead>
+
           <tbody>
-            {sources.map((source, index) => (
-              <tr key={index} className="border border-gray-300">
-                       <td className="border border-gray-300 p-2">{source.description}</td>
-                <td className="border border-gray-300 p-2">{source.vehicleType}</td>
-                <td className="border border-gray-300 p-2">{source.fuelType}</td>
-                <td className="border border-gray-300 p-2">{source.vehicleYear}</td>
-                <td className="border border-gray-300 p-2">{source.fuelUsage}</td>
-                <td className="border border-gray-300 p-2">{source.unit}</td>
-                <td className="border border-gray-300 p-2">{source.emissions?.CO2?.toFixed(2) ?? "Calculating..."}</td>
-                <td className="border border-gray-300 p-2">{source.emissions?.CH4?.toFixed(6) ?? "Calculating..."}</td>
-                <td className="border border-gray-300 p-2">{source.emissions?.N2O?.toFixed(6) ?? "Calculating..."}</td>
-              </tr>
-            ))}
+            {sources.map((src, i) => {
+              const isOnRoad = isOnRoadVehicle(src.vehicleType);
+
+              return (
+                <tr key={i}>
+                  <td className="border p-2">{src.description}</td>
+                  <td className="border p-2">{src.vehicleType}</td>
+                  <td className="border p-2">{src.fuelType}</td>
+                  {isOnRoad && <td className="border p-2">{src.modelYear}</td>}
+                  <td className="border p-2">{src.fuelUsage}</td>
+                  <td className="border p-2">{src.unit}</td>
+                  <td className="border p-2">{src.mileage}</td>
+                  <td className="border p-2">
+                    {src.emissions?.CO2?.toFixed(2)}
+                  </td>
+                  <td className="border p-2">
+                    {src.emissions?.CH4?.toFixed(6)}
+                  </td>
+                  <td className="border p-2">
+                    {src.emissions?.N2O?.toFixed(6)}
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       )}
 
-      <div className="w-full flex justify-center mt-4">
-        <AddSourceForm
+      <div className="mt-4">
+        <MobileSourcesForm
           onAdd={handleAddSource}
-          vehicleOptions={mobileSourcesVehicleOptions[title] || []}
-          fuelOptions={mobileSourcesFuelOptions[title] || []}
+          vehicleOptions={vehicleOptionsMap[title] || []}
+          fuelOptions={fuelOptionsMap[title] || []}
           unitOptions={unitOptions}
-          disableYear={title === "Equipment Vehicles" || title === "Other Vehicles"}
+          disableYear={
+            title === "Equipment Vehicles" || title === "Other Vehicles"
+          }
         />
       </div>
     </div>
