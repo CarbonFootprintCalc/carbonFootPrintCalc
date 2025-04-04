@@ -113,7 +113,8 @@ public class Scope1Controller {
                         case "Light-Duty Trucks":
                             modelYearString = modelYearConversionService.getYearCategory(modelYear, 1982, 2006);
                             break;
-                        case "Medium- and Heavy-Duty Vehicles":
+                        case "Medium-Duty Trucks":
+                        case "Heavy-Duty Trucks":
                             modelYearString = modelYearConversionService.getYearCategory(modelYear, 2006, 2006);
                             break;
                         default:
