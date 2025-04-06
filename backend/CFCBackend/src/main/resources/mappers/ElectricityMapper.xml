@@ -166,4 +166,10 @@
       grid_gross_loss_percentage = #{gridGrossLossPercentage,jdbcType=REAL}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectBySubregion" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from electricity
+    where egrid_subregion_acronym = #{subregion,jdbcType=VARCHAR}
+  </select>
 </mapper>
