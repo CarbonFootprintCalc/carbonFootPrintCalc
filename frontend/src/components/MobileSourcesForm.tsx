@@ -31,7 +31,7 @@ const MobileSourcesForm: React.FC<MobileSourcesFormProps> = ({
   // Gasoline x-car -> x-car
   // Light-Duty Cars -> Passenger Cars
   // Medium- and Heavy-Duty Vehicles -> Medium-Duty Vehicles, Heavy-Duty Vehicles
-  // converter in back end from number to string
+  // converter in back end from number to strMing
   // e.g. int 1984 -> string 1983-2006, which is in backend
  
 
