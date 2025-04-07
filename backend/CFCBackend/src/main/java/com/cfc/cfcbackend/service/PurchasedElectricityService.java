@@ -13,6 +13,8 @@ public class PurchasedElectricityService {
 
     @Resource
     private ElectricityMapperDao electricityMapperDao;
+    @Resource
+    private UnitConversionService unitConversionService;
 
     // Calculates CO2 emissions using an emission factor entered by the user
     public double purchElecCO2(double electricityPurchased, double co2) {
@@ -33,11 +35,14 @@ public class PurchasedElectricityService {
     public Map<String, Double> purchElecFromSubreg(double electricityPurchased, String egridSubregion) {
         Map<String, Double> emissions = new HashMap<>();
         emissions.put("co2", 
-            electricityPurchased * electricityMapperDao.selectBySubregion(egridSubregion).getTotalCo2FactorLbPerMwh() / 1000);
+            electricityPurchased * unitConversionService.unitConversion("pounds (lb)", "kilogram (kg)", 
+            electricityMapperDao.selectBySubregion(egridSubregion).getTotalCo2FactorLbPerMwh()) / 1000);
         emissions.put("ch4",  
-            electricityPurchased * electricityMapperDao.selectBySubregion(egridSubregion).getTotalCh4FactorLbPerMwh() / 1000);        
+            electricityPurchased * unitConversionService.unitConversion("pounds (lb)", "kilogram (kg)", 
+            electricityMapperDao.selectBySubregion(egridSubregion).getTotalCh4FactorLbPerMwh()) / 1000);        
         emissions.put("n2o", 
-            electricityPurchased * electricityMapperDao.selectBySubregion(egridSubregion).getTotalN2oFactorLbPerMwh() / 1000);        
+            electricityPurchased * unitConversionService.unitConversion("pounds (lb)", "kilogram (kg)", 
+            electricityMapperDao.selectBySubregion(egridSubregion).getTotalN2oFactorLbPerMwh()) / 1000);        
         return emissions;
     }
 }
