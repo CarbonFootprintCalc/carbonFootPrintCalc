@@ -35,7 +35,12 @@ const fuelTypeOptions = [
     "Liquefied Petroleum Gases (LPG)",
     "Anthracite Coal",
     "Bituminous Coal",
-    "Sub-bituminous Coal"
+    "Sub-bituminous Coal",
+    "Lignite Coal",
+    "Mixed (Electric Power Sector)",
+    "Coal Coke",
+    "Wood and Wood Residuals",
+    "Landfill Gas",
 ];
 
 const SteamSelection: React.FC<SteamSelectionProps> = ({
@@ -70,7 +75,7 @@ const SteamSelection: React.FC<SteamSelectionProps> = ({
   };
 
   return (
-    <div className="mt-8 p-4 border rounded-lg shadow-sm bg-white w-[1400px] mx-auto">
+    <div className="mt-8 p-4 border rounded-lg shadow-sm bg-white max-w-7xl mx-auto">
       <h2 className="text-xl font-bold">{title}</h2>
       <div className="text-gray-600">{description}</div>
       {useAlternateMethod === null ? (
