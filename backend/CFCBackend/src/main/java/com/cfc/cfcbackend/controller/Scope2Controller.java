@@ -22,6 +22,8 @@ public class Scope2Controller {
     @Resource
     PurchasedSteamService purchasedSteamService;
 
+    private final double DEFAULT_BOILER_EFF = 80;
+
     // Method to calculate emissions for purchased electricity
     @ResponseBody
     @GetMapping("/electricity")
@@ -57,7 +59,7 @@ public class Scope2Controller {
 
         // Set boiler efficiency to 80% if not provided
         if(boilerEfficiency == 0) {
-            boilerEfficiency = 80;
+            boilerEfficiency = DEFAULT_BOILER_EFF;
         }
 
         // If the user selects a preset fuel type, calculate emissions using that fuel type
