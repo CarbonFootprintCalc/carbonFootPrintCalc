@@ -13,6 +13,8 @@ interface ElectricityFuelFormProps {
   ) => void;
   egridOptions: string[];
   useMarketBased: boolean;
+
+
 }
 
 const ElectricityFuelForm: React.FC<ElectricityFuelFormProps> = ({
@@ -70,6 +72,13 @@ const ElectricityFuelForm: React.FC<ElectricityFuelFormProps> = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!useMarketBased) {
+      const hasEmptySubregion = rows.some(row => row.egridSubregion.trim() === "");
+      if (hasEmptySubregion) {
+        alert("Please select an eGRID Subregion.");
+        return;
+      }
+    }
     onAdd(rows);
     setRows([
       {
@@ -128,7 +137,7 @@ const ElectricityFuelForm: React.FC<ElectricityFuelFormProps> = ({
                 handleChange(index, "electricityPurchased", e.target.value)
               }
             />
-            <span className="text-sm text-gray-500">MWh</span>
+            <span className="text-sm text-gray-500">KWh</span>
           </div>
 
           {useMarketBased && (
@@ -141,7 +150,7 @@ const ElectricityFuelForm: React.FC<ElectricityFuelFormProps> = ({
                   value={row.co2 || ""}
                   onChange={(e) => handleChange(index, "co2", e.target.value)}
                 />
-                <span className="text-sm text-gray-500">lb/MWh</span>
+                <span className="text-sm text-gray-500">kg/KWh</span>
               </div>
               <div className="flex items-center space-x-1">
                 <input
@@ -151,7 +160,7 @@ const ElectricityFuelForm: React.FC<ElectricityFuelFormProps> = ({
                   value={row.ch4 || ""}
                   onChange={(e) => handleChange(index, "ch4", e.target.value)}
                 />
-                <span className="text-sm text-gray-500">lb/MWh</span>
+                <span className="text-sm text-gray-500">kg/KWh</span>
               </div>
               <div className="flex items-center space-x-1">
                 <input
@@ -161,7 +170,7 @@ const ElectricityFuelForm: React.FC<ElectricityFuelFormProps> = ({
                   value={row.n2o || ""}
                   onChange={(e) => handleChange(index, "n2o", e.target.value)}
                 />
-                <span className="text-sm text-gray-500">lb/MWh</span>
+                <span className="text-sm text-gray-500">kg/KWh</span>
               </div>
             </>
           )}
