@@ -7,6 +7,7 @@ import Refrige from "./pages/RefrigerationAC";
 import FireSuppression from "./pages/FireSuppression";
 import PurchaseGas from "./pages/PurchaseGas";
 import Electricity from "./pages/Electricity";
+import BusinessTravel from "./pages/BusinessTravel";
 
 function App() {
   return (
@@ -18,6 +19,8 @@ function App() {
       <Route path="/fire-suppression" element={<FireSuppression />} />
       <Route path="/purchase-gas" element={<PurchaseGas />} />
       <Route path="/electricity" element={<Electricity />} />
+      <Route path="/business-travel" element={<BusinessTravel />} />
+
     </Routes>
   );
 }
