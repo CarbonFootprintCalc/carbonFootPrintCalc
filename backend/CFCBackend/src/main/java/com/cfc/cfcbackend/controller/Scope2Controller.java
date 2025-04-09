@@ -50,20 +50,20 @@ public class Scope2Controller {
     // Method to calculate emissions for purchased steam
     @ResponseBody
     @GetMapping("/steam")
-    public Map<String, Double> purchasedSteam(@RequestParam double steamPurchased, @RequestParam(required = false) String fuelType,
-                                              @RequestParam(required = false) double boilerEfficiency, @RequestParam double Lco2, 
-                                              @RequestParam double Lch4, @RequestParam double Ln2o, @RequestParam(required = false) double Mco2,
-                                              @RequestParam(required = false) double Mch4, @RequestParam(required = false) double Mn2o) {
+    public Map<String, Double> purchasedSteam(@RequestParam Double steamPurchased, @RequestParam(required = false) String fuelType,
+                                              @RequestParam(required = false) Double boilerEfficiency, @RequestParam Double Lco2, 
+                                              @RequestParam Double Lch4, @RequestParam Double Ln2o, @RequestParam(required = false) Double Mco2,
+                                              @RequestParam(required = false) Double Mch4, @RequestParam(required = false) Double Mn2o) {
                                     
         Map<String, Double> emissions = new HashMap<>();
 
         // Set boiler efficiency to 80% if not provided
-        if(boilerEfficiency == 0) {
+        if(boilerEfficiency == null) {
             boilerEfficiency = DEFAULT_BOILER_EFF;
         }
 
         // If the user selects a preset fuel type, calculate emissions using that fuel type
-        if(fuelType.isEmpty()) {
+        if(!fuelType.isEmpty()) {
             emissions = purchasedSteamService.purchSteamFuelType(steamPurchased, fuelType, boilerEfficiency);
         }
 
@@ -76,6 +76,11 @@ public class Scope2Controller {
             emissions.put("Ln2o", purchasedSteamService.purchSteamN2O(steamPurchased, Ln2o, boilerEfficiency));
 
             // Calculate market-based emissions
+            // If the emission factors aren't provided, we default them to the location-based factors
+            if(Mco2 == null) Mco2 = Lco2;
+            if(Mch4 == null) Mch4 = Lch4;
+            if(Mn2o == null) Mn2o = Ln2o;
+
             emissions.put("Mco2", purchasedSteamService.purchSteamCO2(steamPurchased, Mco2, boilerEfficiency));
             emissions.put("Mch4", purchasedSteamService.purchSteamCH4(steamPurchased, Mch4, boilerEfficiency));
             emissions.put("Mn2o", purchasedSteamService.purchSteamN2O(steamPurchased, Mn2o, boilerEfficiency));
