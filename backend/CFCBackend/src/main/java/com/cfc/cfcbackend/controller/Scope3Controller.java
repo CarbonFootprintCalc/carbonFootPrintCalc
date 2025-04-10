@@ -23,7 +23,7 @@ public class Scope3Controller {
     // Method to calculate emissions for business travel
     @ResponseBody
     @GetMapping("/business-travel")
-    public Map<String, Double> businessTravel(@RequestParam String vehicleType, @RequestParam double mileage) {
-        return businessTravelService.calcEmission(vehicleType, mileage);
+    public Map<String, Double> businessTravel(@RequestParam String vehicleType, @RequestParam double miles) {
+        return businessTravelService.calcEmission(vehicleType, miles);
     }
 }
