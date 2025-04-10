@@ -128,14 +128,32 @@ serverTimezone=UTC"
 <!--               enableUpdateByExample="false" selectByExampleQueryId="false">-->
 <!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
 <!--        </table>-->
-        <table schema="" tableName="mobilecombustionresults"
-               domainObjectName="MobileCombustionResults" enableCountByExample="false"
+<!--        <table schema="" tableName="mobilecombustionresults"-->
+<!--               domainObjectName="MobileCombustionResults" enableCountByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               enableUpdateByExample="false" selectByExampleQueryId="false">-->
+<!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+<!--        </table>-->
+<!--        <table schema="" tableName="stationarycombustionresults"-->
+<!--               domainObjectName="StationaryCombustionResults" enableCountByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               enableUpdateByExample="false" selectByExampleQueryId="false">-->
+<!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+<!--        </table>-->
+        <table schema="" tableName="businesstravel"
+               domainObjectName="BusinessTravel" enableCountByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false" selectByExampleQueryId="false">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
-        <table schema="" tableName="stationarycombustionresults"
-               domainObjectName="StationaryCombustionResults" enableCountByExample="false"
+        <table schema="" tableName="businesstravelresults"
+               domainObjectName="BusinessTravelResults" enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false" selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table schema="" tableName="electricityresults"
+               domainObjectName="ElectricityResults" enableCountByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false" selectByExampleQueryId="false">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
