@@ -7,6 +7,7 @@ import Refrige from "./pages/RefrigerationAC";
 import FireSuppression from "./pages/FireSuppression";
 import PurchaseGas from "./pages/PurchaseGas";
 import Electricity from "./pages/Electricity";
+import BusinessTravel from "./pages/BusinessTravel";
 import Steam from "./pages/Steam";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
       <Route path="/fire-suppression" element={<FireSuppression />} />
       <Route path="/purchase-gas" element={<PurchaseGas />} />
       <Route path="/electricity" element={<Electricity />} />
+      <Route path="/business-travel" element={<BusinessTravel />} />
       <Route path="/steam" element={<Steam />} />
     </Routes>
   );
