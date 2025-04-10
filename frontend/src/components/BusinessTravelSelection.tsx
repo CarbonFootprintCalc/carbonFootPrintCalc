@@ -26,13 +26,13 @@ const vehicleOptionsMap: Record<string, string[]> = {
     "Intercity Rail - Other Routes",
     "Intercity Rail - National Average",
     "Commuter Rail",
-    "Transit Rail (i.e. Subway, Tram)",
+    "Transit Rail",
     "Bus"
   ],
   "Air Travel": [
-    "Air Short Haul (< 300 miles)",
-    "Air Medium Haul (>= 300 miles, < 2300 miles)",
-    "Air Long Haul (>= 2300 miles)"
+    "Air Travel - Short Haul (< 300 miles)",
+    "Air Travel - Medium Haul (>= 300 miles, < 2300 miles)",
+    "Air Travel - Long Haul (>= 2300 miles)"
   ]
 };
 
