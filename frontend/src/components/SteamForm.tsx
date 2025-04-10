@@ -3,16 +3,16 @@ import React, { useState } from "react";
 interface SteamFormProps {
   onAdd: (
     sources: {
-        description: string;
-        steamPurchased: number;
-        fuelType: string;
-        boilerEfficiency: number;
-        Lco2?: number;
-        Lch4?: number;
-        Ln2o?: number;
-        Mco2?: number;
-        Mch4?: number;
-        Mn2o?: number;
+      description: string;
+      steamPurchased: number;
+      fuelType: string;
+      boilerEfficiency: number;
+      Lco2?: number;
+      Lch4?: number;
+      Ln2o?: number;
+      Mco2?: number;
+      Mch4?: number;
+      Mn2o?: number;
     }[]
   ) => void;
   useAlternateMethod: boolean;
@@ -26,16 +26,16 @@ const SteamForm: React.FC<SteamFormProps> = ({
 }) => {
   const [rows, setRows] = useState([
     {
-        description: "",
-        steamPurchased: 0,
-        fuelType: "",
-        boilerEfficiency: 0,
-        Lco2: undefined,
-        Lch4: undefined,
-        Ln2o: undefined,
-        Mco2: undefined,
-        Mch4: undefined,
-        Mn2o: undefined,
+      description: "",
+      steamPurchased: 0,
+      fuelType: "",
+      boilerEfficiency: 0,
+      Lco2: undefined,
+      Lch4: undefined,
+      Ln2o: undefined,
+      Mco2: undefined,
+      Mch4: undefined,
+      Mn2o: undefined,
     },
   ]);
 
@@ -115,136 +115,134 @@ const SteamForm: React.FC<SteamFormProps> = ({
         >
           {/* <div className="grid grid-cols-9 gap-4 w-full items-start"> */}
 
-            {/* Description */}
+          {/* Description */}
+          <input
+            type="text"
+            placeholder="Description"
+            className="h-10 p-2 border rounded w-[200px]"
+            value={row.description}
+            onChange={(e) => handleChange(index, "description", e.target.value)}
+          />
+
+          {/* Steam Purchased */}
+          <div className="flex items-center space-x-1">
             <input
-              type="text"
-              placeholder="Description"
-              className="h-10 p-2 border rounded w-[200px]"
-              value={row.description}
+              type="number"
+              placeholder="Steam Purchased"
+              className="h-10 p-2 border rounded w-[150px]"
+              value={row.steamPurchased || ""}
               onChange={(e) =>
-                handleChange(index, "description", e.target.value)
+                handleChange(index, "steamPurchased", e.target.value)
               }
             />
-  
-            {/* Steam Purchased */}
-            <div className="flex items-center space-x-1">
-              <input
-                type="number"
-                placeholder="Steam Purchased"
-                className="h-10 p-2 border rounded w-[150px]"
-                value={row.steamPurchased || ""}
-                onChange={(e) =>
-                  handleChange(index, "steamPurchased", e.target.value)
-                }
-              />
-              <span className="text-sm text-gray-500">mmBtu</span>
-            </div>
-  
-            {/* Location/Market Emission Factors (preferred method only) */}
-            {!useAlternateMethod && (
-              <>
-                {/* Location/Market CO₂ */}
-                <div className="flex flex-col space-y-2 w-[150px]">
-                  <input
-                    type="number"
-                    placeholder="Location CO₂ Factor"
-                    className="h-10 p-2 border rounded w-full"
-                    value={row.Lco2 || ""}
-                    onChange={(e) =>
-                      handleChange(index, "Lco2", e.target.value)
-                    }
-                  />
-                  <input
-                    type="number"
-                    placeholder="Market CO₂ Factor"
-                    className="h-10 p-2 border rounded w-full"
-                    value={row.Mco2 || ""}
-                    onChange={(e) =>
-                      handleChange(index, "Mco2", e.target.value)
-                    }
-                  />
-                </div>
-  
-                {/* Location/Market CH₄ */}
-                <div className="flex flex-col space-y-2 w-[150px]">
-                  <input
-                    type="number"
-                    placeholder="Location CH₄ Factor"
-                    className="w-full h-10 p-2 border rounded"
-                    value={row.Lch4 || ""}
-                    onChange={(e) =>
-                      handleChange(index, "Lch4", e.target.value)
-                    }
-                  />
-                  <input
-                    type="number"
-                    placeholder="Market CH₄ Factor"
-                    className="w-full h-10 p-2 border rounded"
-                    value={row.Mch4 || ""}
-                    onChange={(e) =>
-                      handleChange(index, "Mch4", e.target.value)
-                    }
-                  />
-                </div>
-  
-                {/* Location/Market N₂O */}
-                <div className="flex flex-col space-y-2 w-[150px]">
-                  <input
-                    type="number"
-                    placeholder="Location N₂O Factor"
-                    className="w-full h-10 p-2 border rounded"
-                    value={row.Ln2o || ""}
-                    onChange={(e) =>
-                      handleChange(index, "Ln2o", e.target.value)
-                    }
-                  />
-                  <input
-                    type="number"
-                    placeholder="Market N₂O Factor"
-                    className="w-full h-10 p-2 border rounded"
-                    value={row.Mn2o || ""}
-                    onChange={(e) =>
-                      handleChange(index, "Mn2o", e.target.value)
-                    }
-                  />
-                </div>
-              </>
-            )}
-  
-            {/* Alternate method fields */}
-            {useAlternateMethod && (
-              <>
-                <select
-                  value={row.fuelType}
+            <span className="text-sm text-gray-500">mmBtu</span>
+          </div>
+
+          {/* Location/Market Emission Factors (preferred method only) */}
+          {!useAlternateMethod && (
+            <>
+              <div className="flex items-center space-x-1 col-span-2">
+                <input
+                  type="number"
+                  placeholder="Boiler Efficiency"
+                  className="w-[150px] h-10 p-2 border rounded"
+                  value={row.boilerEfficiency || ""}
                   onChange={(e) =>
-                    handleChange(index, "fuelType", e.target.value)
+                    handleChange(index, "boilerEfficiency", e.target.value)
                   }
-                  className="w-[200px] h-10 p-2 border rounded bg-white"
-                >
-                  <option value="">Select fuel type:</option>
-                  {fuelTypeOptions.map((fuelType, i) => (
-                    <option key={i} value={fuelType}>
-                      {fuelType}
-                    </option>
-                  ))}
-                </select>
-  
-                <div className="flex items-center space-x-1 col-span-2">
-                  <input
-                    type="number"
-                    placeholder="Boiler Efficiency"
-                    className="w-[150px] h-10 p-2 border rounded"
-                    value={row.boilerEfficiency || ""}
-                    onChange={(e) =>
-                      handleChange(index, "boilerEfficiency", e.target.value)
-                    }
-                  />
-                  <span className="text-sm text-gray-500">%</span>
-                </div>
-              </>
-            )}
+                />
+                <span className="text-sm text-gray-500">%</span>
+              </div>
+              {/* Location/Market CO₂ */}
+              <div className="flex flex-col space-y-2 w-[150px]">
+                <input
+                  type="number"
+                  placeholder="Location CO₂ Factor"
+                  className="h-10 p-2 border rounded w-full"
+                  value={row.Lco2 || ""}
+                  onChange={(e) => handleChange(index, "Lco2", e.target.value)}
+                />
+                <input
+                  type="number"
+                  placeholder="Market CO₂ Factor"
+                  className="h-10 p-2 border rounded w-full"
+                  value={row.Mco2 || ""}
+                  onChange={(e) => handleChange(index, "Mco2", e.target.value)}
+                />
+              </div>
+
+              {/* Location/Market CH₄ */}
+              <div className="flex flex-col space-y-2 w-[150px]">
+                <input
+                  type="number"
+                  placeholder="Location CH₄ Factor"
+                  className="w-full h-10 p-2 border rounded"
+                  value={row.Lch4 || ""}
+                  onChange={(e) => handleChange(index, "Lch4", e.target.value)}
+                />
+                <input
+                  type="number"
+                  placeholder="Market CH₄ Factor"
+                  className="w-full h-10 p-2 border rounded"
+                  value={row.Mch4 || ""}
+                  onChange={(e) => handleChange(index, "Mch4", e.target.value)}
+                />
+              </div>
+
+              {/* Location/Market N₂O */}
+              <div className="flex flex-col space-y-2 w-[150px]">
+                <input
+                  type="number"
+                  placeholder="Location N₂O Factor"
+                  className="w-full h-10 p-2 border rounded"
+                  value={row.Ln2o || ""}
+                  onChange={(e) => handleChange(index, "Ln2o", e.target.value)}
+                />
+                <input
+                  type="number"
+                  placeholder="Market N₂O Factor"
+                  className="w-full h-10 p-2 border rounded"
+                  value={row.Mn2o || ""}
+                  onChange={(e) => handleChange(index, "Mn2o", e.target.value)}
+                />
+              </div>
+            </>
+          )}
+
+          {/* Alternate method fields */}
+          {useAlternateMethod && (
+            <>
+              <select
+                value={row.fuelType}
+                onChange={(e) =>
+                  handleChange(index, "fuelType", e.target.value)
+                }
+                className="w-[200px] h-10 p-2 border rounded bg-white"
+              >
+                <option value="">Select fuel type:</option>
+                {fuelTypeOptions.map((fuelType, i) => (
+                  <option key={i} value={fuelType}>
+                    {fuelType}
+                  </option>
+                ))}
+              </select>
+
+              <div className="flex items-center space-x-1 col-span-2">
+                <input
+                  type="number"
+                  placeholder="Boiler Efficiency"
+                  className="w-[150px] h-10 p-2 border rounded"
+                  value={row.boilerEfficiency || ""}
+                  onChange={(e) =>
+                    handleChange(index, "boilerEfficiency", e.target.value)
+                  }
+                />
+                <span className="text-sm text-gray-500">%</span>
+              </div>
+            </>
+          )}
           {/*</div>*/}
-  
+
           {/* Remove Row Button */}
           {rows.length > 1 && (
             <div className="mt-4">
@@ -259,7 +257,7 @@ const SteamForm: React.FC<SteamFormProps> = ({
           )}
         </div>
       ))}
-  
+
       {/* Add + Submit Buttons */}
       <div className="flex justify-between mt-4">
         <button
@@ -279,5 +277,5 @@ const SteamForm: React.FC<SteamFormProps> = ({
     </form>
   );
 };
-  
+
 export default SteamForm;
