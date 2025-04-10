@@ -24,13 +24,6 @@ public class Scope3Controller {
     @ResponseBody
     @GetMapping("/business-travel")
     public Map<String, Double> businessTravel(@RequestParam String vehicleType, @RequestParam double mileage) {
-
-        Map<String, Double> emissions = new HashMap<>();
-
-        emissions.put("co2", businessTravelService.calcEmission(vehicleType, mileage));
-        emissions.put("ch4", businessTravelService.calcEmission(vehicleType, mileage));
-        emissions.put("n2o", businessTravelService.calcEmission(vehicleType, mileage));
-
-        return emissions;
+        return businessTravelService.calcEmission(vehicleType, mileage);
     }
 }
