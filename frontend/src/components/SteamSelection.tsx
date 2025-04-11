@@ -125,10 +125,10 @@ const SteamSelection: React.FC<SteamSelectionProps> = ({
                     <th className="border p-2">Boiler Efficiency (%)</th>
                     <th className="border p-2">CO₂ (Location)(kg)</th>
                     <th className="border p-2">CO₂ (Market)(kg)</th>
-                    <th className="border p-2">CH₄ (Location) (kg)</th>
-                    <th className="border p-2">CH₄ (Market) (kg)</th>
-                    <th className="border p-2">N₂O (Location)(kg)</th>
-                    <th className="border p-2">N₂O (Market)(kg)</th>
+                    <th className="border p-2">CH₄ (Location) (g)</th>
+                    <th className="border p-2">CH₄ (Market) (g)</th>
+                    <th className="border p-2">N₂O (Location) (g)</th>
+                    <th className="border p-2">N₂O (Market)(g)</th>
 
                   </tr>
                 </thead>
