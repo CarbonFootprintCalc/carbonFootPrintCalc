@@ -21,10 +21,13 @@ interface SteamSource {
   Mch4?: number;
   Mn2o?: number;
 
-  // final calculations
-  co2?: number;
-  ch4?: number;
-  n2o?: number;
+  // final calculated emission calculations
+  finalLco2?: number;
+  finalLch4?: number;
+  finalLn2o?: number;
+  finalMco2?: number;
+  finalMch4?: number;
+  finalMn2o?: number;
 }
 
 const fuelTypeOptions = [
@@ -120,9 +123,13 @@ const SteamSelection: React.FC<SteamSelectionProps> = ({
                     <th className="border p-2">Description</th>
                     <th className="border p-2">Steam Purchased</th>
                     <th className="border p-2">Boiler Efficiency (%)</th>
-                    <th className="border p-2">CO₂ (kg)</th>
-                    <th className="border p-2">CH₄ (kg)</th>
-                    <th className="border p-2">N₂O (kg)</th>
+                    <th className="border p-2">CO₂ (Location)(kg)</th>
+                    <th className="border p-2">CO₂ (Market)(kg)</th>
+                    <th className="border p-2">CH₄ (Location) (kg)</th>
+                    <th className="border p-2">CH₄ (Market) (kg)</th>
+                    <th className="border p-2">N₂O (Location)(kg)</th>
+                    <th className="border p-2">N₂O (Market)(kg)</th>
+
                   </tr>
                 </thead>
                 <tbody>
@@ -131,9 +138,12 @@ const SteamSelection: React.FC<SteamSelectionProps> = ({
                       <td className="border p-2">{s.description}</td>
                       <td className="border p-2">{s.steamPurchased}</td>
                       <td className="border p-2">{s.boilerEfficiency}%</td>
-                      <td className="border p-2">{s.co2?.toFixed(2)}</td>
-                      <td className="border p-2">{s.ch4?.toFixed(6)}</td>
-                      <td className="border p-2">{s.n2o?.toFixed(6)}</td>
+                      <td className="border p-2">{s.finalLco2?.toFixed(2)}</td>
+                      <td className="border p-2">{s.finalMco2?.toFixed(2)}</td>
+                      <td className="border p-2">{s.finalLch4?.toFixed(6)}</td>
+                      <td className="border p-2">{s.finalMch4?.toFixed(6)}</td>
+                      <td className="border p-2">{s.finalLn2o?.toFixed(6)}</td>
+                      <td className="border p-2">{s.finalMn2o?.toFixed(6)}</td>
                     </tr>
                   ))}
                 </tbody>
