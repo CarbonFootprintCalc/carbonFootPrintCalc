@@ -71,9 +71,9 @@ public class Scope2Controller {
         else {
 
             // Calculate location-based emissions
-            emissions.put("Lco2", purchasedSteamService.purchSteamCO2(steamPurchased, Lco2, boilerEfficiency));
-            emissions.put("Lch4", purchasedSteamService.purchSteamCH4(steamPurchased, Lch4, boilerEfficiency));
-            emissions.put("Ln2o", purchasedSteamService.purchSteamN2O(steamPurchased, Ln2o, boilerEfficiency));
+            emissions.put("finalLco2", purchasedSteamService.purchSteamCO2(steamPurchased, Lco2, boilerEfficiency));
+            emissions.put("finalLch4", purchasedSteamService.purchSteamCH4(steamPurchased, Lch4, boilerEfficiency));
+            emissions.put("finalLn2o", purchasedSteamService.purchSteamN2O(steamPurchased, Ln2o, boilerEfficiency));
 
             // Calculate market-based emissions
             // If the emission factors aren't provided, we default them to the location-based factors
@@ -81,9 +81,9 @@ public class Scope2Controller {
             if(Mch4 == null) Mch4 = Lch4;
             if(Mn2o == null) Mn2o = Ln2o;
 
-            emissions.put("Mco2", purchasedSteamService.purchSteamCO2(steamPurchased, Mco2, boilerEfficiency));
-            emissions.put("Mch4", purchasedSteamService.purchSteamCH4(steamPurchased, Mch4, boilerEfficiency));
-            emissions.put("Mn2o", purchasedSteamService.purchSteamN2O(steamPurchased, Mn2o, boilerEfficiency));
+            emissions.put("finalMco2", purchasedSteamService.purchSteamCO2(steamPurchased, Mco2, boilerEfficiency));
+            emissions.put("finalMch4", purchasedSteamService.purchSteamCH4(steamPurchased, Mch4, boilerEfficiency));
+            emissions.put("finalMn2o", purchasedSteamService.purchSteamN2O(steamPurchased, Mn2o, boilerEfficiency));
         }
         return emissions;
     }
