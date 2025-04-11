@@ -50,14 +50,11 @@ const Steam: React.FC = () => {
                   <li><strong>Total Steam Purchased (mmBtu):</strong> Annual steam usage per facility or site. Convert steam data into mmBtu.</li>
                   <li><strong>Fuel Type:</strong> Select the type of fuel used by your steam supplier to generate steam. If unknown, select <strong>"Natural Gas"</strong> as the default option.
                   If multiple fuel types are used, enter each fuel seperately, apportioning usage by percentage.</li>
+                  <li><strong>Boiler Efficiency:</strong> Enter your supplier's boiler effciency. If unknown, use the default value of 80%.</li>
                 </ul> <br />
                 <strong>If supplier-specific emission factors are available (preferred method):</strong>
                 <ul className="list-disc list-inside ml-8 mt-1">
                   <li><strong>Supplier Emission Factors:</strong> Enter CO₂, CH₄, and N₂O emission factors (in kg/mmBtu of steam), provided by your steam supplier. These typically apply to both location-based and market-based methods. If your market-based factors differ from the supplier’s default factors, enter them separately.</li>
-                </ul> <br />
-                <strong>If supplier-specific emission factors are NOT available (alternative method):</strong>
-                <ul className="list-disc list-inside ml-8 mt-1">
-                  <li><strong>Boiler Efficiency:</strong> Enter your supplier's boiler effciency. If unknown, use the default value of 80% povided by the calculator.</li>
                 </ul> <br />
               </>
             }
