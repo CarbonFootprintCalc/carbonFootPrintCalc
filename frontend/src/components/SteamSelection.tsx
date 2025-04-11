@@ -81,10 +81,11 @@ const SteamSelection: React.FC<SteamSelectionProps> = ({
       {useAlternateMethod === null ? (
         <div className="mt-6 w-full max-w-xl mx-auto p-6 bg-white border border-gray-300 rounded-xl shadow-sm dark:bg-gray-800 dark:border-gray-700">
           <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-3 text-center">
-            Steam Emission Factors
+            Preferred vs Alternative Method
           </h3>
           <p className="text-gray-600 dark:text-gray-300 text-center mb-6">
-            Do you have access to your steam emission factors? You can find typically find these from your supplier. They offer a more accurate calculation of your steam carbon footprint.
+            Select the <strong>Preferred Method</strong> if supplier-specific emission factors are available.
+            <br /> Select the <strong>Alternative Method</strong> if supplier emission factors are unavailable and boiler efficiency must be used instead.
           </p>
           <div className="flex justify-center gap-6">
             <button

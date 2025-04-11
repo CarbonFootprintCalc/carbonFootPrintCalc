@@ -28,9 +28,14 @@ const Electricity: React.FC = () => {
 
           <div className="max-w-3xl text-center mb-8 dark:text-white">
             <p>
-              Scope 2 electricity emissions are indirect greenhouse gas emissions from the consumption of purchased electricity, heat, or steam.
-              These emissions occur at the facility where the electricity is generated, not where it is consumed.
-              Reporting includes location-based and market-based emission factors depending on data availability and methodology.
+              Electricity purchased from the power grid indirectly contributes to greenhouse gas emissions, primarily from fossil fuel combustion at power plants.
+              These indirect emissions, classified as Scope 2, vary based on regional energy sources (coal, natural gas, renewables, nuclear).
+              To quantify Scope 2 emissions, organizations use two approaches: <br /><br />
+              <ul className="list-disc list-inside ml-8 mt-1">
+                <li><strong>Location-Based Method:</strong> Reflects average emissions from the regional electric grid supplying your energy.</li>
+                <li><strong>Marked-Based Method:</strong> Reflects emissions based on specific contractual arrangements, such as renewable energy certificates (RECs), power purchase agreements (PPAs), or supplier-specifc emission factors.</li>
+              </ul> <br />
+              EPA guidelines reccomend calculating and reporting emissions using both methods for transparency and completeness.
             </p>
           </div>
 
@@ -38,13 +43,20 @@ const Electricity: React.FC = () => {
             title="Electricity"
             description={
               <>
-                <p className="mt-2">Please enter your electricity data for the reporting period below:</p>
+                <p className="mt-2">To calculate Scope 2 electricity emissions, you will provide the following data:
+                  <br /><br /><strong>For both methods: </strong>
+                </p>
                 <ul className="list-disc list-inside ml-8 mt-1">
-                  <li><strong>eGRID Subregion:</strong> The regional power grid your facility draws electricity from. Refer to your electricity provider if unsure.</li>
-                  <li><strong>Electricity Purchased:</strong> Total electricity purchased (in MWh) during the reporting period.</li>
-                  <li><strong>CO₂, CH₄, and N₂O Factors:</strong> Required only if you choose to report using market-based emission factors (in lb/MWh).</li>
+                  <li><strong>Total Electricity Purchased</strong> Report your annual electricity consumption (in kilowatt-hours, kWh) for each facility or site, available from electricity bills or utility invoices.</li>
                 </ul>
-                <p className="mt-1">You may use location-based defaults or provide specific market-based data if available.</p>
+                <br /><p><strong>For location-based calculations:</strong></p>
+                <ul className="list-disc list-inside ml-8 mt-1">
+                  <li><strong>Facility Location (eGRID Subregion):</strong> Identify your facility's eGRID subregion using the calculator's provided map or EPA's <a href="https://www.epa.gov/egrid/power-profiler#/">Power Profiler tool</a>. The calculator applies regional emission factors automatically based on your selection.</li>
+                </ul>
+                <br /><p><strong>For market-based calculations:</strong></p>
+                <ul className="list-disc list-inside ml-8 mt-1">
+                  <li><strong>CO₂, CH₄, and N₂O Factors:</strong> Provide specific emission factors (CO₂, CH₄, N₂O) from your renewable energy contracts, PPAs, or other supplier-specific agreements.</li>
+                </ul> <br />
               </>
             }
             
