@@ -94,26 +94,29 @@ const ElectricityFuelSelection: React.FC<ElectricityFuelSelectionProps> = ({
       {useMarketBased === null ? (
         <div className="mt-6 w-full max-w-xl mx-auto p-6 bg-white border border-gray-300 rounded-xl shadow-sm dark:bg-gray-800 dark:border-gray-700">
           <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-3 text-center">
-            Market-Based Emission Factor
+            Market vs Location-based
           </h3>
           <p className="text-gray-600 dark:text-gray-300 text-center mb-6">
-            Do you know what a{" "}
-            <span className="font-medium">market-based emission factor</span>{" "}
-            is? If yes, we’ll use that for your electricity emissions. If not,
-            we’ll default to location-based data.
+            Select{" "}
+            <span className="font-medium">location-based</span>{" "}
+            if you rely on standard regional grid emissions.
+            <br />
+            Select{" "}
+            <span className="font-medium">market-based</span>{" "}
+            if you have renewable energy contracts or supplier-specific emission factors.
           </p>
           <div className="flex justify-center gap-6">
             <button
               onClick={() => setUseMarketBased(true)}
               className="px-6 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-md shadow-md transition"
             >
-              Yes, I do
+              Market-based
             </button>
             <button
               onClick={() => setUseMarketBased(false)}
               className="px-6 py-2 bg-gray-500 hover:bg-gray-600 text-white text-sm font-medium rounded-md shadow-md transition"
             >
-              No, use default
+              Location-based
             </button>
           </div>
         </div>
