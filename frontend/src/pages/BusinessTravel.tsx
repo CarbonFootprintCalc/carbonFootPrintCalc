@@ -9,7 +9,7 @@ const BusinessTravel: React.FC = () => {
   const { isDarkMode } = useTheme();
 
   const handleNext = () => {
-    navigate("/commuting");
+    navigate("/");
   };
 
   const handlePrevious = () => {

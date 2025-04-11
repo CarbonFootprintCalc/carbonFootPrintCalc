@@ -9,7 +9,7 @@ const Steam: React.FC = () => {
   const { isDarkMode } = useTheme();
 
   const handleNext = () => {
-    navigate("/");
+    navigate("/business-travel");
   };
 
   const handlePrevious = () => {
