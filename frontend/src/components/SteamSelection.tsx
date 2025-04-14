@@ -13,13 +13,13 @@ interface SteamSource {
   fuelType: string;
   boilerEfficiency: number;
 
-  //location and market based emission factors
-  Lco2?: number;
-  Lch4?: number;
-  Ln2o?: number;
-  Mco2?: number;
-  Mch4?: number;
-  Mn2o?: number;
+  // final calculations
+  finalLco2?: number;
+  finalLch4?: number;
+  finalLn2o?: number;
+  finalMco2?: number;
+  finalMch4?: number;
+  finalMn2o?: number;
 }
 
 const fuelTypeOptions = [
@@ -122,7 +122,6 @@ const SteamSelection: React.FC<SteamSelectionProps> = ({
                     <th className="border p-2">CH₄ (Market) (g)</th>
                     <th className="border p-2">N₂O (Location) (g)</th>
                     <th className="border p-2">N₂O (Market)(g)</th>
-
                   </tr>
                 </thead>
                 <tbody>
@@ -131,12 +130,12 @@ const SteamSelection: React.FC<SteamSelectionProps> = ({
                       <td className="border p-2">{s.description}</td>
                       <td className="border p-2">{s.steamPurchased}</td>
                       <td className="border p-2">{s.boilerEfficiency}%</td>
-                      <td className="border p-2">{s.Lco2?.toFixed(2)}</td>
-                      <td className="border p-2">{s.Mco2?.toFixed(2)}</td>
-                      <td className="border p-2">{s.Lch4?.toFixed(6)}</td>
-                      <td className="border p-2">{s.Mch4?.toFixed(6)}</td>
-                      <td className="border p-2">{s.Ln2o?.toFixed(6)}</td>
-                      <td className="border p-2">{s.Mn2o?.toFixed(6)}</td>
+                      <td className="border p-2">{s.finalLco2?.toFixed(2)}</td>
+                      <td className="border p-2">{s.finalMco2?.toFixed(2)}</td>
+                      <td className="border p-2">{s.finalLch4?.toFixed(6)}</td>
+                      <td className="border p-2">{s.finalMch4?.toFixed(6)}</td>
+                      <td className="border p-2">{s.finalLn2o?.toFixed(6)}</td>
+                      <td className="border p-2">{s.finalMn2o?.toFixed(6)}</td>
                     </tr>
                   ))}
                 </tbody>
