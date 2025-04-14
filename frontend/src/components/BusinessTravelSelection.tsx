@@ -14,7 +14,6 @@ interface TravelSource {
   emissions?: { CO2: number; CH4: number; N2O: number };
 }
 
-// 车辆选项配置
 const vehicleOptionsMap: Record<string, string[]> = {
   "Ground Travel": [
     "Passenger Car",

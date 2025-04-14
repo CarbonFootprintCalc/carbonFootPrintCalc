@@ -9,6 +9,7 @@ import PurchaseGas from "./pages/PurchaseGas";
 import Electricity from "./pages/Electricity";
 import BusinessTravel from "./pages/BusinessTravel";
 import Steam from "./pages/Steam";
+import FinalReport from "./pages/FinalReport";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
       <Route path="/electricity" element={<Electricity />} />
       <Route path="/business-travel" element={<BusinessTravel />} />
       <Route path="/steam" element={<Steam />} />
+      <Route path="/final-report" element={<FinalReport />} />
     </Routes>
   );
 }
