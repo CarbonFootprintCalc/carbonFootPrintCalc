@@ -28,7 +28,7 @@ const RefrigerationACFuelForm: React.FC<RefrigerationACFuelFormProps> = ({
     value: string
   ) => {
     const updatedRows = [...rows];
-    updatedRows[index][field] = Number(value) || 0;
+    (updatedRows[index] as any)[field] = Number(value) || 0;
     setRows(updatedRows);
   };
 

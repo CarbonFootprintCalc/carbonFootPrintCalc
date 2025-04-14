@@ -55,11 +55,15 @@ const BusinessTravelSelection: React.FC<ScopeSectionProps> = ({
 }) => {
   const [sources, setSources] = useState<TravelSource[]>([]);
 
-  const handleAddTravel = async (
-    newTravels: { description: string; vehicleType: string; miles: number }[]
-  ) => {
+  const handleAddTravel = async (newTravels: { description: string; vehicleType: string; miles: string | number }[]) => {
+    // Convert miles to number if it's a string
+    const processedTravels = newTravels.map(travel => ({
+      ...travel,
+      miles: typeof travel.miles === 'string' ? Number(travel.miles) || 0 : travel.miles
+    }));
+    
     const updatedSources = await Promise.all(
-      newTravels.map(async (travel) => {
+      processedTravels.map(async (travel) => {
         try {
           const response = await axios.get("http://localhost:8080/business-travel", {
             params: {
