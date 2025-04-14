@@ -1,13 +1,23 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import OrganizationFormModal from '../components/OrganizationFormModal';
+
+interface OrganizationFormData {
+  organizationName: string;
+  address: string;
+  startDate: string;
+  endDate: string;
+  preparerName: string;
+  contact: string;
+  datePrepared: string;
+}
 
 const Home = () => {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
 
-  const handleFormSubmit = (formData) => {
+  const handleFormSubmit = (formData: OrganizationFormData) => {
     sessionStorage.setItem('organizationInfo', JSON.stringify(formData));
     navigate('/stationary-combustion');
     window.scrollTo({ top: 0, behavior: 'smooth' });

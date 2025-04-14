@@ -5,7 +5,7 @@ interface AddSourceFormProps {
     sources: {
       description: string;
       fuelType: string;
-      quantity: string;
+      quantity: string | number;
       unit: string;
     }[]
   ) => void | Promise<void>;
@@ -24,7 +24,11 @@ const StationaryFuelForm: React.FC<AddSourceFormProps> = ({
 
   const handleInputChange = (index: number, field: string, value: string) => {
     const updatedRows = [...rows];
-    updatedRows[index][field as keyof (typeof updatedRows)[number]] = field === "quantity" ? Number(value) || 0 : value;
+    if (field === "quantity") {
+      updatedRows[index][field as keyof (typeof updatedRows)[number]] = value;
+    } else {
+      updatedRows[index][field as keyof (typeof updatedRows)[number]] = value;
+    }
     setRows(updatedRows);
   };
 

@@ -1,7 +1,24 @@
 import React, { useEffect, useState } from 'react';
 
-const OrganizationFormModal = ({ isOpen, onClose, onSubmit }) => {
-  const [formData, setFormData] = useState({
+interface OrganizationFormData {
+  organizationName: string;
+  address: string;
+  startDate: string;
+  endDate: string;
+  preparerName: string;
+  contact: string;
+  datePrepared: string;
+  [key: string]: string; // Index signature to allow dynamic property access
+}
+
+interface OrganizationFormModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSubmit: (data: OrganizationFormData) => void;
+}
+
+const OrganizationFormModal = ({ isOpen, onClose, onSubmit }: OrganizationFormModalProps) => {
+  const [formData, setFormData] = useState<OrganizationFormData>({
     organizationName: '',
     address: '',
     startDate: '',
@@ -12,14 +29,14 @@ const OrganizationFormModal = ({ isOpen, onClose, onSubmit }) => {
   });
 
   
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const validate = () => {
-    const newErrors = {};
+    const newErrors: Record<string, string> = {};
     if (!formData.organizationName) newErrors.organizationName = 'Required';
     if (!formData.datePrepared) newErrors.datePrepared = 'Required';
     setErrors(newErrors);
