@@ -1,19 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NavBar from '../components/NavBar';
+import OrganizationFormModal from '../components/OrganizationFormModal';
 
 const Home = () => {
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
 
-  const handleNext = () => {
+  const handleFormSubmit = (formData) => {
+    sessionStorage.setItem('organizationInfo', JSON.stringify(formData));
     navigate('/stationary-combustion');
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
     <div className="w-full min-h-screen bg-gradient-to-br from-green-50 to-blue-100 dark:from-gray-800 dark:to-gray-900 transition-colors duration-300 flex flex-col">
       <NavBar />
-      
+      <OrganizationFormModal
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        onSubmit={handleFormSubmit}
+      />
+
       <div className="flex-grow flex flex-col items-center justify-center text-center px-4">
         <h1 className="text-4xl md:text-6xl font-extrabold bg-gradient-to-r from-green-500 via-blue-500 to-purple-500 bg-clip-text text-transparent">
           Welcome to EmissioTrack
@@ -23,7 +31,7 @@ const Home = () => {
         </p>
 
         <button
-          onClick={handleNext}
+          onClick={() => setShowModal(true)}
           className="mt-8 px-8 py-4 bg-green-500 text-white rounded-full shadow-lg hover:bg-green-600 transition-transform duration-300 transform hover:scale-105"
         >
           Get Started
