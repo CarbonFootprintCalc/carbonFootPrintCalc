@@ -32,17 +32,17 @@ public class PurchasedSteamService {
     // Calculates all emissions from steam based off a specific fuel source
     public Map<String, Double> purchSteamFuelType(double steamPurchased, String fuelType, double boilerEfficiency) {
         Map<String, Double> emissions = new HashMap<>();
-        emissions.put("Lco2", steamPurchased * 
+        emissions.put("finalLco2", steamPurchased * 
             stationaryCombustionFactorsDao.selectByFuelType(fuelType).getCo2FactorKgco2PerMmbtu() * (100 / boilerEfficiency));
-        emissions.put("Lch4", steamPurchased * 
+        emissions.put("finalLch4", steamPurchased * 
             stationaryCombustionFactorsDao.selectByFuelType(fuelType).getCh4FactorGch4PerMmbtu() * (100 / boilerEfficiency));
-        emissions.put("Ln2o", steamPurchased * 
+        emissions.put("finalLn2o", steamPurchased * 
             stationaryCombustionFactorsDao.selectByFuelType(fuelType).getN2oFactorGn2oPerMmbtu() * (100 / boilerEfficiency));
-        emissions.put("Mco2", steamPurchased * 
+        emissions.put("finalMco2", steamPurchased * 
             stationaryCombustionFactorsDao.selectByFuelType(fuelType).getCo2FactorKgco2PerMmbtu() * (100 / boilerEfficiency));
-        emissions.put("Mch4", steamPurchased * 
+        emissions.put("finalMch4", steamPurchased * 
             stationaryCombustionFactorsDao.selectByFuelType(fuelType).getCh4FactorGch4PerMmbtu() * (100 / boilerEfficiency));
-        emissions.put("Mn2o", steamPurchased * 
+        emissions.put("finalMn2o", steamPurchased * 
             stationaryCombustionFactorsDao.selectByFuelType(fuelType).getN2oFactorGn2oPerMmbtu() * (100 / boilerEfficiency));
         return emissions;
     }
