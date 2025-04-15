@@ -51,9 +51,10 @@ public class Scope2Controller {
     @ResponseBody
     @GetMapping("/steam")
     public Map<String, Double> purchasedSteam(@RequestParam Double steamPurchased, @RequestParam(required = false) String fuelType,
-                                              @RequestParam(required = false) Double boilerEfficiency, @RequestParam Double Lco2, 
-                                              @RequestParam Double Lch4, @RequestParam Double Ln2o, @RequestParam(required = false) Double Mco2,
-                                              @RequestParam(required = false) Double Mch4, @RequestParam(required = false) Double Mn2o) {
+                                              @RequestParam(required = false) Double boilerEfficiency, @RequestParam(required = false) Double Lco2, 
+                                              @RequestParam(required = false) Double Lch4, @RequestParam(required = false) Double Ln2o, 
+                                              @RequestParam(required = false) Double Mco2, @RequestParam(required = false) Double Mch4, 
+                                              @RequestParam(required = false) Double Mn2o) {
                                     
         Map<String, Double> emissions = new HashMap<>();
 
