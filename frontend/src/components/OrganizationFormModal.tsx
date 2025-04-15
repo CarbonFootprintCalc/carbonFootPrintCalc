@@ -45,13 +45,14 @@ const OrganizationFormModal = ({ isOpen, onClose, onSubmit }: OrganizationFormMo
 
   const handleSubmit = () => {
     if (validate()) {
+      localStorage.setItem('organizationInfo', JSON.stringify(formData));
       onSubmit(formData);
       onClose();
     }
   };
-// 页面加载时预填 formData
-useEffect(() => {
-    const saved = sessionStorage.getItem('organizationInfo');
+
+  useEffect(() => {
+    const saved = localStorage.getItem('organizationInfo');
     if (saved) setFormData(JSON.parse(saved));
   }, []);
   if (!isOpen) return null;

@@ -45,13 +45,27 @@ interface LocationState {
     reportData?: FinalReportData
 }
 
+interface OrganizationalFormData {
+    organizationName: string;
+    address: string;
+    startDate: string;
+    endDate: string;
+    preparerName: string;
+    contact: string;
+    datePrepared: string;
+}
+
 const FinalReportPage: React.FC = () => {
     const { state } = useLocation() as { state: LocationState };
     const navigate = useNavigate();
     const {isDarkMode } = useTheme();
 
     // if no report data is found, display message
-    const reportData = state?.reportData;
+    const reportData = state?.reportData ?? dummyData;
+
+    // retrieve organization info from sessionStorage
+    const orgInfoString = localStorage.getItem("organizationInfo");
+    const organizationInfo: OrganizationalFormData | null = orgInfoString ? JSON.parse(orgInfoString) : null;
 
     return (
         <div className={isDarkMode ? "dark" : ""}>
@@ -62,6 +76,27 @@ const FinalReportPage: React.FC = () => {
                     <h2 className="text-2xl font-bold text-center mb-8 dark:text-white">
                         Final Carbon Emissions Report
                     </h2>
+
+                    {/* Organizational Information Section */}
+                    {organizationInfo ? (
+                        <div className="w-full max-w-3xl mb-8 p-4 border rounded bg-gray-50 dark:bg-gray-800">
+                            <h3 className="text-xl font-bold mb-4 dark:text-white">
+                                Organization Information
+                            </h3>
+                            <div className="grid grid-cols-1 gap-2 text-gray-700 dark:text-gray-300">
+                                <p><strong>Organization Name:</strong> {organizationInfo.organizationName}</p>
+                                <p><strong>Address:</strong> {organizationInfo.address}</p>
+                                <p><strong>Reporting Period:</strong> {organizationInfo.startDate} to {organizationInfo.endDate}</p>
+                                <p><strong>Preparer Name:</strong> {organizationInfo.preparerName}</p>
+                                <p><strong>Contact Email:</strong> {organizationInfo.contact}</p>
+                                <p><strong>Date Prepared:</strong> {organizationInfo.datePrepared}</p>
+                            </div>
+                        </div>
+                    ) : (
+                        <p className="max-w-3xl text-center dark:text-white">
+                            No organization information available.
+                        </p>
+                    )}
 
                     {!reportData ? (
                         <p className="max-w-3xl text-center dark:text-white">
