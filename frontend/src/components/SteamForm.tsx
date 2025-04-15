@@ -86,6 +86,15 @@ const SteamForm: React.FC<SteamFormProps> = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    //validates boiler efficiency >0
+    for (let i = 0; i < rows.length; i++) {
+      if (!rows[i].boilerEfficiency || rows[i].boilerEfficiency <= 0) {
+        alert('Please provide a valid boiler efficiency.')
+        return;
+      }
+    }
+
     onAdd(rows);
     setRows([
       {
