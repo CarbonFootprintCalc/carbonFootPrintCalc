@@ -42,14 +42,14 @@ class MobileSourcesServiceTest {
     @Test
     void emissionOnRoadNonGasCH4() {
         double expect = 12000 * 0.012;
-        double actual = mobileSourcesService.emissionOnRoadNonGasCH4("Methanol", "Light-Duty Cars", "2019", 12000);
+        double actual = mobileSourcesService.emissionOnRoadNonGasCH4("Methanol", "Passenger Cars", "2019", 12000);
         assertEquals(expect, Math.round(actual*10.0)/10.0);
     }
 
     @Test
     void emissionOnRoadNonGasN2O() {
         double expect = 12000 * 0.004;
-        double actual = mobileSourcesService.emissionOnRoadNonGasN2O("Methanol", "Light-Duty Cars", "2019", 12000);
+        double actual = mobileSourcesService.emissionOnRoadNonGasN2O("Methanol", "Passenger Cars", "2019", 12000);
         assertEquals(expect, Math.round(actual*10.0)/10.0);
     }
 
