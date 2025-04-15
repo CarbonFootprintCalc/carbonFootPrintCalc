@@ -55,13 +55,16 @@ const SteamSelection: React.FC<SteamSelectionProps> = ({
 
           return {
             ...source,
-            co2: res.data.co2,
-            ch4: res.data.ch4,
-            n2o: res.data.n2o,
+            finalLco2: res.data.finalLco2,
+            finalLch4: res.data.finalLch4,
+            finalLn2o: res.data.finalLn2o,
+            finalMco2: res.data.finalMco2,
+            finalMch4: res.data.finalMch4,
+            finalMn2o: res.data.finalMn2o,
           };
         } catch (err) {
           console.error("Fetch error:", err);
-          return { ...source, co2: 0, ch4: 0, n2o: 0 };
+          return { ...source, finalLco2: 0, finalLch4: 0, finalLn2o: 0, finalMco2: 0, finalMch4: 0, finalMn2o: 0 };
         }
       })
     );
