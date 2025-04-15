@@ -69,24 +69,11 @@ const MobileSourcesForm: React.FC<MobileSourcesFormProps> = ({
     },
   ]);
 
-  const handleChange = (
-    index: number,
-    field: keyof typeof rows[number],
-    value: string
-  ) => {
+  const handleInputChange = (index: number, field: string, value: string) => {
     const updatedRows = [...rows];
-    if (["modelYear", "fuelUsage", "mileage"].includes(field)) {
-      updatedRows[index][field] = Number(value) || "";
-    } else {
-      updatedRows[index][field] = value;
-
-      if(field === "vehicleType") {
-        const allowedFuels = vehicleFuelMapping[value];
-        if (!allowedFuels || !allowedFuels.includes(updatedRows[index].fuelType)) {
-          updatedRows[index].fuelType = "";
-        }
-      }
-    }
+    // Use type assertion to tell TypeScript this is safe
+    const row = updatedRows[index] as any;
+    row[field] = value;
     setRows(updatedRows);
   };
 
@@ -160,12 +147,12 @@ const MobileSourcesForm: React.FC<MobileSourcesFormProps> = ({
             placeholder="Description"
             className="w-[180px] h-10 p-2 border rounded"
             value={row.description}
-            onChange={(e) => handleChange(index, "description", e.target.value)}
+            onChange={(e) => handleInputChange(index, "description", e.target.value)}
           />
 
           <select
             value={row.vehicleType}
-            onChange={(e) => handleChange(index, "vehicleType", e.target.value)}
+            onChange={(e) => handleInputChange(index, "vehicleType", e.target.value)}
             className="w-[160px] h-10 p-2 border rounded bg-white"
           >
             <option value="">Vehicle Type</option>
@@ -178,7 +165,7 @@ const MobileSourcesForm: React.FC<MobileSourcesFormProps> = ({
 
           <select
             value={row.fuelType}
-            onChange={(e) => handleChange(index, "fuelType", e.target.value)}
+            onChange={(e) => handleInputChange(index, "fuelType", e.target.value)}
             className="w-[160px] h-10 p-2 border rounded bg-white"
           >
             <option value="">Fuel Type</option>
@@ -197,7 +184,7 @@ const MobileSourcesForm: React.FC<MobileSourcesFormProps> = ({
             disabled={disableYear}
             className="w-[130px] h-10 p-2 border rounded"
             value={row.modelYear}
-            onChange={(e) => handleChange(index, "modelYear", e.target.value)}
+            onChange={(e) => handleInputChange(index, "modelYear", e.target.value)}
           />
 
           <input
@@ -205,12 +192,12 @@ const MobileSourcesForm: React.FC<MobileSourcesFormProps> = ({
             placeholder="Fuel Usage"
             className="w-[130px] h-10 p-2 border rounded"
             value={row.fuelUsage}
-            onChange={(e) => handleChange(index, "fuelUsage", e.target.value)}
+            onChange={(e) => handleInputChange(index, "fuelUsage", e.target.value)}
           />
 
           <select
             value={row.unit}
-            onChange={(e) => handleChange(index, "unit", e.target.value)}
+            onChange={(e) => handleInputChange(index, "unit", e.target.value)}
             className="w-[120px] h-10 p-2 border rounded bg-white"
           >
             <option value="">Unit</option>
@@ -226,7 +213,7 @@ const MobileSourcesForm: React.FC<MobileSourcesFormProps> = ({
             placeholder="Mileage"
             className="w-[120px] h-10 p-2 border rounded"
             value={row.mileage}
-            onChange={(e) => handleChange(index, "mileage", e.target.value)}
+            onChange={(e) => handleInputChange(index, "mileage", e.target.value)}
           />
 
           {rows.length > 1 && (

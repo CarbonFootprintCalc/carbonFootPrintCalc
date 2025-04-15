@@ -5,7 +5,7 @@ interface AddTravelFormProps {
     sources: {
       description: string;
       vehicleType: string;
-      miles: string;
+      miles: string | number;
     }[]
   ) => void | Promise<void>;
   vehicleOptions: string[];
@@ -25,8 +25,7 @@ const BusinessTravelForm: React.FC<AddTravelFormProps> = ({
 
   const handleInputChange = (index: number, field: string, value: string) => {
     const updatedRows = [...rows];
-    updatedRows[index][field as keyof (typeof updatedRows)[number]] =
-      field === "miles" ? Number(value) || 0 : value;
+    updatedRows[index][field as keyof (typeof updatedRows)[number]] = value;
     setRows(updatedRows);
   };
 

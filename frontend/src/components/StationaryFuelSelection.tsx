@@ -97,7 +97,7 @@ const unitOptions: Record<string, string[]> = {
 interface Source {
   description: string;
   fuelType: string;
-  quantity: number;
+  quantity: string | number;
   unit: string;
   emissions?: { CO2: number; CH4: number; N2O: number };
 }
@@ -109,15 +109,18 @@ const StationaryFuelSelection: React.FC<ScopeSectionProps> = ({ title, descripti
     const updatedSources = await Promise.all(
       newSources.map(async (source) => {
         try {
+          const quantity = typeof source.quantity === 'string' ? 
+            Number(source.quantity) || 0 : source.quantity;
+          
           console.log("Sending to backend:", {
-            quantity: Number(source.quantity),
+            quantity,
             fuelType: source.fuelType,
             unit: source.unit,
           });
 
           const response = await axios.get("http://localhost:8080/stationary-combustion", {
             params: {
-              quantity: Number(source.quantity),
+              quantity,
               fuelType: source.fuelType,
               unit: source.unit,
             },
