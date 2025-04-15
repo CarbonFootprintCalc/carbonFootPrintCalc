@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import { useTheme } from "../context/ThemeContext";
 
@@ -39,12 +39,6 @@ interface FinalReportData {
     finalEmissions?: FinalReportEntry;
 }
 
-
-interface LocationState {
-    // report data is expected to be passed in via react-router state
-    reportData?: FinalReportData
-}
-
 interface OrganizationalFormData {
     organizationName: string;
     address: string;
@@ -56,13 +50,23 @@ interface OrganizationalFormData {
 }
 
 const FinalReportPage: React.FC = () => {
-    const { state } = useLocation() as { state: LocationState };
+    const [reportData, setReportData] = useState<FinalReportData>({});
     const navigate = useNavigate();
     const {isDarkMode } = useTheme();
 
-    // if no report data is found, display message
-    const reportData = state?.reportData ?? dummyData;
+    useEffect(() => {
+        const stationaryCombustionData = localStorage.getItem("stationaryFuelCalculations");
+        // other variables go here
 
+        const aggregatedData: FinalReportData = {
+            stationaryCombustion: stationaryCombustionData ? JSON.parse(stationaryCombustionData) : undefined,
+            // other variables go here
+
+        };
+        setReportData(aggregatedData)
+            
+    }, []);
+    
     // retrieve organization info from sessionStorage
     const orgInfoString = localStorage.getItem("organizationInfo");
     const organizationInfo: OrganizationalFormData | null = orgInfoString ? JSON.parse(orgInfoString) : null;
