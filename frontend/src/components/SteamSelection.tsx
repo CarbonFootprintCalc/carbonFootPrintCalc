@@ -49,7 +49,7 @@ const SteamSelection: React.FC<SteamSelectionProps> = ({
     const updated = await Promise.all(
       newSources.map(async (source) => {
         try {
-          const res = await axios.get("http://localhost:8080/steam", {
+          const res = await axios.get(`${import.meta.env.VITE_API_URL}/steam`, {
             params: source,
           });
 
