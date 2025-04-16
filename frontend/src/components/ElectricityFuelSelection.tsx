@@ -58,7 +58,7 @@ const ElectricityFuelSelection: React.FC<ElectricityFuelSelectionProps> = ({
     const updated = await Promise.all(
       newSources.map(async (source) => {
         try {
-          const res = await axios.get("http://localhost:8080/electricity", {
+          const res = await axios.get(`${import.meta.env.VITE_API_URL}/electricity`, {
             params: source,
           });
 

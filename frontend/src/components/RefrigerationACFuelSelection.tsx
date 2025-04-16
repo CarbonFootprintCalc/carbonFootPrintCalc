@@ -92,7 +92,7 @@ const RefrigerationACFuelSelection: React.FC<
       newSources.map(async (source) => {
         try {
           const response = await axios.get(
-            "http://localhost:8080/refrigeration-ac",
+            `${import.meta.env.VITE_API_URL}/refrigeration-ac`,
             {
               params: source,
             }

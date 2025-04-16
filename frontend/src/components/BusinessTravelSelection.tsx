@@ -65,7 +65,7 @@ const BusinessTravelSelection: React.FC<ScopeSectionProps> = ({
     const updatedSources = await Promise.all(
       processedTravels.map(async (travel) => {
         try {
-          const response = await axios.get("http://localhost:8080/business-travel", {
+          const response = await axios.get(`${import.meta.env.VITE_API_URL}/business-travel`, {
             params: {
               vehicleType: travel.vehicleType,
               miles: Number(travel.miles),

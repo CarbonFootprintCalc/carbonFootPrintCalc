@@ -37,7 +37,7 @@ const FireSuppressionFuelSelection: React.FC<FireSuppressionFuelSelectionProps> 
     const updatedSources = await Promise.all(
       newSources.map(async (source) => {
         try {
-          const response = await axios.get("http://localhost:8080/fire-suppression", {
+          const response = await axios.get(`${import.meta.env.VITE_API_URL}/fire-suppression`, {
             params: source,
           });
 
