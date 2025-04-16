@@ -93,7 +93,7 @@ const MobileSourcesSelection: React.FC<MobileSourcesSelectionProps> = ({
 
         try {
           const response = await axios.get(
-            "http://localhost:8080/mobile-sources",
+            `${import.meta.env.VITE_API_URL}/mobile-sources`,
             {
               params: {
                 fuelType: src.fuelType,

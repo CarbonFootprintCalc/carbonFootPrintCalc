@@ -18,9 +18,15 @@ public class CorsFilterConfig implements Filter {
         String origin = request.getHeader("Origin");
         
         // Allow localhost and 127.0.0.1
-        if ("http://localhost:5173".equals(origin) || "http://127.0.0.1:5173".equals(origin)) {
+        if (
+            "http://localhost:5173".equals(origin) ||
+            "http://127.0.0.1:5173".equals(origin) ||
+            "https://main.d1ny3msgu07vwm.amplifyapp.com".equals(origin) ||
+            "https://cfc.pengyucn.com".equals(origin)
+        ) {
             response.setHeader("Access-Control-Allow-Origin", origin);
         }
+
         
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
         response.setHeader("Access-Control-Allow-Headers", "*");
