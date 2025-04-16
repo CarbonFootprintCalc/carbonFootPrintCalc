@@ -14,6 +14,7 @@ public class FinalReportController {
     @ResponseBody
     @GetMapping("/final-report")
     public double calcTotal() {
+        
         return 0;
     }
 }

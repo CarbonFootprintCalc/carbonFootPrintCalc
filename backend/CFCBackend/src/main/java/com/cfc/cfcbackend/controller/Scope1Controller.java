@@ -41,7 +41,8 @@ public class Scope1Controller {
     // Method to calculate emissions for stationary combustion
     @ResponseBody
     @GetMapping("/stationary-combustion")
-    public Map<String, Double> stationaryCombustion(@RequestParam double quantity, @RequestParam String fuelType, @RequestParam String unit) {
+    public Map<String, Double> stationaryCombustion(@RequestParam double quantity, @RequestParam String fuelType, @RequestParam String unit,
+                                                    @RequestParam double totalCO2e, @RequestParam double totalStationary) {
 
         Map<String, Double> stationarySources = new HashMap<>(); 
         
@@ -62,6 +63,7 @@ public class Scope1Controller {
             stationarySources.put("CH4", stationaryCombustionService.CH4PerUnit(quantity, fuelType)); 
             stationarySources.put("N2O", stationaryCombustionService.N2OPerUnit(quantity, fuelType)); 
         }
+
         return stationarySources;
     }
 
