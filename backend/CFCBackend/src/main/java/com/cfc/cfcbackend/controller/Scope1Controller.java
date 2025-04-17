@@ -32,6 +32,9 @@ public class Scope1Controller {
     @Resource
     ModelYearConversionService modelYearConversionService;
 
+    @Resource
+    FinalReportService finalReportService;
+
     @ResponseBody
     @GetMapping("/")
     public String root() {
@@ -63,6 +66,10 @@ public class Scope1Controller {
             stationarySources.put("CH4", stationaryCombustionService.CH4PerUnit(quantity, fuelType)); 
             stationarySources.put("N2O", stationaryCombustionService.N2OPerUnit(quantity, fuelType)); 
         }
+
+        // Add calculations to total stationary combustion emissions and total overall emissions
+        stationarySources.put("calculatedTotal", finalReportService.addToTotal(totalCO2e, stationarySources));
+        stationarySources.put("calculatedStationary", finalReportService.addToTotal(totalStationary, stationarySources));
 
         return stationarySources;
     }

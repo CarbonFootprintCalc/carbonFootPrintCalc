@@ -40,9 +40,9 @@ public class Scope2Controller {
 
         // If the user directly inputs emission factors, calculate market-based emissions
         else {
-            emissions.put("co2", purchasedElectricityService.purchElecCO2(electricityPurchased, co2));
-            emissions.put("ch4", purchasedElectricityService.purchElecCH4(electricityPurchased, ch4));
-            emissions.put("n2o", purchasedElectricityService.purchElecN2O(electricityPurchased, n2o));
+            emissions.put("CO2", purchasedElectricityService.purchElecCO2(electricityPurchased, co2));
+            emissions.put("CH4", purchasedElectricityService.purchElecCH4(electricityPurchased, ch4));
+            emissions.put("N2O", purchasedElectricityService.purchElecN2O(electricityPurchased, n2o));
         }
         return emissions;
     }

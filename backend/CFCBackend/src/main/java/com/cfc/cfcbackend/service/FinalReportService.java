@@ -36,6 +36,6 @@ public class FinalReportService {
     // Method to only add CO2 emissions to total CO2e
     // This can be used universally with total overall and total category emissions
     public double addToTotal(double total, Map<String, Double> toAdd) {
-        return total += toAdd.get("co2") + this.convertCH4ToCO2e(toAdd.get("ch4")) + this.convertN2OToCO2e(toAdd.get("n2o"));
+        return total += toAdd.get("CO2") + this.convertCH4ToCO2e(toAdd.get("CH4")) + this.convertN2OToCO2e(toAdd.get("N2O"));
     }
 }

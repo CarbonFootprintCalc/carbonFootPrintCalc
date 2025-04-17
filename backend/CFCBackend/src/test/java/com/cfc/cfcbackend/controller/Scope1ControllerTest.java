@@ -24,7 +24,9 @@ public class Scope1ControllerTest {
         expect.put("CO2", 17194.000244140625);
         expect.put("N2O", 839.9999618530273);
         expect.put("CH4", 6400.0);
-        Map<String, Double> actual = scope1Controller.stationaryCombustion(200, "Tires", "mmBtu");
+        expect.put("calculatedTotal", 17194.000244140625 + 222.599989891 + 179.2);
+        expect.put("calculatedStationary", 17194.000244140625 + 222.599989891 + 179.2);
+        Map<String, Double> actual = scope1Controller.stationaryCombustion(200, "Tires", "mmBtu", 0, 0);
         assertEquals(expect, actual);
     }
 
