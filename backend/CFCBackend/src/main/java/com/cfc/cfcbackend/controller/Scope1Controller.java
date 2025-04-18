@@ -45,7 +45,7 @@ public class Scope1Controller {
     @ResponseBody
     @GetMapping("/stationary-combustion")
     public Map<String, Double> stationaryCombustion(@RequestParam double quantity, @RequestParam String fuelType, @RequestParam String unit,
-                                                    @RequestParam double totalCO2e, @RequestParam double totalStationary) {
+                                                    @RequestParam double totalCO2e, @RequestParam double totalStationary, @RequestParam double totalScope) {
 
         Map<String, Double> stationarySources = new HashMap<>(); 
         
@@ -67,9 +67,8 @@ public class Scope1Controller {
             stationarySources.put("N2O", stationaryCombustionService.N2OPerUnit(quantity, fuelType)); 
         }
 
-        // Add calculations to total stationary combustion emissions and total overall emissions
-        stationarySources.put("calculatedTotal", finalReportService.addToTotal(totalCO2e, stationarySources));
-        stationarySources.put("calculatedStationary", finalReportService.addToTotal(totalStationary, stationarySources));
+        // Add calculations to total stationary combustion, scope 1, and overall emissions
+        stationarySources = finalReportService.compileAll("calculatedScope1", "calculatedStationary", totalCO2e, totalScope, totalStationary, stationarySources);
 
         return stationarySources;
     }
@@ -138,6 +137,7 @@ public class Scope1Controller {
             mobileSources.put("CH4", mobileSourcesService.emissionNonRoadCH4(fuelType ,vehicleType, fuelUsage));
             mobileSources.put("N2O", mobileSourcesService.emissionNonRoadN2O(fuelType ,vehicleType, fuelUsage));
         }
+
         return mobileSources;
     }
 

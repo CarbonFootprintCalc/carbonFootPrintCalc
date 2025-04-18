@@ -38,4 +38,12 @@ public class FinalReportService {
     public double addToTotal(double total, Map<String, Double> toAdd) {
         return total += toAdd.get("CO2") + this.convertCH4ToCO2e(toAdd.get("CH4")) + this.convertN2OToCO2e(toAdd.get("N2O"));
     }
+
+    public Map<String, Double> compileAll(String scope, String category, double totalCO2e, double totalScope, 
+                                          double totalCategory, Map<String, Double> emissions) {
+        emissions.put(category, addToTotal(totalCategory, emissions));
+        emissions.put(scope, addToTotal(totalScope, emissions));
+        emissions.put("calculatedTotal", addToTotal(totalCO2e, emissions));
+        return emissions;
+    }
 }
