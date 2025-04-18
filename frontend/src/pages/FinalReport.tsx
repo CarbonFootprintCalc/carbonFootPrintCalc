@@ -45,18 +45,13 @@ interface LocationState {
     reportData?: FinalReportData
 }
 
-const dummyData: FinalReportData = {
-    stationaryCombustion: {co2e: 100},
-    mobileSources: {co2e: 200},
-};
-
 const FinalReportPage: React.FC = () => {
     const { state } = useLocation() as { state: LocationState };
     const navigate = useNavigate();
     const {isDarkMode } = useTheme();
 
     // if no report data is found, display message
-    const reportData = state?.reportData ?? dummyData;
+    const reportData = state?.reportData;
 
     return (
         <div className={isDarkMode ? "dark" : ""}>
