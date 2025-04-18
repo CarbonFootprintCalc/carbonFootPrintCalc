@@ -4,7 +4,7 @@ import NavBar from "../components/NavBar";
 import { useTheme } from "../context/ThemeContext";
 
 interface FinalReportEntry {
-    co2e?: number; // co2-e value
+    co2e?: number; // co2-e value, combined unit for all carbon emissions
 }
 
 interface FinalReportData {
