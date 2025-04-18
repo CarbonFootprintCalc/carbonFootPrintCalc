@@ -94,48 +94,90 @@ const unitOptions: Record<string, string[]> = {
 };
 
 // data type
+interface Emissions {
+  CO2: number;
+  CH4: number;
+  N2O: number;
+  calculatedTotal: number;
+  calculatedStationary: number;
+}
+
 interface Source {
   description: string;
   fuelType: string;
   quantity: string | number;
   unit: string;
-  emissions?: { CO2: number; CH4: number; N2O: number };
+  emissions?: Emissions;
 }
+
+const API_BASE = import.meta.env.VITE_API_URL;
 
 const StationaryFuelSelection: React.FC<ScopeSectionProps> = ({ title, description }) => {
   const [sources, setSources] = useState<Source[]>([]);
 
-  const handleAddSource = async (newSources: Omit<Source, "emissions">[]) => {
-    const updatedSources = await Promise.all(
-      newSources.map(async (source) => {
-        try {
-          const quantity = typeof source.quantity === 'string' ? 
-            Number(source.quantity) || 0 : source.quantity;
-          
-          console.log("Sending to backend:", {
+
+  const handleAddSource = async (
+    newSources: Omit<Source, "emissions">[]
+  ) => {
+    let totalCO2e = 0;
+    let totalStationary = 0;
+    const updated: Source[] = [];
+  
+    for (const source of newSources) {
+      try {
+        const quantity =
+          typeof source.quantity === "string"
+            ? Number(source.quantity) || 0
+            : source.quantity;
+  
+        const response = await axios.get<Emissions>(
+          '${API_BASE}/stationary-combustion', 
+          {
+          params: {
             quantity,
             fuelType: source.fuelType,
             unit: source.unit,
-          });
-
-          const response = await axios.get(`${import.meta.env.VITE_API_URL}/stationary-combustion`, {
-            params: {
-              quantity,
-              fuelType: source.fuelType,
-              unit: source.unit,
-            },
-          });
-
-          console.log("Response from backend:", response.data);
-          return { ...source, emissions: response.data };
-        } catch (error) {
-          console.error("Error fetching emissions data:", error);
-          return { ...source, emissions: { CO2: 0, CH4: 0, N2O: 0 } };
-        }
-      })
+            totalCO2e,
+            totalStationary,
+          },
+        });
+  
+        const {
+          CO2,
+          CH4,
+          N2O,
+          calculatedTotal,
+          calculatedStationary,
+        } = response.data;
+  
+        totalCO2e = calculatedTotal;
+        totalStationary = calculatedStationary;
+  
+        updated.push({
+          ...source,
+          emissions: { CO2, CH4, N2O, calculatedTotal, calculatedStationary },
+        });
+      } catch (err) {
+        console.error("Error fetching emissions data:", err);
+        updated.push({
+          ...source,
+          emissions: {
+            CO2: 0,
+            CH4: 0,
+            N2O: 0,
+            calculatedTotal: totalCO2e,
+            calculatedStationary: totalStationary,
+          },
+        });
+      }
+    }
+  
+    setSources((prev) => [...prev, ...updated]);
+  
+    localStorage.setItem(
+      "stationaryFuelCalculations",
+      JSON.stringify({ co2e: totalCO2e })
     );
-
-    setSources((prev) => [...prev, ...updatedSources]);
   };
 
   return (

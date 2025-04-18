@@ -49,11 +49,6 @@ interface OrganizationalFormData {
     datePrepared: string;
 }
 
-const dummyData: FinalReportData = {
-    stationaryCombustion: {co2e: 100},
-    mobileSources: {co2e: 200},
-};
-
 const FinalReportPage: React.FC = () => {
     const [reportData, setReportData] = useState<FinalReportData>({});
     const navigate = useNavigate();
