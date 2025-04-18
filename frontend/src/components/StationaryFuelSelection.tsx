@@ -7,7 +7,6 @@ interface ScopeSectionProps {
   description: string;
 }
 
-// fuel project
 const fuelOptions: Record<string, string[]> = {
   "Coal and Coke": [
     "Anthracite",
@@ -81,7 +80,7 @@ const fuelOptions: Record<string, string[]> = {
     "Propane Gas",
     "Landfill Gas",
     "Other Biomass Gases",
-  ]
+  ],
 };
 
 const unitOptions: Record<string, string[]> = {
@@ -90,52 +89,96 @@ const unitOptions: Record<string, string[]> = {
   "Miscellaneous Solid Fuels": ["Metric Tons", "Short Tons", "Kilograms", "MMBtu"],
   "Petroleum Products": ["Gallons", "Liters", "Barrels", "Kilograms", "MMBtu"],
   "Miscellaneous Liquid Fuels": ["Gallons", "Liters", "Barrels", "Kilograms", "MMBtu"],
-  "Miscellaneous Gaseous Fuels": ["Cubic Meters", "MCF", "MMBtu"]
+  "Miscellaneous Gaseous Fuels": ["Cubic Meters", "MCF", "MMBtu"],
 };
 
-// data type
+interface Emissions {
+  CO2: number;
+  CH4: number;
+  N2O: number;
+  calculatedTotal: number;
+  calculatedStationary: number;
+}
+
 interface Source {
   description: string;
   fuelType: string;
   quantity: string | number;
   unit: string;
-  emissions?: { CO2: number; CH4: number; N2O: number };
+  emissions?: Emissions;
 }
+
+const API_BASE = import.meta.env.VITE_API_URL;
 
 const StationaryFuelSelection: React.FC<ScopeSectionProps> = ({ title, description }) => {
   const [sources, setSources] = useState<Source[]>([]);
+  const [totalScope, setTotalScope] = useState(0);
 
-  const handleAddSource = async (newSources: Omit<Source, "emissions">[]) => {
-    const updatedSources = await Promise.all(
-      newSources.map(async (source) => {
-        try {
-          const quantity = typeof source.quantity === 'string' ? 
-            Number(source.quantity) || 0 : source.quantity;
-          
-          console.log("Sending to backend:", {
-            quantity,
-            fuelType: source.fuelType,
-            unit: source.unit,
-          });
+  const handleAddSource = async (
+    newSources: Omit<Source, "emissions">[]
+  ) => {
+    let totalCO2e = 0;
+    let totalStationary = 0;
+    const updated: Source[] = [];
 
-          const response = await axios.get(`${import.meta.env.VITE_API_URL}/stationary-combustion`, {
+    for (const source of newSources) {
+      try {
+        const quantity =
+          typeof source.quantity === "string"
+            ? Number(source.quantity) || 0
+            : source.quantity;
+
+        const response = await axios.get<Emissions>(
+          `${API_BASE}/stationary-combustion`,
+          {
             params: {
               quantity,
               fuelType: source.fuelType,
               unit: source.unit,
+              totalCO2e,
+              totalStationary,
+              totalScope,
             },
-          });
+          }
+        );
 
-          console.log("Response from backend:", response.data);
-          return { ...source, emissions: response.data };
-        } catch (error) {
-          console.error("Error fetching emissions data:", error);
-          return { ...source, emissions: { CO2: 0, CH4: 0, N2O: 0 } };
-        }
-      })
+        const {
+          CO2,
+          CH4,
+          N2O,
+          calculatedTotal,
+          calculatedStationary,
+        } = response.data;
+
+        totalCO2e = calculatedTotal;
+        totalStationary = calculatedStationary;
+        setTotalScope((prev) => prev + CO2 + CH4 + N2O);
+
+        updated.push({
+          ...source,
+          emissions: { CO2, CH4, N2O, calculatedTotal, calculatedStationary },
+        });
+      } catch (err) {
+        console.error("Error fetching emissions data:", err);
+        updated.push({
+          ...source,
+          emissions: {
+            CO2: 0,
+            CH4: 0,
+            N2O: 0,
+            calculatedTotal: totalCO2e,
+            calculatedStationary: totalStationary,
+          },
+        });
+      }
+    }
+
+    setSources((prev) => [...prev, ...updated]);
+
+    localStorage.setItem(
+      "stationaryFuelCalculations",
+      JSON.stringify({ co2e: totalCO2e })
     );
-
-    setSources((prev) => [...prev, ...updatedSources]);
   };
 
   return (
@@ -159,25 +202,13 @@ const StationaryFuelSelection: React.FC<ScopeSectionProps> = ({ title, descripti
           <tbody>
             {sources.map((source, index) => (
               <tr key={index} className="border border-gray-300">
-                <td className="border border-gray-300 p-2">
-                  {source.description}
-                </td>
-                <td className="border border-gray-300 p-2">
-                  {source.fuelType}
-                </td>
-                <td className="border border-gray-300 p-2">
-                  {source.quantity}
-                </td>
+                <td className="border border-gray-300 p-2">{source.description}</td>
+                <td className="border border-gray-300 p-2">{source.fuelType}</td>
+                <td className="border border-gray-300 p-2">{source.quantity}</td>
                 <td className="border border-gray-300 p-2">{source.unit}</td>
-                <td className="border border-gray-300 p-2">
-                  {source.emissions?.CO2?.toFixed(2) ?? "Calculating..."}
-                </td>
-                <td className="border border-gray-300 p-2">
-                  {source.emissions?.CH4?.toFixed(6) ?? "Calculating..."}
-                </td>
-                <td className="border border-gray-300 p-2">
-                  {source.emissions?.N2O?.toFixed(6) ?? "Calculating..."}
-                </td>
+                <td className="border border-gray-300 p-2">{source.emissions?.CO2?.toFixed(2) ?? "Calculating..."}</td>
+                <td className="border border-gray-300 p-2">{source.emissions?.CH4?.toFixed(6) ?? "Calculating..."}</td>
+                <td className="border border-gray-300 p-2">{source.emissions?.N2O?.toFixed(6) ?? "Calculating..."}</td>
               </tr>
             ))}
           </tbody>

@@ -13,9 +13,6 @@ interface AddSourceFormProps {
   unitOptions: string[];
 }
 
-// Calculated Final
-// CalculatedStationary
-
 const StationaryFuelForm: React.FC<AddSourceFormProps> = ({
   onAdd,
   fuelOptions,
@@ -27,11 +24,7 @@ const StationaryFuelForm: React.FC<AddSourceFormProps> = ({
 
   const handleInputChange = (index: number, field: string, value: string) => {
     const updatedRows = [...rows];
-    if (field === "quantity") {
-      updatedRows[index][field as keyof (typeof updatedRows)[number]] = value;
-    } else {
-      updatedRows[index][field as keyof (typeof updatedRows)[number]] = value;
-    }
+    updatedRows[index][field as keyof (typeof updatedRows)[number]] = value;
     setRows(updatedRows);
   };
 
@@ -43,53 +36,8 @@ const StationaryFuelForm: React.FC<AddSourceFormProps> = ({
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-
-    e.preventDefault()
-    try {
-      let totalCO2e = 0;
-      let totalStationary = 0;
-      const allResults: any[] = [];
-      
-      for (const row of rows) {
-        const response = await fetch(
-          `/stationary-combustion?quantity=${row.quantity}&fuelType=${encodeURIComponent(
-            row.fuelType
-          )}&unit=${encodeURIComponent(row.unit)}&totalCO2e=${totalCO2e}&totalStationary=${totalStationary}`
-        );
-
-        if (!response.ok) {
-          throw new Error(`Request failed for row: ${JSON.stringify(row)}`);
-        }
-
-        const result = await response.json();
-
-        totalCO2e = result.calculatedTotal;
-        totalStationary = result.calculatedStationary;
-
-        allResults.push({
-          description: row.description,
-          fuelType: row.fuelType,
-          quantity: row.quantity,
-          unit: row.unit,
-          emissions: {
-            CO2: result.CO2,
-            CH4: result.CH4,
-            N2O: result.N2O,
-            calculatedTotal: result.calculatedTotal,
-            calculatedStationary: result.calculatedStationary,
-          },
-        });
-      }
-
-      localStorage.setItem(
-        "stationaryFuelCalculations", 
-        JSON.stringify({ co2e: totalStationary })
-      );   
-
-    } catch (error) {
-      console.error("Error submitting Stationary Fuel form: ", error);
-    }
-    // resets form rows to initial state
+    e.preventDefault();
+    await onAdd(rows);
     setRows([{ description: "", fuelType: "", quantity: "", unit: "" }]);
   };
 
@@ -100,7 +48,6 @@ const StationaryFuelForm: React.FC<AddSourceFormProps> = ({
     >
       {rows.map((row, index) => (
         <div key={index} className="flex items-center justify-between w-full">
-          {/* Description */}
           <div className="w-[200px]">
             <input
               type="text"
@@ -113,7 +60,6 @@ const StationaryFuelForm: React.FC<AddSourceFormProps> = ({
             />
           </div>
 
-          {/* Fuel Type */}
           <div className="w-[200px] relative">
             <select
               value={row.fuelType}
@@ -131,7 +77,6 @@ const StationaryFuelForm: React.FC<AddSourceFormProps> = ({
             </select>
           </div>
 
-          {/* Quantity */}
           <div className="w-[150px]">
             <input
               type="number"
@@ -146,7 +91,6 @@ const StationaryFuelForm: React.FC<AddSourceFormProps> = ({
             />
           </div>
 
-          {/* Unit */}
           <div className="w-[150px] relative">
             <select
               value={row.unit}
@@ -162,7 +106,6 @@ const StationaryFuelForm: React.FC<AddSourceFormProps> = ({
             </select>
           </div>
 
-          {/* Remove Button (if more than one row) */}
           {rows.length > 1 && (
             <button
               type="button"
@@ -175,7 +118,6 @@ const StationaryFuelForm: React.FC<AddSourceFormProps> = ({
         </div>
       ))}
 
-      {/* Bottom Buttons */}
       <div className="flex justify-between mt-2">
         <button
           type="button"
