@@ -16,6 +16,9 @@ interface AddSourceFormProps {
 // Calculated Final
 // CalculatedStationary
 
+const API_BASE = import.meta.env.VITE_API_URL; // e.g. "https://cfc.pengyucn.com"
+
+
 const StationaryFuelForm: React.FC<AddSourceFormProps> = ({
   onAdd,
   fuelOptions,
@@ -43,55 +46,84 @@ const StationaryFuelForm: React.FC<AddSourceFormProps> = ({
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-
-    e.preventDefault()
+    e.preventDefault();
+  
     try {
       let totalCO2e = 0;
       let totalStationary = 0;
-      const allResults: any[] = [];
-      
+      const allResults: {
+        description: string;
+        fuelType: string;
+        quantity: string | number;
+        unit: string;
+        emissions: {
+          CO2: number;
+          CH4: number;
+          N2O: number;
+          calculatedTotal: number;
+          calculatedStationary: number;
+        };
+      }[] = [];
+  
       for (const row of rows) {
         const response = await fetch(
-          `/stationary-combustion?quantity=${row.quantity}&fuelType=${encodeURIComponent(
-            row.fuelType
-          )}&unit=${encodeURIComponent(row.unit)}&totalCO2e=${totalCO2e}&totalStationary=${totalStationary}`
+          `${API_BASE}/stationary-combustion?` +
+          `quantity=${row.quantity}` +
+          `&fuelType=${encodeURIComponent(row.fuelType)}` +
+          `&unit=${encodeURIComponent(row.unit)}` +
+          `&totalCO2e=${totalCO2e}` +
+          `&totalStationary=${totalStationary}`,
+          { mode: "cors" }
         );
-
+  
         if (!response.ok) {
-          throw new Error(`Request failed for row: ${JSON.stringify(row)}`);
+          const text = await response.text();
+          throw new Error(`Backend ${response.status}: ${text}`);
         }
-
-        const result = await response.json();
-
-        totalCO2e = result.calculatedTotal;
+  
+        const result = await response.json() as {
+          CO2: number;
+          CH4: number;
+          N2O: number;
+          calculatedTotal: number;
+          calculatedStationary: number;
+        };
+  
+        // advance running totals
+        totalCO2e       = result.calculatedTotal;
         totalStationary = result.calculatedStationary;
-
+  
         allResults.push({
           description: row.description,
-          fuelType: row.fuelType,
-          quantity: row.quantity,
-          unit: row.unit,
+          fuelType:   row.fuelType,
+          quantity:   row.quantity,
+          unit:       row.unit,
           emissions: {
-            CO2: result.CO2,
-            CH4: result.CH4,
-            N2O: result.N2O,
-            calculatedTotal: result.calculatedTotal,
+            CO2:                 result.CO2,
+            CH4:                 result.CH4,
+            N2O:                 result.N2O,
+            calculatedTotal:     result.calculatedTotal,
             calculatedStationary: result.calculatedStationary,
           },
         });
       }
-
+  
+      // persist only the final stationary total for the report page
       localStorage.setItem(
-        "stationaryFuelCalculations", 
+        "stationaryFuelCalculations",
         JSON.stringify({ co2e: totalStationary })
-      );   
-
+      );
+  
+      // hand the full detailed array up to the parent
+      await onAdd(allResults);
     } catch (error) {
-      console.error("Error submitting Stationary Fuel form: ", error);
+      console.error("Error submitting Stationary Fuel form:", error);
+    } finally {
+      // only clear once everything else is done
+      setRows([{ description: "", fuelType: "", quantity: "", unit: "" }]);
     }
-    // resets form rows to initial state
-    setRows([{ description: "", fuelType: "", quantity: "", unit: "" }]);
   };
+  
 
   return (
     <form
