@@ -32,6 +32,9 @@ public class Scope1Controller {
     @Resource
     ModelYearConversionService modelYearConversionService;
 
+    @Resource
+    FinalReportService finalReportService;
+
     @ResponseBody
     @GetMapping("/")
     public String root() {
@@ -41,7 +44,8 @@ public class Scope1Controller {
     // Method to calculate emissions for stationary combustion
     @ResponseBody
     @GetMapping("/stationary-combustion")
-    public Map<String, Double> stationaryCombustion(@RequestParam double quantity, @RequestParam String fuelType, @RequestParam String unit) {
+    public Map<String, Double> stationaryCombustion(@RequestParam double quantity, @RequestParam String fuelType, @RequestParam String unit,
+                                                    @RequestParam double totalCO2e, @RequestParam double totalStationary) {
 
         Map<String, Double> stationarySources = new HashMap<>(); 
         
@@ -62,6 +66,11 @@ public class Scope1Controller {
             stationarySources.put("CH4", stationaryCombustionService.CH4PerUnit(quantity, fuelType)); 
             stationarySources.put("N2O", stationaryCombustionService.N2OPerUnit(quantity, fuelType)); 
         }
+
+        // Add calculations to total stationary combustion emissions and total overall emissions
+        stationarySources.put("calculatedTotal", finalReportService.addToTotal(totalCO2e, stationarySources));
+        stationarySources.put("calculatedStationary", finalReportService.addToTotal(totalStationary, stationarySources));
+
         return stationarySources;
     }
 
