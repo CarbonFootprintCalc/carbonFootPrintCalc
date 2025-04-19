@@ -34,13 +34,13 @@ public class PurchasedElectricityService {
     // Calculate all emissions based on a subregion
     public Map<String, Double> purchElecFromSubreg(double electricityPurchased, String egridSubregion) {
         Map<String, Double> emissions = new HashMap<>();
-        emissions.put("co2", 
+        emissions.put("CO2", 
             electricityPurchased * unitConversionService.unitConversion("pounds (lb)", "kilogram (kg)", 
             electricityMapperDao.selectBySubregion(egridSubregion).getTotalCo2FactorLbPerMwh()) / 1000);
-        emissions.put("ch4",  
+        emissions.put("CH4",  
             electricityPurchased * unitConversionService.unitConversion("pounds (lb)", "kilogram (kg)", 
             electricityMapperDao.selectBySubregion(egridSubregion).getTotalCh4FactorLbPerMwh()) / 1000);        
-        emissions.put("n2o", 
+        emissions.put("N2O", 
             electricityPurchased * unitConversionService.unitConversion("pounds (lb)", "kilogram (kg)", 
             electricityMapperDao.selectBySubregion(egridSubregion).getTotalN2oFactorLbPerMwh()) / 1000);        
         return emissions;

@@ -23,20 +23,26 @@ class Scope2ControllerTest {
     @Test
     void purchasedElectricity() {
         Map<String, Double> expect = new HashMap<>();
-        expect.put("co2", 33.60268666209413);
-        expect.put("n2o", 2.7215999601423735E-4);
-        expect.put("ch4", 0.0018597600079679477);
-        Map<String, Double> actual = scope2Controller.purchasedElectricity("AZNM", 100.0, 0.0, 0.0, 0.0);
+        expect.put("CO2", 33.60268666209413);
+        expect.put("N2O", 2.7215999601423735E-4);
+        expect.put("CH4", 0.0018597600079679477);
+        expect.put("calculatedTotal", 0.0336028108577733);
+        expect.put("calculatedElecLoc", 0.0336028108577733);
+        expect.put("calculatedScope2Loc", 0.0336028108577733);
+        Map<String, Double> actual = scope2Controller.purchasedElectricity("AZNM", 100.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
         assertEquals(expect, actual);
     }
 
     @Test
     void purchasedElectricity2() {
         Map<String, Double> expect = new HashMap<>();
-        expect.put("co2", 1.0);
-        expect.put("n2o", 2.0);
-        expect.put("ch4", 1.5);
-        Map<String, Double> actual = scope2Controller.purchasedElectricity("", 100.0, 10.0, 15.0, 20.0);
+        expect.put("CO2", 1.0);
+        expect.put("N2O", 2.0);
+        expect.put("CH4", 1.5);
+        expect.put("calculatedTotal", 0.001572);
+        expect.put("calculatedElecMark", 0.001572);
+        expect.put("calculatedScope2Mark", 0.001572);
+        Map<String, Double> actual = scope2Controller.purchasedElectricity("", 100.0, 10.0, 15.0, 20.0, 0.0, 0.0, 0.0, 0.0);
         assertEquals(expect, actual);
     }
 

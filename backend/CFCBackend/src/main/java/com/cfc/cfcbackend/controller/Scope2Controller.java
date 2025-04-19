@@ -22,6 +22,9 @@ public class Scope2Controller {
     @Resource
     PurchasedSteamService purchasedSteamService;
 
+    @Resource
+    FinalReportService finalReportService;
+
     private final double DEFAULT_BOILER_EFF = 80;
 
     // Method to calculate emissions for purchased electricity
@@ -29,13 +32,15 @@ public class Scope2Controller {
     @GetMapping("/electricity")
     public Map<String, Double> purchasedElectricity(@RequestParam(required = false) String egridSubregion, @RequestParam(required = false) Double electricityPurchased,
                                                     @RequestParam(required = false) Double co2, @RequestParam(required = false) Double ch4, 
-                                                    @RequestParam(required = false) Double n2o) {
+                                                    @RequestParam(required = false) Double n2o, @RequestParam Double totalElecLoc, @RequestParam Double totalElecMark, 
+                                                    @RequestParam Double totalScope2Loc, @RequestParam Double totalScope2Mark) {
 
         Map<String, Double> emissions = new HashMap<>();
 
         // If the user uses an eGrid Subregion, calculate location-based emissions
         if(!egridSubregion.isEmpty()) {
             emissions = purchasedElectricityService.purchElecFromSubreg(electricityPurchased, egridSubregion);
+            emissions = finalReportService.compileAll("calculatedScope2Loc", "calculatedElecLoc", 0, totalScope2Loc, totalElecLoc, emissions);
         }
 
         // If the user directly inputs emission factors, calculate market-based emissions
@@ -43,6 +48,7 @@ public class Scope2Controller {
             emissions.put("CO2", purchasedElectricityService.purchElecCO2(electricityPurchased, co2));
             emissions.put("CH4", purchasedElectricityService.purchElecCH4(electricityPurchased, ch4));
             emissions.put("N2O", purchasedElectricityService.purchElecN2O(electricityPurchased, n2o));
+            emissions = finalReportService.compileAll("calculatedScope2Mark", "calculatedElecMark", 0, totalScope2Mark, totalElecMark, emissions);
         }
         return emissions;
     }
