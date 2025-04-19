@@ -27,7 +27,10 @@ class Scope3ControllerTest {
         expect.put("CO2", 1490.0000393390656);
         expect.put("CH4", 120.00000104308128);
         expect.put("N2O", 40.00000189989805);
-        Map<String, Double> actual = scope3Controller.businessTravel("Intercity Rail - Other Routes", 10000);
+        expect.put("calculatedTotal", 1.5039600398717448);
+        expect.put("calculatedBusiTra", 1.5039600398717448);
+        expect.put("calculatedScope3", 1.5039600398717448);
+        Map<String, Double> actual = scope3Controller.businessTravel("Intercity Rail - Other Routes", 10000, 0, 0, 0);
         assertEquals(expect, actual);
     }
 }
