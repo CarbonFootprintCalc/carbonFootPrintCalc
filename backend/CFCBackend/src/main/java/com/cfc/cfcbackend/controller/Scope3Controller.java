@@ -20,10 +20,20 @@ public class Scope3Controller {
     @Resource
     BusinessTravelService businessTravelService;
 
+    @Resource
+    FinalReportService finalReportService;
+
     // Method to calculate emissions for business travel
     @ResponseBody
     @GetMapping("/business-travel")
-    public Map<String, Double> businessTravel(@RequestParam String vehicleType, @RequestParam double miles) {
-        return businessTravelService.calcEmission(vehicleType, miles);
+    public Map<String, Double> businessTravel(@RequestParam String vehicleType, @RequestParam double miles,
+                                              @RequestParam double totalCO2e, @RequestParam double totalBusiTra, @RequestParam double totalScope) {
+        
+        // Calculate emissions
+        Map<String, Double> busiTraEmissions = businessTravelService.calcEmission(vehicleType, miles);;
+
+        // Add calculations to total purchased gas, scope 1, and overall emissions
+        busiTraEmissions = finalReportService.compileAll("calculatedScope3", "calculatedBusiTra", totalCO2e, totalScope, totalBusiTra, busiTraEmissions);
+        return busiTraEmissions;
     }
 }
