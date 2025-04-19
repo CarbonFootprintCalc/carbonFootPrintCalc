@@ -167,15 +167,33 @@ public class Scope1Controller {
     // Method to calculate CO2 emissions for gases used in fire suppression
     @ResponseBody
     @GetMapping("/fire-suppression")
-    public double fireSuppression(@RequestParam String gas, @RequestParam double inventoryChange, 
-                                  @RequestParam double transferredAmount, @RequestParam double capacityChange) {
-        return fireSuppressionService.fireSuppEmissions(gas, inventoryChange, transferredAmount, capacityChange);
+    public Map<String, Double> fireSuppression(@RequestParam String gas, @RequestParam double inventoryChange, 
+                                  @RequestParam double transferredAmount, @RequestParam double capacityChange, 
+                                  @RequestParam double totalCO2e, @RequestParam double totalFireSupp, @RequestParam double totalScope) {
+        Map<String, Double> fireSuppSources = new HashMap<>();
+
+        // Calculate the emissions
+        double emissions = fireSuppressionService.fireSuppEmissions(gas, inventoryChange, transferredAmount, capacityChange);
+        fireSuppSources.put("emissions", emissions);
+
+        // Add calculations to total fire suppression, scope 1, and overall emissions
+        fireSuppSources = finalReportService.compileAll("calculatedScope1", "calculatedFireSupp", totalCO2e, totalScope, totalFireSupp, fireSuppSources, emissions);
+        return fireSuppSources;
     }
 
     // Method to calculate CO2 emissions for purchased gases that were combusted onsite
     @ResponseBody
     @GetMapping("/purchase-gas")
-    public double purchasedGases(@RequestParam String gas, @RequestParam double amount) {
-        return purchasedGasesService.purchGasEmissions(gas, amount);
+    public Map<String, Double> purchasedGases(@RequestParam String gas, @RequestParam double amount,
+                                              @RequestParam double totalCO2e, @RequestParam double totalFireSupp, @RequestParam double totalScope) {
+        Map<String, Double> purchGasSources = new HashMap<>();
+
+        // Calculate the emissions
+        double emissions = purchasedGasesService.purchGasEmissions(gas, amount);
+        purchGasSources.put("emissions", emissions);
+
+        // Add calculations to total purchased gas, scope 1, and overall emissions
+        purchGasSources = finalReportService.compileAll("calculatedScope1", "calculatedPurchGas", totalCO2e, totalScope, totalFireSupp, purchGasSources, emissions);
+        return purchGasSources;
     }
 }

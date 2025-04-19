@@ -58,15 +58,23 @@ public class Scope1ControllerTest {
 
     @Test
     public void fireSuppression() {
-        Double expect = 1426500.0;
-        Double actual = scope1Controller.fireSuppression("HFC-125", 100, 300, 50);
+        Map<String, Double> expect = new HashMap<>();;
+        expect.put("emissions", 1426500.0);
+        expect.put("calculatedTotal", 1426500.0);
+        expect.put("calculatedFireSupp", 1426500.0);
+        expect.put("calculatedScope1", 1426500.0);
+        Map<String, Double> actual = scope1Controller.fireSuppression("HFC-125", 100, 300, 50, 0, 0, 0);
         assertEquals(expect, actual);
     }
 
     @Test
     public void purchasedGases() {
-        Double expect = 317000.0;
-        Double actual = scope1Controller.purchasedGases("HFC-125", 100);
+        Map<String, Double> expect = new HashMap<>();
+        expect.put("emissions", 317000.0);
+        expect.put("calculatedTotal", 317000.0);
+        expect.put("calculatedPurchGas", 317000.0);
+        expect.put("calculatedScope1", 317000.0);
+        Map<String, Double> actual = scope1Controller.purchasedGases("HFC-125", 100, 0, 0, 0);
         assertEquals(expect, actual);
     }
 }
