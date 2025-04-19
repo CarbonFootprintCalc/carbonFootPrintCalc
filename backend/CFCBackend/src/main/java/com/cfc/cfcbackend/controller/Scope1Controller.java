@@ -78,7 +78,8 @@ public class Scope1Controller {
     @GetMapping("/mobile-sources")
     public Map<String, Double> mobileSources(@RequestParam String fuelType, @RequestParam double fuelUsage,
                                              @RequestParam String vehicleType, @RequestParam int modelYear,
-                                             @RequestParam int mileage, @RequestParam boolean onRoad) {
+                                             @RequestParam int mileage, @RequestParam boolean onRoad, @RequestParam double totalCO2e, 
+                                             @RequestParam double totalMobile, @RequestParam double totalScope) {
         Map<String, Double> mobileSources = new HashMap<>();
 
         String modelYearString = "";
@@ -137,6 +138,9 @@ public class Scope1Controller {
             mobileSources.put("CH4", mobileSourcesService.emissionNonRoadCH4(fuelType ,vehicleType, fuelUsage));
             mobileSources.put("N2O", mobileSourcesService.emissionNonRoadN2O(fuelType ,vehicleType, fuelUsage));
         }
+
+        // Add calculations to total mobile combustion, scope 1, and overall emissions
+        mobileSources = finalReportService.compileAll("calculatedScope1", "calculatedMobile", totalCO2e, totalScope, totalMobile, mobileSources);
 
         return mobileSources;
     }
