@@ -34,11 +34,21 @@ public class FinalReportService {
     }
 
     // Method to only add CO2 emissions to total CO2e
-    // This can be used universally with total overall and total category emissions
+    // This can be used universally with total overall, scope, and category emissions
     public double addToTotal(double total, Map<String, Double> toAdd) {
         return total += toAdd.get("CO2") + this.convertCH4ToCO2e(toAdd.get("CH4")) + this.convertN2OToCO2e(toAdd.get("N2O"));
     }
 
+    // Method to report all compiled emissions based on a single gas
+    public Map<String, Double> compileAll(String scope, String category, double totalCO2e, double totalScope, 
+                                          double totalCategory, Map<String, Double> emissions, double toAdd) {
+        emissions.put(category, addToTotal(totalCategory, toAdd));
+        emissions.put(scope, addToTotal(totalScope, toAdd));
+        emissions.put("calculatedTotal", addToTotal(totalCO2e, toAdd));
+        return emissions;
+    }
+
+    // Method to report all compiled emissions based on all gases
     public Map<String, Double> compileAll(String scope, String category, double totalCO2e, double totalScope, 
                                           double totalCategory, Map<String, Double> emissions) {
         emissions.put(category, addToTotal(totalCategory, emissions));

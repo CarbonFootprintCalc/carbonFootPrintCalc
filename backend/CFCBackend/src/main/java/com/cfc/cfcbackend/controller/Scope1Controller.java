@@ -148,11 +148,20 @@ public class Scope1Controller {
     // Method to calculate CO2 emissions for refrigeration and AC sources
     @ResponseBody
     @GetMapping("/refrigeration-ac")
-    public double refrigerationAC(@RequestParam String gasType, @RequestParam double newCharge, 
+    public Map<String, Double> refrigerationAC(@RequestParam String gasType, @RequestParam double newCharge, 
                                   @RequestParam double newCapacity, @RequestParam double recharge, 
-                                  @RequestParam double disposedCapacity, @RequestParam double disposedRecovered) {
+                                  @RequestParam double disposedCapacity, @RequestParam double disposedRecovered,
+                                  @RequestParam double totalCO2e, @RequestParam double totalRefAC, @RequestParam double totalScope) {
 
-        return refrigerationACService.refrigACEmissions(gasType, newCharge, newCapacity, recharge, disposedCapacity, disposedRecovered);
+        Map<String, Double> refACSources = new HashMap<>();
+
+        // Calculate the emissions
+        double emissions = refrigerationACService.refrigACEmissions(gasType, newCharge, newCapacity, recharge, disposedCapacity, disposedRecovered);
+        refACSources.put("emissions", emissions);
+
+        // Add calculations to total refrigeration and AC, scope 1, and overall emissions
+        refACSources = finalReportService.compileAll("calculatedScope1", "calculatedRefAC", totalCO2e, totalScope, totalRefAC, refACSources, emissions);
+        return refACSources;
     }
 
     // Method to calculate CO2 emissions for gases used in fire suppression

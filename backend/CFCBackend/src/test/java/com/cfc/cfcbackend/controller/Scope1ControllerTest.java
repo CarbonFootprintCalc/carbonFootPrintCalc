@@ -47,8 +47,12 @@ public class Scope1ControllerTest {
 
     @Test
     public void refrigerationAC() {
-        Double expect = 1015.5;
-        Double actual = scope1Controller.refrigerationAC("HFC-32", 2, 1.5, 1, 1,1);
+        Map<String, Double> expect = new HashMap<>();
+        expect.put("emissions", 1015.5);
+        expect.put("calculatedTotal", 1015.5);
+        expect.put("calculatedRefAC", 1015.5);
+        expect.put("calculatedScope1", 1015.5);
+        Map<String, Double> actual = scope1Controller.refrigerationAC("HFC-32", 2, 1.5, 1, 1, 1, 0, 0, 0);
         assertEquals(expect, actual);
     }
 
