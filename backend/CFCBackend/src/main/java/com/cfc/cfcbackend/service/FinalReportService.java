@@ -38,7 +38,17 @@ public class FinalReportService {
     // Method to only add CO2 emissions to total CO2e in metric tons
     // This can be used universally with total overall, scope, and category emissions
     public double addToTotal(double total, Map<String, Double> toAdd) {
-        return (total += toAdd.get("CO2") + this.convertCH4ToCO2e(toAdd.get("CH4")) + this.convertN2OToCO2e(toAdd.get("N2O"))) / INC_METRIC_MAGNITUDE;
+        return (total + toAdd.get("CO2") + this.convertCH4ToCO2e(toAdd.get("CH4")) + this.convertN2OToCO2e(toAdd.get("N2O"))) / INC_METRIC_MAGNITUDE;
+    }
+
+    // Method to add location-based emissions to a total
+    public double addToLoc(double total, Map<String, Double> toAdd) {
+        return (total + toAdd.get("finalLco2") + this.convertCH4ToCO2e(toAdd.get("finalLch4")) + this.convertN2OToCO2e(toAdd.get("finalLn2o"))) / INC_METRIC_MAGNITUDE;
+    }
+
+    // Method to add market-based emissions to a total
+    public double addToMark(double total, Map<String, Double> toAdd) {
+        return (total + toAdd.get("finalMco2") + this.convertCH4ToCO2e(toAdd.get("finalMch4")) + this.convertN2OToCO2e(toAdd.get("finalMn2o"))) / INC_METRIC_MAGNITUDE;
     }
 
     // Method to report all compiled emissions based on a single gas
@@ -56,6 +66,17 @@ public class FinalReportService {
         emissions.put(category, addToTotal(totalCategory, emissions));
         emissions.put(scope, addToTotal(totalScope, emissions));
         emissions.put("calculatedTotal", addToTotal(totalCO2e, emissions));
+        return emissions;
+    }
+
+    // Method to report all compiled emissions in regards to location and market-based emissions
+    public Map<String, Double> compileMarkAndLoc(String scope, String category, double totalScopeLoc, double totalScopeMark,
+                                                 double totalCategoryLoc, double totalCategoryMark, Map<String, Double> emissions) {
+
+        emissions.put(category + "Loc", addToLoc(totalCategoryLoc, emissions));
+        emissions.put(category + "Mark", addToMark(totalCategoryMark, emissions));
+        emissions.put(scope + "Loc", addToLoc(totalScopeLoc, emissions));
+        emissions.put(scope + "Mark", addToMark(totalScopeMark, emissions));
         return emissions;
     }
 }

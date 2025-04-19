@@ -55,8 +55,12 @@ class Scope2ControllerTest {
         expect.put("finalMco2", 15024.450187683105);
         expect.put("finalMch4", 1691.25);
         expect.put("finalMn2o", 246.00000366568565);
+        expect.put("calculatedScope2Loc", 15.136995188654511);
+        expect.put("calculatedSteamLoc", 15.136995188654511);
+        expect.put("calculatedScope2Mark", 15.136995188654511);
+        expect.put("calculatedSteamMark", 15.136995188654511);
         Map<String, Double> actual = scope2Controller.purchasedSteam(123.0, "Lignite", 80.0,
-                null, null,null, null,null,null);
+                null, null,null, null,null,null, 0.0, 0.0, 0.0, 0.0);
         assertEquals(expect, actual);
     }
 
@@ -69,8 +73,12 @@ class Scope2ControllerTest {
         expect.put("finalMco2", 1757.142857142857);
         expect.put("finalMch4", 2108.5714285714284);
         expect.put("finalMn2o", 3514.285714285714);
+        expect.put("calculatedScope2Loc", 2.7622285714285715);
+        expect.put("calculatedSteamLoc", 2.7622285714285715);
+        expect.put("calculatedScope2Mark", 2.7474685714285716);
+        expect.put("calculatedSteamMark", 2.7474685714285716);
         Map<String, Double> actual = scope2Controller.purchasedSteam(123.0, "", 70.0,
-                10.0, 15.0,20.0, null,12.0,null);
+                10.0, 15.0,20.0, null,12.0,null, 0.0, 0.0, 0.0, 0.0);
         assertEquals(expect, actual);
     }
 }

@@ -35,22 +35,22 @@ public class Scope2Controller {
                                                     @RequestParam(required = false) Double n2o, @RequestParam Double totalElecLoc, @RequestParam Double totalElecMark, 
                                                     @RequestParam Double totalScope2Loc, @RequestParam Double totalScope2Mark) {
 
-        Map<String, Double> emissions = new HashMap<>();
+        Map<String, Double> elecSources = new HashMap<>();
 
         // If the user uses an eGrid Subregion, calculate location-based emissions
         if(!egridSubregion.isEmpty()) {
-            emissions = purchasedElectricityService.purchElecFromSubreg(electricityPurchased, egridSubregion);
-            emissions = finalReportService.compileAll("calculatedScope2Loc", "calculatedElecLoc", 0, totalScope2Loc, totalElecLoc, emissions);
+            elecSources = purchasedElectricityService.purchElecFromSubreg(electricityPurchased, egridSubregion);
+            elecSources = finalReportService.compileAll("calculatedScope2Loc", "calculatedElecLoc", 0, totalScope2Loc, totalElecLoc, elecSources);
         }
 
         // If the user directly inputs emission factors, calculate market-based emissions
         else {
-            emissions.put("CO2", purchasedElectricityService.purchElecCO2(electricityPurchased, co2));
-            emissions.put("CH4", purchasedElectricityService.purchElecCH4(electricityPurchased, ch4));
-            emissions.put("N2O", purchasedElectricityService.purchElecN2O(electricityPurchased, n2o));
-            emissions = finalReportService.compileAll("calculatedScope2Mark", "calculatedElecMark", 0, totalScope2Mark, totalElecMark, emissions);
+            elecSources.put("CO2", purchasedElectricityService.purchElecCO2(electricityPurchased, co2));
+            elecSources.put("CH4", purchasedElectricityService.purchElecCH4(electricityPurchased, ch4));
+            elecSources.put("N2O", purchasedElectricityService.purchElecN2O(electricityPurchased, n2o));
+            elecSources = finalReportService.compileAll("calculatedScope2Mark", "calculatedElecMark", 0, totalScope2Mark, totalElecMark, elecSources);
         }
-        return emissions;
+        return elecSources;
     }
 
     // Method to calculate emissions for purchased steam
@@ -60,9 +60,10 @@ public class Scope2Controller {
                                               @RequestParam(required = false) Double boilerEfficiency, @RequestParam(required = false) Double Lco2, 
                                               @RequestParam(required = false) Double Lch4, @RequestParam(required = false) Double Ln2o, 
                                               @RequestParam(required = false) Double Mco2, @RequestParam(required = false) Double Mch4, 
-                                              @RequestParam(required = false) Double Mn2o) {
+                                              @RequestParam(required = false) Double Mn2o, @RequestParam Double totalSteamLoc, @RequestParam Double totalSteamMark, 
+                                              @RequestParam Double totalScope2Loc, @RequestParam Double totalScope2Mark) {
                                     
-        Map<String, Double> emissions = new HashMap<>();
+        Map<String, Double> steamSources = new HashMap<>();
 
         // Set boiler efficiency to 80% if not provided
         if(boilerEfficiency == null) {
@@ -71,16 +72,16 @@ public class Scope2Controller {
 
         // If the user selects a preset fuel type, calculate emissions using that fuel type
         if(!fuelType.isEmpty()) {
-            emissions = purchasedSteamService.purchSteamFuelType(steamPurchased, fuelType, boilerEfficiency);
+            steamSources = purchasedSteamService.purchSteamFuelType(steamPurchased, fuelType, boilerEfficiency);
         }
 
         // Otherwise, the user can directly input emission factors
         else {
 
             // Calculate location-based emissions
-            emissions.put("finalLco2", purchasedSteamService.purchSteamCO2(steamPurchased, Lco2, boilerEfficiency));
-            emissions.put("finalLch4", purchasedSteamService.purchSteamCH4(steamPurchased, Lch4, boilerEfficiency));
-            emissions.put("finalLn2o", purchasedSteamService.purchSteamN2O(steamPurchased, Ln2o, boilerEfficiency));
+            steamSources.put("finalLco2", purchasedSteamService.purchSteamCO2(steamPurchased, Lco2, boilerEfficiency));
+            steamSources.put("finalLch4", purchasedSteamService.purchSteamCH4(steamPurchased, Lch4, boilerEfficiency));
+            steamSources.put("finalLn2o", purchasedSteamService.purchSteamN2O(steamPurchased, Ln2o, boilerEfficiency));
 
             // Calculate market-based emissions
             // If the emission factors aren't provided, we default them to the location-based factors
@@ -88,10 +89,13 @@ public class Scope2Controller {
             if(Mch4 == null) Mch4 = Lch4;
             if(Mn2o == null) Mn2o = Ln2o;
 
-            emissions.put("finalMco2", purchasedSteamService.purchSteamCO2(steamPurchased, Mco2, boilerEfficiency));
-            emissions.put("finalMch4", purchasedSteamService.purchSteamCH4(steamPurchased, Mch4, boilerEfficiency));
-            emissions.put("finalMn2o", purchasedSteamService.purchSteamN2O(steamPurchased, Mn2o, boilerEfficiency));
+            steamSources.put("finalMco2", purchasedSteamService.purchSteamCO2(steamPurchased, Mco2, boilerEfficiency));
+            steamSources.put("finalMch4", purchasedSteamService.purchSteamCH4(steamPurchased, Mch4, boilerEfficiency));
+            steamSources.put("finalMn2o", purchasedSteamService.purchSteamN2O(steamPurchased, Mn2o, boilerEfficiency));
         }
-        return emissions;
+        
+        // Add calculations to total location-based and market-based scope and purchased steam calculations
+        steamSources = finalReportService.compileMarkAndLoc("calculatedScope2", "calculatedSteam", totalScope2Loc, totalScope2Mark, totalSteamLoc, totalSteamMark, steamSources);
+        return steamSources;
     }
 }
