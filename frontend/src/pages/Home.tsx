@@ -67,12 +67,12 @@ const Home: React.FC = () => {
           >
             Contact Us
           </a>
-          <a href="https://techr2.com/about/#form"
+          <a href="/privacy-policy"
           className="hover:underline"
           >
             Privacy Policy
           </a>
-          <a href="https://techr2.com/about/#form"
+          <a href="/eula"
           className="hover:underline"
           >
             EULA
