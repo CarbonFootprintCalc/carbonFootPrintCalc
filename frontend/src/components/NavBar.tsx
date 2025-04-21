@@ -1,7 +1,5 @@
 // src/components/NavBar.tsx
 import React from "react";
-import SignInButton from "./SignInButton";
-import SignUpButton from "./SignUpButton";
 import ThemeToggleButton from "./ThemeToggleButton";
 
 const NavBar: React.FC = () => {
@@ -14,8 +12,6 @@ const NavBar: React.FC = () => {
       </div>
 
       <div className="flex items-center gap-4">
-        <SignInButton />
-        <SignUpButton />
         <ThemeToggleButton />
       </div>
     </header>
