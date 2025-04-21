@@ -55,17 +55,32 @@ const FinalReportPage: React.FC = () => {
     const {isDarkMode } = useTheme();
 
     useEffect(() => {
-        const stationaryCombustionData = localStorage.getItem("stationaryFuelCalculations");
-        // other variables go here
+        // build up a new reportData object
+        const data: FinalReportData = {};
+      
+        // 1️⃣ stationary fuel
+        const rawStationary = localStorage.getItem("stationaryFuelCalculations");
+        console.log("rawStationary from localStorage:", rawStationary);
 
-        const aggregatedData: FinalReportData = {
-            stationaryCombustion: stationaryCombustionData ? JSON.parse(stationaryCombustionData) : undefined,
-            // other variables go here
-
-        };
-        setReportData(aggregatedData)
-            
-    }, []);
+        if (rawStationary) {
+          try {
+            const parsed = JSON.parse(rawStationary) as { co2e?: number | string };
+            const co2e = typeof parsed.co2e === "string"
+              ? parseFloat(parsed.co2e)
+              : parsed.co2e;
+      
+            if (co2e != null && !isNaN(co2e) && isFinite(co2e)) {
+              data.stationaryCombustion = { co2e };
+            } else {
+              console.warn("Invalid stationary CO2e:", parsed.co2e);
+            }
+          } catch (e) {
+            console.warn("Could not parse stationaryFuelCalculations:", e);
+          }
+        }
+        setReportData(data);
+      }, []);
+      
     
     // retrieve organization info from sessionStorage
     const orgInfoString = localStorage.getItem("organizationInfo");
@@ -125,7 +140,7 @@ const FinalReportPage: React.FC = () => {
                                         <td className="border p-2">Stationary Combustion</td>
                                         <td className="border p-2">
                                         {reportData.stationaryCombustion !== undefined
-                                            ? Number(reportData.stationaryCombustion.co2e).toFixed(2)
+                                            ? reportData.stationaryCombustion.co2e?.toFixed(2)
                                             : "N/A"}
                                         </td>
                                     </tr>

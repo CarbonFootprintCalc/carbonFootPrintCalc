@@ -13,7 +13,7 @@ interface OrganizationFormData {
   datePrepared: string;
 }
 
-const Home = () => {
+const Home: React.FC = () => {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
 
@@ -37,19 +37,48 @@ const Home = () => {
           Welcome to EmissioTrack
         </h1>
         <p className="mt-4 text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-2xl">
-          Easily calculate and manage your carbon footprint. Navigate through the intuitive interface to start tracking emissions from stationary combustion, refrigeration, and more.
+          Easily calculate and manage your carbon footprint. Navigate through the intuitive interface to start tracking emissions for all three scopes.
         </p>
-
-        <button
-          onClick={() => setShowModal(true)}
-          className="mt-8 px-8 py-4 bg-green-500 text-white rounded-full shadow-lg hover:bg-green-600 transition-transform duration-300 transform hover:scale-105"
-        >
-          Get Started
-        </button>
+        <div className="mt-8 flex flex-col sm:flex-row items-center gap-4">
+          <button
+            onClick={() => setShowModal(true)}
+            className="px-8 py-4 bg-green-500 text-white rounded-full shadow-lg hover:bg-green-600 transition-transform duration-300 transform hover:scale-105"
+          >
+            Get Started
+          </button>
+          <button
+            onClick={() => navigate('final-report')}
+            className="px-8 py-4 bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-600 transition-transform duration-300 transform hover:scale-105"
+          >
+            View Report
+          </button>
+          </div>
       </div>
 
-      <footer className="text-center py-4 text-sm text-gray-500 dark:text-gray-400">
-        © {new Date().getFullYear()} EmissioTrack. All rights reserved.
+      <footer className="text-center py-6 text-sm text-gray-600 dark:text-gray-400 space-y-2">
+        <div className="space-x-4">
+          <a href="https://techr2.com/about/#form"
+          className="hover:underline"
+          >
+            About Us
+          </a>
+          <a href="https://techr2.com/contact/"
+          className="hover:underline"
+          >
+            Contact Us
+          </a>
+          <a href="https://techr2.com/about/#form"
+          className="hover:underline"
+          >
+            Privacy Policy
+          </a>
+          <a href="https://techr2.com/about/#form"
+          className="hover:underline"
+          >
+            EULA
+          </a>
+        </div>
+        <div>{new Date().getFullYear()} EmissioTrack. All rights reserved to TechR2.</div>
       </footer>
     </div>
   );

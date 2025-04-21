@@ -131,7 +131,7 @@ const StationaryFuelSelection: React.FC<ScopeSectionProps> = ({ title, descripti
             : source.quantity;
   
         const response = await axios.get<Emissions>(
-          '${API_BASE}/stationary-combustion', 
+          `${API_BASE}/stationary-combustion`, 
           {
           params: {
             quantity,
@@ -177,6 +177,10 @@ const StationaryFuelSelection: React.FC<ScopeSectionProps> = ({ title, descripti
     localStorage.setItem(
       "stationaryFuelCalculations",
       JSON.stringify({ co2e: totalCO2e })
+    );
+    console.log(
+      "just wrote stationaryFuelCalculations:",
+      localStorage.getItem("stationaryFuelCalculations")
     );
   };
 

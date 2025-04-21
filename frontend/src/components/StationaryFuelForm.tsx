@@ -16,8 +16,7 @@ interface AddSourceFormProps {
 // Calculated Final
 // CalculatedStationary
 
-const API_BASE = import.meta.env.VITE_API_URL; // e.g. "https://cfc.pengyucn.com"
-
+const API_BASE = import.meta.env.VITE_API_URL; 
 
 const StationaryFuelForm: React.FC<AddSourceFormProps> = ({
   onAdd,
