@@ -72,7 +72,9 @@ const Home: React.FC = () => {
           >
             Privacy Policy
           </a>
-          <a href="/eula"
+          <a href="/Carbon Footprint Application EULA.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
           className="hover:underline"
           >
             EULA

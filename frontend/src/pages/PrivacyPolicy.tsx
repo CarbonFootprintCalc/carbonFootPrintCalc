@@ -11,7 +11,6 @@ const PrivacyPolicyPage: React.FC = () => {
                 <NavBar />
 
                 <main className="max-w-3xl mx-auto p-20 p-6 space-y-8">
-                    {/* title */}
 
                     <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100"> 
                     Privacy Policy
