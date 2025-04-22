@@ -13,9 +13,6 @@ interface AddSourceFormProps {
   unitOptions: string[];
 }
 
-
-const API_BASE = import.meta.env.VITE_API_URL; 
-
 const StationaryFuelForm: React.FC<AddSourceFormProps> = ({
   onAdd,
   fuelOptions,
