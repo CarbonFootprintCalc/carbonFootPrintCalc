@@ -10,7 +10,8 @@ interface MobileSourcesFormProps {
       fuelUsage: number;
       unit: string;
       mileage: number;
-    }[]
+    }[],
+    totals: { totalCO2e: number; totalMobile: number; totalScope: number }
   ) => void;
   vehicleOptions: string[];
   fuelOptions: string[];
@@ -98,7 +99,7 @@ const MobileSourcesForm: React.FC<MobileSourcesFormProps> = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
+    
     for (const row of rows) {
       const year = Number(row.modelYear);
       if (!disableYear && (isNaN(year) || year < 1960 || year > 2025)) {
@@ -114,7 +115,11 @@ const MobileSourcesForm: React.FC<MobileSourcesFormProps> = ({
       mileage: Number(r.mileage),
     }));
 
-    onAdd(validated);
+    onAdd(validated, {
+      totalCO2e: 0,
+      totalMobile: 0,
+      totalScope: 0,
+    });
     setRows([
       {
         description: "",

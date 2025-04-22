@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import BusinessTravelForm from "./BusinessTravelForm";
+import { getFinalReport, updateFinalReportSection } from "./localStroage";
 
 interface ScopeSectionProps {
   title: string;
@@ -54,31 +55,52 @@ const BusinessTravelSelection: React.FC<ScopeSectionProps> = ({
 }) => {
   const [sources, setSources] = useState<TravelSource[]>([]);
 
-  const handleAddTravel = async (newTravels: { description: string; vehicleType: string; miles: string | number }[]) => {
-    // Convert miles to number if it's a string
+  const handleAddTravel = async (
+    newTravels: { description: string; vehicleType: string; miles: string | number }[]
+  ) => {
     const processedTravels = newTravels.map(travel => ({
       ...travel,
-      miles: typeof travel.miles === 'string' ? Number(travel.miles) || 0 : travel.miles
+      miles: typeof travel.miles === 'string' ? Number(travel.miles) || 0 : travel.miles,
     }));
-    
+  
+    const report = getFinalReport();
+    const totalCO2e = Object.values(report).reduce((acc, entry) => acc + (entry?.co2e || 0), 0);
+    const totalBusiTra = report.businessTravel?.co2e || 0;
+    const totalScope = report.scope3Summary?.co2e || 0;
+  
     const updatedSources = await Promise.all(
       processedTravels.map(async (travel) => {
         try {
           const response = await axios.get(`${import.meta.env.VITE_API_URL}/business-travel`, {
             params: {
               vehicleType: travel.vehicleType,
-              miles: Number(travel.miles),
+              miles: travel.miles,
+              totalCO2e,
+              totalBusiTra,
+              totalScope,
             },
           });
-
-          return { ...travel, emissions: response.data };
+  
+          const { CO2, CH4, N2O } = response.data;
+  
+          // 更新 scope 3 中的两个字段
+          updateFinalReportSection("businessTravel", { co2e: CO2 });
+          updateFinalReportSection("scope3Summary", { co2e: CO2 + CH4 + N2O });
+  
+          return {
+            ...travel,
+            emissions: { CO2, CH4, N2O },
+          };
         } catch (error) {
           console.error("Error fetching emissions:", error);
-          return { ...travel, emissions: { CO2: 0, CH4: 0, N2O: 0 } };
+          return {
+            ...travel,
+            emissions: { CO2: 0, CH4: 0, N2O: 0 },
+          };
         }
       })
     );
-
+  
     setSources((prev) => [...prev, ...updatedSources]);
   };
 

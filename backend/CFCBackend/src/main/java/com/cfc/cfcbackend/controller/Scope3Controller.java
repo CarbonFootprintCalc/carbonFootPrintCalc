@@ -32,7 +32,7 @@ public class Scope3Controller {
         // Calculate emissions
         Map<String, Double> busiTraEmissions = businessTravelService.calcEmission(vehicleType, miles);;
 
-        // Add calculations to total purchased gas, scope 1, and overall emissions
+        // Add calculations to total business travel, scope 3, and overall emissions
         busiTraEmissions = finalReportService.compileAll("calculatedScope3", "calculatedBusiTra", totalCO2e, totalScope, totalBusiTra, busiTraEmissions);
         return busiTraEmissions;
     }
