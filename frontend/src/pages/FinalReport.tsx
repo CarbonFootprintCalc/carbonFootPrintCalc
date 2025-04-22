@@ -119,7 +119,7 @@ const FinalReportPage: React.FC = () => {
                                         <td className="border p-2">Stationary Combustion</td>
                                         <td className="border p-2">
                                         {reportData.stationaryCombustion !== undefined
-                                            ? Number(reportData.stationaryCombustion.co2e).toFixed(2)
+                                            ? reportData.stationaryCombustion.co2e?.toFixed(2)
                                             : "N/A"}
                                         </td>
                                     </tr>

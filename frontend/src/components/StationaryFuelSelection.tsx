@@ -130,6 +130,7 @@ const StationaryFuelSelection: React.FC<ScopeSectionProps> = ({ title, descripti
             : source.quantity;
 
         const response = await axios.get<Emissions>(
+
           `${API_BASE}/stationary-combustion`,
           {
             params: {
@@ -175,7 +176,6 @@ const StationaryFuelSelection: React.FC<ScopeSectionProps> = ({ title, descripti
     }
 
     setSources((prev) => [...prev, ...updated]);
-
 
     updateFinalReportSection("stationaryCombustion", { co2e: totalCO2e });
     updateScope1Summary();

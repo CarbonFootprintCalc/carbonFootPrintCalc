@@ -10,6 +10,7 @@ import Electricity from "./pages/Electricity";
 import BusinessTravel from "./pages/BusinessTravel";
 import Steam from "./pages/Steam";
 import FinalReport from "./pages/FinalReport";
+import PrivacyPolicy from "./pages/PrivacyPolicy"
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
       <Route path="/business-travel" element={<BusinessTravel />} />
       <Route path="/steam" element={<Steam />} />
       <Route path="/final-report" element={<FinalReport />} />
+      <Route path="/privacy-policy" element={<PrivacyPolicy />} />
     </Routes>
   );
 }
