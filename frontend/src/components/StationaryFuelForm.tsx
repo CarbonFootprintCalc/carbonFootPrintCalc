@@ -13,8 +13,6 @@ interface AddSourceFormProps {
   unitOptions: string[];
 }
 
-// Calculated Final
-// CalculatedStationary
 
 const API_BASE = import.meta.env.VITE_API_URL; 
 
@@ -29,11 +27,7 @@ const StationaryFuelForm: React.FC<AddSourceFormProps> = ({
 
   const handleInputChange = (index: number, field: string, value: string) => {
     const updatedRows = [...rows];
-    if (field === "quantity") {
-      updatedRows[index][field as keyof (typeof updatedRows)[number]] = value;
-    } else {
-      updatedRows[index][field as keyof (typeof updatedRows)[number]] = value;
-    }
+    updatedRows[index][field as keyof (typeof updatedRows)[number]] = value;
     setRows(updatedRows);
   };
 
@@ -46,83 +40,9 @@ const StationaryFuelForm: React.FC<AddSourceFormProps> = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-  
-    try {
-      let totalCO2e = 0;
-      let totalStationary = 0;
-      const allResults: {
-        description: string;
-        fuelType: string;
-        quantity: string | number;
-        unit: string;
-        emissions: {
-          CO2: number;
-          CH4: number;
-          N2O: number;
-          calculatedTotal: number;
-          calculatedStationary: number;
-        };
-      }[] = [];
-  
-      for (const row of rows) {
-        const response = await fetch(
-          `${API_BASE}/stationary-combustion?` +
-          `quantity=${row.quantity}` +
-          `&fuelType=${encodeURIComponent(row.fuelType)}` +
-          `&unit=${encodeURIComponent(row.unit)}` +
-          `&totalCO2e=${totalCO2e}` +
-          `&totalStationary=${totalStationary}`,
-          { mode: "cors" }
-        );
-  
-        if (!response.ok) {
-          const text = await response.text();
-          throw new Error(`Backend ${response.status}: ${text}`);
-        }
-  
-        const result = await response.json() as {
-          CO2: number;
-          CH4: number;
-          N2O: number;
-          calculatedTotal: number;
-          calculatedStationary: number;
-        };
-  
-        // advance running totals
-        totalCO2e       = result.calculatedTotal;
-        totalStationary = result.calculatedStationary;
-  
-        allResults.push({
-          description: row.description,
-          fuelType:   row.fuelType,
-          quantity:   row.quantity,
-          unit:       row.unit,
-          emissions: {
-            CO2:                 result.CO2,
-            CH4:                 result.CH4,
-            N2O:                 result.N2O,
-            calculatedTotal:     result.calculatedTotal,
-            calculatedStationary: result.calculatedStationary,
-          },
-        });
-      }
-  
-      // persist only the final stationary total for the report page
-      localStorage.setItem(
-        "stationaryFuelCalculations",
-        JSON.stringify({ co2e: totalStationary })
-      );
-  
-      // hand the full detailed array up to the parent
-      await onAdd(allResults);
-    } catch (error) {
-      console.error("Error submitting Stationary Fuel form:", error);
-    } finally {
-      // only clear once everything else is done
-      setRows([{ description: "", fuelType: "", quantity: "", unit: "" }]);
-    }
+    await onAdd(rows);
+    setRows([{ description: "", fuelType: "", quantity: "", unit: "" }]);
   };
-  
 
   return (
     <form
@@ -131,7 +51,6 @@ const StationaryFuelForm: React.FC<AddSourceFormProps> = ({
     >
       {rows.map((row, index) => (
         <div key={index} className="flex items-center justify-between w-full">
-          {/* Description */}
           <div className="w-[200px]">
             <input
               type="text"
@@ -144,7 +63,6 @@ const StationaryFuelForm: React.FC<AddSourceFormProps> = ({
             />
           </div>
 
-          {/* Fuel Type */}
           <div className="w-[200px] relative">
             <select
               value={row.fuelType}
@@ -162,7 +80,6 @@ const StationaryFuelForm: React.FC<AddSourceFormProps> = ({
             </select>
           </div>
 
-          {/* Quantity */}
           <div className="w-[150px]">
             <input
               type="number"
@@ -177,7 +94,6 @@ const StationaryFuelForm: React.FC<AddSourceFormProps> = ({
             />
           </div>
 
-          {/* Unit */}
           <div className="w-[150px] relative">
             <select
               value={row.unit}
@@ -193,7 +109,6 @@ const StationaryFuelForm: React.FC<AddSourceFormProps> = ({
             </select>
           </div>
 
-          {/* Remove Button (if more than one row) */}
           {rows.length > 1 && (
             <button
               type="button"
@@ -206,7 +121,6 @@ const StationaryFuelForm: React.FC<AddSourceFormProps> = ({
         </div>
       ))}
 
-      {/* Bottom Buttons */}
       <div className="flex justify-between mt-2">
         <button
           type="button"
