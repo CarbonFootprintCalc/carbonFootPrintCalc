@@ -120,7 +120,7 @@ const FinalReportPage: React.FC = () => {
                                         <td className="border p-2">Stationary Combustion</td>
                                         <td className="border p-2">
                                         {reportData.stationaryCombustion !== undefined
-                                            ? reportData.stationaryCombustion.co2e?.toFixed(2)
+                                            ? reportData.stationaryCombustion.co2e?.toFixed(6)
                                             : "N/A"}
                                         </td>
                                     </tr>
@@ -130,7 +130,7 @@ const FinalReportPage: React.FC = () => {
                                         <td className="border p-2">Mobile Sources</td>
                                         <td className="border p-2">
                                             {reportData.mobileSources !== undefined
-                                            ? Number(reportData.mobileSources.co2e).toFixed(2)
+                                            ? Number(reportData.mobileSources.co2e).toFixed(6)
                                             : "N/A"}
                                         </td>
                                     </tr>
@@ -140,7 +140,7 @@ const FinalReportPage: React.FC = () => {
                                         <td className="border p-2">Refrigeration / AC Equipment Use</td>
                                         <td className="border p-2">
                                             {reportData.refrigeration !== undefined
-                                            ? Number(reportData.refrigeration.co2e).toFixed(2)
+                                            ? Number(reportData.refrigeration.co2e).toFixed(6)
                                             : "N/A"}
                                         </td>
                                     </tr>
@@ -150,7 +150,7 @@ const FinalReportPage: React.FC = () => {
                                         <td className="border p-2">Fire Suppression</td>
                                         <td className="border p-2">
                                             {reportData.fireSuppression !== undefined
-                                            ? Number(reportData.fireSuppression.co2e).toFixed(2)
+                                            ? Number(reportData.fireSuppression.co2e).toFixed(6)
                                             : "N/A"}
                                         </td>
                                     </tr>
@@ -160,7 +160,7 @@ const FinalReportPage: React.FC = () => {
                                         <td className="border p-2">Purchased Gases</td>
                                         <td className="border p-2">
                                             {reportData.purchasedGases !== undefined
-                                            ? Number(reportData.purchasedGases.co2e).toFixed(2)
+                                            ? Number(reportData.purchasedGases.co2e).toFixed(6)
                                             : "N/A"}
                                         </td>
                                     </tr>
@@ -171,7 +171,7 @@ const FinalReportPage: React.FC = () => {
                                         <td className="border p-2"><strong>Scope 1 Summary</strong></td>
                                         <td className="border p-2"><strong>
                                             {reportData.scope1Summary !== undefined
-                                            ? Number(reportData.scope1Summary.co2e).toFixed(2)
+                                            ? Number(reportData.scope1Summary.co2e).toFixed(6)
                                             : "N/A"}
                                         </strong></td>
                                     </tr>
@@ -196,7 +196,7 @@ const FinalReportPage: React.FC = () => {
                                         <td className="border p-2">Purchased and Consumed Electricity</td>
                                         <td className="border p-2">
                                             {reportData.lElectricity !== undefined
-                                                ? Number(reportData.lElectricity.co2e).toFixed(2)
+                                                ? Number(reportData.lElectricity.co2e).toFixed(6)
                                                 : "N/A"}
                                         </td>
                                     </tr>
@@ -206,7 +206,7 @@ const FinalReportPage: React.FC = () => {
                                         <td className="border p-2">Purchased and Consumed Steam</td>
                                         <td className="border p-2">
                                             {reportData.lSteam !== undefined
-                                                ? Number(reportData.lSteam.co2e).toFixed(2)
+                                                ? Number(reportData.lSteam.co2e).toFixed(6)
                                                 : "N/A"}
                                         </td>
                                     </tr>
@@ -216,7 +216,7 @@ const FinalReportPage: React.FC = () => {
                                         <td className="border p-2"><strong>Location-Based Scope 2 Summary</strong></td>
                                         <td className="border p-2"><strong>
                                             {reportData.lScope2Summary !== undefined
-                                                ? Number(reportData.lScope2Summary.co2e).toFixed(2)
+                                                ? Number(reportData.lScope2Summary.co2e).toFixed(6)
                                                 : "N/A"}
                                         </strong></td>
                                     </tr>
@@ -243,7 +243,7 @@ const FinalReportPage: React.FC = () => {
                                         <td className="border p-2">Purchased and Consumed Electricity</td>
                                         <td className="border p-2">
                                             {reportData.mElectricity !== undefined
-                                                ? Number(reportData.mElectricity.co2e).toFixed(2)
+                                                ? Number(reportData.mElectricity.co2e).toFixed(6)
                                                 : "N/A"}
                                         </td>
                                     </tr>
@@ -253,7 +253,7 @@ const FinalReportPage: React.FC = () => {
                                         <td className="border p-2">Purchased and Consumed Steam</td>
                                         <td className="border p-2">
                                             {reportData.mSteam !== undefined
-                                                ? Number(reportData.mSteam.co2e).toFixed(2)
+                                                ? Number(reportData.mSteam.co2e).toFixed(6)
                                                 : "N/A"}
                                         </td>
                                     </tr>
@@ -263,7 +263,7 @@ const FinalReportPage: React.FC = () => {
                                         <td className="border p-2"><strong>Market-Based Scope 2 Summary</strong></td>
                                         <td className="border p-2"><strong>
                                             {reportData.mScope2Summary !== undefined
-                                                ? Number(reportData.mScope2Summary.co2e).toFixed(2)
+                                                ? Number(reportData.mScope2Summary.co2e).toFixed(6)
                                                 : "N/A"}
                                         </strong></td>
                                     </tr>
@@ -290,7 +290,7 @@ const FinalReportPage: React.FC = () => {
                                         <td className="border p-2">Total Scope 1 & Location-Based Scope 2</td>
                                         <td className="border p-2">
                                             {reportData.scope1LocScope2Combined !== undefined
-                                                ? Number(reportData.scope1LocScope2Combined.co2e).toFixed(2)
+                                                ? Number(reportData.scope1LocScope2Combined.co2e).toFixed(6)
                                                 : "N/A"}
                                         </td>
                                     </tr>
@@ -300,7 +300,7 @@ const FinalReportPage: React.FC = () => {
                                         <td className="border p-2 ">Total Scope 1 & Market-Based Scope 2</td>
                                         <td className="border p-2">
                                             {reportData.scope1MarkScope2Combined !== undefined
-                                                ? Number(reportData.scope1MarkScope2Combined.co2e).toFixed(2)
+                                                ? Number(reportData.scope1MarkScope2Combined.co2e).toFixed(6)
                                                 : "N/A"}
                                         </td>
                                     </tr>       
@@ -326,7 +326,7 @@ const FinalReportPage: React.FC = () => {
                                         <td className="border p-2">Business Travel</td>
                                         <td className="border p-2">
                                             {reportData.businessTravel !== undefined
-                                                ? Number(reportData.businessTravel.co2e).toFixed(2)
+                                                ? Number(reportData.businessTravel.co2e).toFixed(6)
                                                 : "N/A"}
                                         </td>
                                     </tr>
@@ -336,7 +336,7 @@ const FinalReportPage: React.FC = () => {
                                         <td className="border p-2"><strong>Scope 3 Summary</strong></td>
                                         <td className="border p-2"><strong>
                                             {reportData.scope3Summary !== undefined
-                                                ? Number(reportData.scope3Summary.co2e).toFixed(2)
+                                                ? Number(reportData.scope3Summary.co2e).toFixed(6)
                                                 : "N/A"}
                                         </strong></td>
                                     </tr>       
@@ -362,7 +362,7 @@ const FinalReportPage: React.FC = () => {
                                         <td className="border p-2"><strong>Final Location-Based Emissions</strong></td>
                                         <td className="border p-2"><strong>
                                             {reportData.finalLocationEmissions !== undefined
-                                                ? Number(reportData.finalLocationEmissions.co2e).toFixed(2)
+                                                ? Number(reportData.finalLocationEmissions.co2e).toFixed(6)
                                                 : "N/A"}
                                         </strong></td>
                                     </tr>       
@@ -370,7 +370,7 @@ const FinalReportPage: React.FC = () => {
                                         <td className="border p-2"><strong>Final Market-Based Emissions</strong></td>
                                         <td className="border p-2"><strong>
                                             {reportData.finalMarketEmissions !== undefined
-                                                ? Number(reportData.finalMarketEmissions.co2e).toFixed(2)
+                                                ? Number(reportData.finalMarketEmissions.co2e).toFixed(6)
                                                 : "N/A"}
                                         </strong></td>
                                     </tr>       
