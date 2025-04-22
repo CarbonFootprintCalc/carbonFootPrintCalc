@@ -65,14 +65,14 @@ const OrganizationFormModal = ({ isOpen, onClose, onSubmit }: OrganizationFormMo
           {/* Organization Name */}
           <div>
             <label className="block font-medium">Organization Name<span className="text-red-500">*</span></label>
-            <input name="organizationName" onChange={handleChange} value={formData.organizationName} className="w-full p-2 border rounded" placeholder="Techr2 LLC" />
+            <input name="organizationName" onChange={handleChange} value={formData.organizationName} className="w-full p-2 border rounded" placeholder="John's Company" />
             {errors.organizationName && <p className="text-red-500 text-sm">{errors.organizationName}</p>}
           </div>
 
           {/* Address */}
           <div>
             <label className="block font-medium">Address</label>
-            <input name="address" onChange={handleChange} value={formData.address} className="w-full p-2 border rounded" placeholder="12477 Broad St SW, Pataskala, OH 43062" />
+            <input name="address" onChange={handleChange} value={formData.address} className="w-full p-2 border rounded" placeholder="1600 Pennslyvania Avenue, Washington, DC" />
           </div>
 
           {/* Reporting Period Start */}
@@ -90,13 +90,13 @@ const OrganizationFormModal = ({ isOpen, onClose, onSubmit }: OrganizationFormMo
           {/* Preparer Name */}
           <div>
             <label className="block font-medium">Preparer Name</label>
-            <input name="preparerName" onChange={handleChange} value={formData.preparerName} className="w-full p-2 border rounded" placeholder="Charles Robbins" />
+            <input name="preparerName" onChange={handleChange} value={formData.preparerName} className="w-full p-2 border rounded" placeholder="John Smith" />
           </div>
 
           {/* Contact Email */}
           <div>
             <label className="block font-medium">Contact Email</label>
-            <input name="contact" type="email" onChange={handleChange} value={formData.contact} className="w-full p-2 border rounded" placeholder="crobbins@techr2.com" />
+            <input name="contact" type="email" onChange={handleChange} value={formData.contact} className="w-full p-2 border rounded" placeholder="johnsmith@email.com" />
           </div>
 
           {/* Date Prepared */}
