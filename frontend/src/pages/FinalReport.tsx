@@ -178,7 +178,38 @@ const FinalReportPage: React.FC = () => {
                                 </tbody>
                             </table>
                         </div>
+                        <div className="w-full max-w-3xl mb-8 flex justify-end"> 
+                            {/* clear scope1 */}
+                            
+                        <button
+                            onClick={() => {
+                            const keysToClear: (keyof FinalReportData)[] = [
+                                "stationaryCombustion",
+                                "mobileSources",
+                                "refrigeration",
+                                "fireSuppression",
+                                "purchasedGases",
+                                "scope1Summary",
+                                "scope1LocScope2Combined",
+                                "scope1MarkScope2Combined",
+                                "finalLocationEmissions",
+                                "finalMarketEmissions",
+                            ];
 
+                            const current = getFinalReport();
+                            for (const key of keysToClear) {
+                                delete current[key];
+                            }
+                            localStorage.setItem("finalReportData", JSON.stringify(current));
+                            setReportData({ ...current });
+                            }}
+                            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
+                        >
+                            Clear Scope 1 Section
+                        </button>
+                        </div>   
+                        
+                                                
                         {/* Scope 2 (Location-based) Table */}
                         <div className="w-full max-w-3xl mb-8">
                             <h3 className="text-xl font-bold mb-4 dark:text-white">Scope 1 & Scope 2 Summary</h3>
@@ -307,6 +338,34 @@ const FinalReportPage: React.FC = () => {
                                 </tbody>
                             </table>
                         </div>
+{/* Clear Scope 2 Cache Button */}
+<div className="w-full max-w-3xl mb-8 flex justify-end">
+  <button
+    onClick={() => {
+      const current = getFinalReport();
+      const keysToClear: (keyof FinalReportData)[] = [
+        "lElectricity",
+        "lSteam",
+        "lScope2Summary",
+        "mElectricity",
+        "mSteam",
+        "mScope2Summary",
+        "scope1LocScope2Combined",
+        "scope1MarkScope2Combined",
+        "finalLocationEmissions",
+        "finalMarketEmissions",
+      ];
+      for (const key of keysToClear) {
+        delete current[key];
+      }
+      localStorage.setItem("finalReportData", JSON.stringify(current));
+      setReportData({ ...current });
+    }}
+    className="px-4 py-2 mt-2 bg-red-600 text-white font-semibold rounded hover:bg-red-700 transition"
+  >
+    Clear Scope 2 Data
+  </button>
+</div>
 
 
                         {/* Scope 3 Emissions */}
@@ -343,6 +402,32 @@ const FinalReportPage: React.FC = () => {
                                 </tbody>
                             </table>
                         </div>
+                        {/* Clear Scope 3 Cache Button */}
+{/* Clear Scope 3 Cache Button */}
+<div className="w-full max-w-3xl mb-8 flex justify-end">
+  <button
+    onClick={() => {
+      const current = getFinalReport();
+      const keysToClear: (keyof FinalReportData)[] = [
+        "businessTravel",
+        "scope3Summary",
+        "finalLocationEmissions",
+        "finalMarketEmissions",
+      ];
+      for (const key of keysToClear) {
+        delete current[key];
+      }
+      localStorage.setItem("finalReportData", JSON.stringify(current));
+      setReportData({ ...current });
+    }}
+    className="px-4 py-2 mt-2 bg-red-600 text-white font-semibold rounded hover:bg-red-700 transition"
+  >
+    Clear Scope 3 Data
+  </button>
+</div>
+
+
+                        
 
                         {/* Final Report */}
 
@@ -377,6 +462,21 @@ const FinalReportPage: React.FC = () => {
                                 </tbody>
                             </table>
                         </div>
+{/* Clear Final Report Cache Button */}
+{/* Clear All Report Data */}
+<div className="w-full max-w-3xl mb-8 flex justify-end">
+  <button
+    onClick={() => {
+      localStorage.removeItem("finalReportData");
+      setReportData({});
+    }}
+    className="px-4 py-2 mt-2 bg-red-700 text-white font-semibold rounded hover:bg-red-800 transition"
+  >
+    Clear All Report Data
+  </button>
+</div>
+
+      
 
                         </>
                     )}
