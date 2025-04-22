@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PurchaseGasForm from "./PurchaseGasFuelForm";
 import axios from "axios";
+import { updateFinalReportSection } from "./localStroage";
 
 interface PurchaseGasFuelSelectionProps {
   title: string;
@@ -55,24 +56,47 @@ const PurchaseGasFuelSelection: React.FC<PurchaseGasFuelSelectionProps> = ({
 }) => {
   const [sources, setSources] = useState<PurchaseGasSource[]>([]);
 
+// 确保路径正确
+
   const handleAddSource = async (newSources: PurchaseGasSource[]) => {
+    let totalCO2e = 0;
+    let totalPurchGas = 0; // ❗️你后端命名成了 totalFireSupp，建议统一为 totalPurchGas
+    let totalScope = 0;
+  
     const updatedSources = await Promise.all(
       newSources.map(async (source) => {
         try {
-          const response = await axios.get(`${import.meta.env.VITE_API_URL}/purchase-gas`, {
-            params: source,
-          });
-
-          return { ...source, emissions: response.data };
+          const response = await axios.get(
+            `${import.meta.env.VITE_API_URL}/purchase-gas`,
+            {
+              params: {
+                ...source,
+                totalCO2e,
+                totalFireSupp: totalPurchGas, 
+                totalScope,
+              },
+            }
+          );
+  
+          const emissions = response.data.emissions || 0;
+          totalCO2e += emissions;
+          totalPurchGas += emissions;
+          totalScope += emissions;
+  
+          return { ...source, emissions };
         } catch (error) {
           console.error("Error fetching emissions data:", error);
           return { ...source, emissions: 0 };
         }
       })
     );
-
+  
     setSources((prev) => [...prev, ...updatedSources]);
+  
+
+    updateFinalReportSection("purchasedGases", { co2e: totalCO2e });
   };
+  
 
   return (
     <div className="mt-8 p-4 border rounded-lg shadow-sm bg-white w-[1200px] mx-auto">

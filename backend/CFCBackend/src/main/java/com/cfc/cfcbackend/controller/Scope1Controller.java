@@ -209,7 +209,7 @@ public class Scope1Controller {
     @ResponseBody
     @GetMapping("/purchase-gas")
     public Map<String, Double> purchasedGases(@RequestParam String gas, @RequestParam double amount,
-                                              @RequestParam double totalCO2e, @RequestParam double totalFireSupp, @RequestParam double totalScope) {
+                                              @RequestParam double totalCO2e, @RequestParam double totalPurchGas, @RequestParam double totalScope) {
         Map<String, Double> purchGasSources = new HashMap<>();
 
         // Calculate the emissions
@@ -217,7 +217,7 @@ public class Scope1Controller {
         purchGasSources.put("emissions", emissions);
 
         // Add calculations to total purchased gas, scope 1, and overall emissions
-        purchGasSources = finalReportService.compileAll("calculatedScope1", "calculatedPurchGas", totalCO2e, totalScope, totalFireSupp, purchGasSources, emissions);
+        purchGasSources = finalReportService.compileAll("calculatedScope1", "calculatedPurchGas", totalCO2e, totalScope, totalPurchGas, purchGasSources, emissions);
         return purchGasSources;
     }
 }

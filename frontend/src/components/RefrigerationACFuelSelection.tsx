@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import RefrigerationACFuelForm from "./RefrigerationACFuelForm";
 import axios from "axios";
+import { updateFinalReportSection } from "./localStroage";
 
 interface RefrigerationACFuelSelectionProps {
   title: string;
@@ -88,25 +89,42 @@ const RefrigerationACFuelSelection: React.FC<
   const [sources, setSources] = useState<RefrigerationSource[]>([]);
 
   const handleAddSource = async (newSources: RefrigerationSource[]) => {
+    let totalCO2e = 0;
+    let totalRefAC = 0;
+    let totalScope = 0;
+  
     const updatedSources = await Promise.all(
       newSources.map(async (source) => {
         try {
           const response = await axios.get(
             `${import.meta.env.VITE_API_URL}/refrigeration-ac`,
             {
-              params: source,
+              params: {
+                ...source,
+                totalCO2e,
+                totalRefAC,
+                totalScope,
+              },
             }
           );
-
-          return { ...source, emissions: response.data };
+  
+          const emissions = response.data.emissions || 0;
+          totalCO2e += emissions;
+          totalRefAC += emissions;
+          totalScope += emissions;
+  
+          return { ...source, emissions };
         } catch (error) {
           console.error("Error fetching emissions data:", error);
           return { ...source, emissions: 0 };
         }
       })
     );
-
+  
     setSources((prev) => [...prev, ...updatedSources]);
+  
+    // 写入全局 localStorage
+    updateFinalReportSection("refridgeration", { co2e: totalCO2e });
   };
 
   return (

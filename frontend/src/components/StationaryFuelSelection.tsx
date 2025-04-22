@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import AddSourceForm from "./StationaryFuelForm";
 import axios from "axios";
+import { updateFinalReportSection, updateScope1Summary } from "./localStroage";
 
 interface ScopeSectionProps {
   title: string;
@@ -175,10 +176,9 @@ const StationaryFuelSelection: React.FC<ScopeSectionProps> = ({ title, descripti
 
     setSources((prev) => [...prev, ...updated]);
 
-    localStorage.setItem(
-      "stationaryFuelCalculations",
-      JSON.stringify({ co2e: totalCO2e })
-    );
+
+    updateFinalReportSection("stationaryCombustion", { co2e: totalCO2e });
+    updateScope1Summary();
   };
 
   return (

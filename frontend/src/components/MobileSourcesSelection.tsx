@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import MobileSourcesForm from "./MobileSourcesForm";
 import axios from "axios";
+import { updateFinalReportSection } from "./localStroage";
 
 interface MobileSourcesSelectionProps {
   title: string;
@@ -85,8 +86,12 @@ const MobileSourcesSelection: React.FC<MobileSourcesSelectionProps> = ({
   const [sources, setSources] = useState<MobileSource[]>([]);
 
   const handleAddSource = async (
-    newSources: Omit<MobileSource, "emissions">[]
+    newSources: Omit<MobileSource, "emissions">[],
+    totals: { totalCO2e: number; totalMobile: number; totalScope: number }
   ) => {
+    let totalCO2e = 0;
+    let totalMobile = 0;
+    let totalScope = 0;
     const updatedSources = await Promise.all(
       newSources.map(async (src) => {
         const onRoad = isOnRoadVehicle(src.vehicleType);
@@ -102,10 +107,15 @@ const MobileSourcesSelection: React.FC<MobileSourcesSelectionProps> = ({
                 modelYear: String(src.modelYear),
                 mileage: src.mileage,
                 onRoad: onRoad,
+                totalCO2e: totals.totalCO2e,
+                totalMobile: totals.totalMobile,
+                totalScope: totals.totalScope,
               },
             }
           );
-
+          const { CO2 = 0, CH4 = 0, N2O = 0 } = response.data;
+          totalCO2e += CO2 + CH4 + N2O;
+          
           return { ...src, emissions: response.data };
         } catch (err) {
           console.error("Emission fetch failed:", err);
@@ -115,6 +125,7 @@ const MobileSourcesSelection: React.FC<MobileSourcesSelectionProps> = ({
     );
 
     setSources((prev) => [...prev, ...updatedSources]);
+    updateFinalReportSection("mobileSources", { co2e: totalCO2e });
   };
 
   return (
