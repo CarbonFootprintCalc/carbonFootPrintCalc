@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import RefrigerationACFuelForm from "./RefrigerationACFuelForm";
 import axios from "axios";
-import { updateFinalReportSection } from "./localStroage";
+import { updateFinalReportSection, updateScope1Summary } from "./localStroage";
 
 interface RefrigerationACFuelSelectionProps {
   title: string;
@@ -108,10 +108,16 @@ const RefrigerationACFuelSelection: React.FC<
             }
           );
   
-          const emissions = response.data.emissions || 0;
-          totalCO2e += emissions;
-          totalRefAC += emissions;
-          totalScope += emissions;
+          const {
+            emissions = 0,
+            calculatedRefAC,
+            calculatedScope1,
+            calculatedTotal,
+          } = response.data;
+  
+          totalCO2e = calculatedTotal;
+          totalRefAC = calculatedRefAC;
+          totalScope = calculatedScope1;
   
           return { ...source, emissions };
         } catch (error) {
@@ -123,9 +129,11 @@ const RefrigerationACFuelSelection: React.FC<
   
     setSources((prev) => [...prev, ...updatedSources]);
   
-    // 写入全局 localStorage
-    updateFinalReportSection("refridgeration", { co2e: totalCO2e });
+    updateFinalReportSection("refrigeration", { co2e: totalRefAC });
+  
+    updateScope1Summary();
   };
+  
 
   return (
     <div className="mt-8 p-4 border rounded-lg shadow-sm bg-white w-[1200px] mx-auto">

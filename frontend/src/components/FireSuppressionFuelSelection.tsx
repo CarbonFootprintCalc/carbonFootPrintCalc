@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import FireSuppressionFuelForm from "./FireSuppressionFuelForm";
 import axios from "axios";
-import { updateFinalReportSection } from "./localStroage";
+import { updateFinalReportSection, updateScope1Summary } from "./localStroage";
 
 interface FireSuppressionFuelSelectionProps {
   title: string;
@@ -54,10 +54,17 @@ const FireSuppressionFuelSelection: React.FC<FireSuppressionFuelSelectionProps> 
             }
           );
   
-          const emissions = response.data.emissions || 0;
-          totalCO2e += emissions;
-          totalFireSupp += emissions;
-          totalScope += emissions;
+          const {
+            emissions = 0,
+            calculatedFireSupp,
+            calculatedScope1,
+            calculatedTotal,
+          } = response.data;
+  
+
+          totalCO2e = calculatedTotal;
+          totalFireSupp = calculatedFireSupp;
+          totalScope = calculatedScope1;
   
           return { ...source, emissions };
         } catch (error) {
@@ -69,9 +76,13 @@ const FireSuppressionFuelSelection: React.FC<FireSuppressionFuelSelectionProps> 
   
     setSources((prev) => [...prev, ...updatedSources]);
   
-    // 更新 FinalReport 的 fireSuppression 项
-    updateFinalReportSection("fireSuppression", { co2e: totalCO2e });
+
+    updateFinalReportSection("fireSuppression", { co2e: totalFireSupp });
+  
+
+    updateScope1Summary();
   };
+  
   return (
     <div className="mt-8 p-4 border rounded-lg shadow-sm bg-white w-[1200px] mx-auto">
       <h2 className="text-xl font-bold">{title}</h2>

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import { useTheme } from "../context/ThemeContext";
 import { getFinalReport } from "../components/localStroage";
+import { handleDownloadPDF } from "../components/handleDownloadPDF";
 
 interface FinalReportEntry {
     co2e?: number; // co2-e value, combined unit for all carbon emissions
@@ -13,7 +14,7 @@ interface FinalReportData {
     // scope 1
     stationaryCombustion?: FinalReportEntry;
     mobileSources?: FinalReportEntry;
-    refridgeration?: FinalReportEntry;
+    refrigeration?: FinalReportEntry;
     fireSuppression?: FinalReportEntry;
     purchasedGases?: FinalReportEntry;
     scope1Summary?: FinalReportEntry;
@@ -69,7 +70,7 @@ const FinalReportPage: React.FC = () => {
         <div className={isDarkMode ? "dark" : ""}>
             <div className="w-full min-h-screen transition-colors duration-300 dark:bg-gray-900 bg-white">
                 <NavBar />
-
+                <div id="report-content">
                 <main className="pt-20 px-4 flex flex-col items-center justify-center">
                     <h2 className="text-2xl font-bold text-center mb-8 dark:text-white">
                         Final Carbon Emissions Report
@@ -138,8 +139,8 @@ const FinalReportPage: React.FC = () => {
                                     <tr>
                                         <td className="border p-2">Refrigeration / AC Equipment Use</td>
                                         <td className="border p-2">
-                                            {reportData.refridgeration !== undefined
-                                            ? Number(reportData.refridgeration.co2e).toFixed(2)
+                                            {reportData.refrigeration !== undefined
+                                            ? Number(reportData.refrigeration.co2e).toFixed(2)
                                             : "N/A"}
                                         </td>
                                     </tr>
@@ -382,14 +383,12 @@ const FinalReportPage: React.FC = () => {
 
                     {/* Placeholder download link for PDF report */}
                     <div className="mt-4">
-                        <a 
-                            href="/download-final-report.pdf"
-                            target="_blank"
-                            rel="noopener rereferrer"
-                            className="px-6 py-2 bg-blue-500 text-white font-bold rounded hover:bg-blue-600 transition"
-                        >
-                            Download PDF Report
-                        </a>
+                    <button
+                        onClick={handleDownloadPDF}
+                        className="px-6 py-2 bg-blue-500 text-white font-bold rounded hover:bg-blue-600 transition"
+                    >
+                        Download PDF Report
+                    </button>
                     </div>
 
                     {/* Navigation Buttons */}
@@ -408,6 +407,7 @@ const FinalReportPage: React.FC = () => {
                         </button>
                     </div>
                 </main>
+                </div>
             </div>
         </div>
     )
