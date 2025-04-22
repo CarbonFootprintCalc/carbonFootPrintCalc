@@ -1,7 +1,6 @@
 // src/components/NavBar.tsx
 import React from "react";
 import { Link } from "react-router-dom";
-import ThemeToggleButton from "./ThemeToggleButton";
 
 const NavBar: React.FC = () => {
   return (
@@ -12,11 +11,6 @@ const NavBar: React.FC = () => {
             EmissioTrack
           </h1>
         </Link>
-      </div>
-      
-
-      <div className="flex items-center gap-4">
-        <ThemeToggleButton />
       </div>
     </header>
   );
