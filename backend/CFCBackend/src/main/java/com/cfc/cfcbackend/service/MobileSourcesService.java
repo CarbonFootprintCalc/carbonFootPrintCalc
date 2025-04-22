@@ -32,7 +32,7 @@ public class MobileSourcesService {
         if (fuelType.equals("Ethanol")) {
             return fuelUsage * mobilecombustionco2Dao.selectByFuelType("Motor Gasoline").getCo2FactorKgco2PerUnit() * 0.2;
         } else if (fuelType.equals("Biodiesel")) {
-            return fuelUsage * mobilecombustionco2Dao.selectByFuelType("Diesel Fuel").getCo2FactorKgco2PerUnit() * 0.8;
+            return fuelUsage * mobilecombustionco2Dao.selectByFuelType("Diesel").getCo2FactorKgco2PerUnit() * 0.8;
         }
         return fuelUsage * mobilecombustionco2Dao.selectByFuelType(fuelType).getCo2FactorKgco2PerUnit();
     }
