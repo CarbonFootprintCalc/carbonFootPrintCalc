@@ -45,9 +45,9 @@ class PurchasedElectricityServiceTest {
     @Test
     void purchElecFromSubreg() {
         Map<String, Double> expect = new HashMap<>();
-        expect.put("co2", 432.46224098173116);
-        expect.put("ch4", 0.02267999980866908);
-        expect.put("n2o", .0027215999601423735);
+        expect.put("CO2", 432.46224098173116);
+        expect.put("CH4", 0.02267999980866908);
+        expect.put("N2O", .0027215999601423735);
         Map<String, Double> actual = purchasedElectricityService.purchElecFromSubreg(2000, "CAMX");
         assertEquals(expect, actual);
     }

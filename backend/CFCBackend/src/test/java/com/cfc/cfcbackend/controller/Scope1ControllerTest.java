@@ -27,7 +27,7 @@ public class Scope1ControllerTest {
         expect.put("calculatedTotal", 17.595800234031678);
         expect.put("calculatedStationary", 17.595800234031678);
         expect.put("calculatedScope1", 17.595800234031678);
-        Map<String, Double> actual = scope1Controller.stationaryCombustion(200, "Tires", "mmBtu", 0, 0, 0);
+        Map<String, Double> actual = scope1Controller.stationaryCombustion(200, "Tires", "MMBtu", 0, 0, 0);
         assertEquals(expect, actual);
     }
 
