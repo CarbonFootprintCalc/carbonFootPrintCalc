@@ -1,6 +1,9 @@
 package com.cfc.cfcbackend.controller;
 
 import com.cfc.cfcbackend.service.*;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,15 +50,36 @@ public class Scope1Controller {
     public Map<String, Double> stationaryCombustion(@RequestParam double quantity, @RequestParam String fuelType, @RequestParam String unit,
                                                     @RequestParam double totalCO2e, @RequestParam double totalStationary, @RequestParam double totalScope) {
 
-        Map<String, Double> stationarySources = new HashMap<>(); 
+        Map<String, Double> stationarySources = new HashMap<>();
         
         // Convert therms to scf (unit) for gases
         if(unit.equals("Therm")) {
             quantity *= SCF_CONVERTER;
         }
 
+        switch(unit) {
+            case "Cubic Meters":
+                quantity *= 35.31;
+                break;
+            case "MCF":
+                quantity *= 1000;
+                break;
+            case "Metric Tons":
+                quantity *= 1.102;
+                break;
+            case "Kilograms":
+                quantity *= 0.001102;
+                break;
+            case "Liters":
+                quantity *= 0.2642;
+                break;
+            case "Barrels":
+                quantity *= 42;
+                break;
+        }
+
         // Calculate emissions based on the mmBtu
-        if(unit.equals("mmBtu")) {
+        if(unit.equals("MMBtu")) {
             stationarySources.put("CO2", stationaryCombustionService.CO2PerMMBtu(quantity, fuelType)); 
             stationarySources.put("CH4", stationaryCombustionService.CH4PerMMBtu(quantity, fuelType)); 
             stationarySources.put("N2O", stationaryCombustionService.N2OPerMMBtu(quantity, fuelType)); 
@@ -185,7 +209,7 @@ public class Scope1Controller {
     @ResponseBody
     @GetMapping("/purchase-gas")
     public Map<String, Double> purchasedGases(@RequestParam String gas, @RequestParam double amount,
-                                              @RequestParam double totalCO2e, @RequestParam double totalFireSupp, @RequestParam double totalScope) {
+                                              @RequestParam double totalCO2e, @RequestParam double totalPurchGas, @RequestParam double totalScope) {
         Map<String, Double> purchGasSources = new HashMap<>();
 
         // Calculate the emissions
@@ -193,7 +217,7 @@ public class Scope1Controller {
         purchGasSources.put("emissions", emissions);
 
         // Add calculations to total purchased gas, scope 1, and overall emissions
-        purchGasSources = finalReportService.compileAll("calculatedScope1", "calculatedPurchGas", totalCO2e, totalScope, totalFireSupp, purchGasSources, emissions);
+        purchGasSources = finalReportService.compileAll("calculatedScope1", "calculatedPurchGas", totalCO2e, totalScope, totalPurchGas, purchGasSources, emissions);
         return purchGasSources;
     }
 }

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import SteamForm from "./SteamForm";
+import { updateFinalReportSection, updateScope2SummaryLocation, updateScope2SummaryMarket, updateScope1LocScope2Combined, updateScope1MarkScope2Combined, updateFinalLocationEmissions, updateFinalMarketEmissions, getFinalReport } from "./localStroage";
 
 interface SteamSelectionProps {
   title: string;
@@ -12,7 +13,12 @@ interface SteamSource {
   steamPurchased: number;
   fuelType: string;
   boilerEfficiency: number;
-
+  Lco2?: number;
+  Lch4?: number;
+  Ln2o?: number;
+  Mco2?: number;
+  Mch4?: number;
+  Mn2o?: number;
   // final calculations
   finalLco2?: number;
   finalLch4?: number;
@@ -46,31 +52,85 @@ const SteamSelection: React.FC<SteamSelectionProps> = ({
   const [useAlternateMethod, setUseAlternateMethod] = useState<null | boolean>(null);
 
   const handleAddSource = async (newSources: SteamSource[]) => {
+    let totalLoc = 0;
+    let totalMark = 0;
+
+  
+    const report = getFinalReport();
+  
     const updated = await Promise.all(
       newSources.map(async (source) => {
+        const {
+          steamPurchased,
+          fuelType,
+          boilerEfficiency,
+          Lco2,
+          Lch4,
+          Ln2o,
+          Mco2,
+          Mch4,
+          Mn2o,
+        } = source;
+  
+        const isAlternate = !!fuelType; // 有 fuelType 就是 alternate method
+  
         try {
           const res = await axios.get(`${import.meta.env.VITE_API_URL}/steam`, {
-            params: source,
+            params: {
+              steamPurchased,
+              fuelType: isAlternate ? fuelType : "", // 必须手动设 ""，不然 spring 会报错
+              boilerEfficiency,
+              Lco2: isAlternate ? undefined : Lco2,
+              Lch4: isAlternate ? undefined : Lch4,
+              Ln2o: isAlternate ? undefined : Ln2o,
+              Mco2: isAlternate ? undefined : Mco2,
+              Mch4: isAlternate ? undefined : Mch4,
+              Mn2o: isAlternate ? undefined : Mn2o,
+              totalSteamLoc: report.lSteam?.co2e || 0,
+              totalSteamMark: report.mSteam?.co2e || 0,
+              totalScope2Loc: report.lScope2Summary?.co2e || 0,
+              totalScope2Mark: report.mScope2Summary?.co2e || 0,
+            },
           });
-
+  
+          const {
+            finalLco2, finalLch4, finalLn2o,
+            finalMco2, finalMch4, finalMn2o,
+          } = res.data;
+  
+          totalLoc += finalLco2 + finalLch4 + finalLn2o;
+          totalMark += finalMco2 + finalMch4 + finalMn2o;
+  
           return {
             ...source,
-            finalLco2: res.data.finalLco2,
-            finalLch4: res.data.finalLch4,
-            finalLn2o: res.data.finalLn2o,
-            finalMco2: res.data.finalMco2,
-            finalMch4: res.data.finalMch4,
-            finalMn2o: res.data.finalMn2o,
+            finalLco2, finalLch4, finalLn2o,
+            finalMco2, finalMch4, finalMn2o,
           };
         } catch (err) {
           console.error("Fetch error:", err);
-          return { ...source, finalLco2: 0, finalLch4: 0, finalLn2o: 0, finalMco2: 0, finalMch4: 0, finalMn2o: 0 };
+          return {
+            ...source,
+            finalLco2: 0, finalLch4: 0, finalLn2o: 0,
+            finalMco2: 0, finalMch4: 0, finalMn2o: 0,
+          };
         }
       })
     );
-
+  
     setSources((prev) => [...prev, ...updated]);
+  
+    updateFinalReportSection("lSteam", { co2e: totalLoc });
+    updateFinalReportSection("mSteam", { co2e: totalMark });
+  
+    updateScope2SummaryLocation();
+    updateScope2SummaryMarket();
+    updateScope1LocScope2Combined();
+    updateScope1MarkScope2Combined();
+    updateFinalLocationEmissions();
+    updateFinalMarketEmissions();
   };
+  
+  
 
   return (
     <div className="mt-8 p-4 border rounded-lg shadow-sm bg-white max-w-7xl mx-auto">

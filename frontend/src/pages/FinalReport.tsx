@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import { useTheme } from "../context/ThemeContext";
+import { getFinalReport } from "../components/localStroage";
 
 interface FinalReportEntry {
     co2e?: number; // co2-e value, combined unit for all carbon emissions
@@ -36,7 +37,8 @@ interface FinalReportData {
     scope3Summary?: FinalReportEntry;
 
     // final report
-    finalEmissions?: FinalReportEntry;
+    finalLocationEmissions?: FinalReportEntry;
+    finalMarketEmissions?: FinalReportEntry;
 }
 
 interface OrganizationalFormData {
@@ -55,32 +57,9 @@ const FinalReportPage: React.FC = () => {
     const {isDarkMode } = useTheme();
 
     useEffect(() => {
-        // build up a new reportData object
-        const data: FinalReportData = {};
-      
-        // 1️⃣ stationary fuel
-        const rawStationary = localStorage.getItem("stationaryFuelCalculations");
-        console.log("rawStationary from localStorage:", rawStationary);
-
-        if (rawStationary) {
-          try {
-            const parsed = JSON.parse(rawStationary) as { co2e?: number | string };
-            const co2e = typeof parsed.co2e === "string"
-              ? parseFloat(parsed.co2e)
-              : parsed.co2e;
-      
-            if (co2e != null && !isNaN(co2e) && isFinite(co2e)) {
-              data.stationaryCombustion = { co2e };
-            } else {
-              console.warn("Invalid stationary CO2e:", parsed.co2e);
-            }
-          } catch (e) {
-            console.warn("Could not parse stationaryFuelCalculations:", e);
-          }
-        }
-        setReportData(data);
+        const finalReport = getFinalReport();
+        setReportData(finalReport);
       }, []);
-      
     
     // retrieve organization info from sessionStorage
     const orgInfoString = localStorage.getItem("organizationInfo");
@@ -365,6 +344,7 @@ const FinalReportPage: React.FC = () => {
                         </div>
 
                         {/* Final Report */}
+
                         <div className="w-full max-w-3xl mb-8">
                             <h3 className="text-xl font-bold mb-4 dark:text-white">Final Emissions</h3>
                             <table className="w-full table-auto border-collapse">
@@ -378,10 +358,18 @@ const FinalReportPage: React.FC = () => {
 
                                     {/* Final Report */}
                                     <tr>
-                                        <td className="border p-2"><strong>Final Emissions</strong></td>
+                                        <td className="border p-2"><strong>Final Location-Based Emissions</strong></td>
                                         <td className="border p-2"><strong>
-                                            {reportData.finalEmissions !== undefined
-                                                ? Number(reportData.finalEmissions.co2e).toFixed(2)
+                                            {reportData.finalLocationEmissions !== undefined
+                                                ? Number(reportData.finalLocationEmissions.co2e).toFixed(2)
+                                                : "N/A"}
+                                        </strong></td>
+                                    </tr>       
+                                    <tr>
+                                        <td className="border p-2"><strong>Final Market-Based Emissions</strong></td>
+                                        <td className="border p-2"><strong>
+                                            {reportData.finalMarketEmissions !== undefined
+                                                ? Number(reportData.finalMarketEmissions.co2e).toFixed(2)
                                                 : "N/A"}
                                         </strong></td>
                                     </tr>       

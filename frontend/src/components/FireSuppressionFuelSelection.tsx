@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import FireSuppressionFuelForm from "./FireSuppressionFuelForm";
 import axios from "axios";
+import { updateFinalReportSection } from "./localStroage";
 
 interface FireSuppressionFuelSelectionProps {
   title: string;
@@ -34,24 +35,43 @@ const FireSuppressionFuelSelection: React.FC<FireSuppressionFuelSelectionProps> 
   const [sources, setSources] = useState<FireSuppressionSource[]>([]);
 
   const handleAddSource = async (newSources: FireSuppressionSource[]) => {
+    let totalCO2e = 0;
+    let totalFireSupp = 0;
+    let totalScope = 0;
+  
     const updatedSources = await Promise.all(
       newSources.map(async (source) => {
         try {
-          const response = await axios.get(`${import.meta.env.VITE_API_URL}/fire-suppression`, {
-            params: source,
-          });
-
-          return { ...source, emissions: response.data };
+          const response = await axios.get(
+            `${import.meta.env.VITE_API_URL}/fire-suppression`,
+            {
+              params: {
+                ...source,
+                totalCO2e,
+                totalFireSupp,
+                totalScope,
+              },
+            }
+          );
+  
+          const emissions = response.data.emissions || 0;
+          totalCO2e += emissions;
+          totalFireSupp += emissions;
+          totalScope += emissions;
+  
+          return { ...source, emissions };
         } catch (error) {
           console.error("Error fetching emissions data:", error);
           return { ...source, emissions: 0 };
         }
       })
     );
-
+  
     setSources((prev) => [...prev, ...updatedSources]);
+  
+    // 更新 FinalReport 的 fireSuppression 项
+    updateFinalReportSection("fireSuppression", { co2e: totalCO2e });
   };
-
   return (
     <div className="mt-8 p-4 border rounded-lg shadow-sm bg-white w-[1200px] mx-auto">
       <h2 className="text-xl font-bold">{title}</h2>

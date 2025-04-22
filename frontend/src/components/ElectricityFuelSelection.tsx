@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import ElectricityFuelForm from "./ElectricityFuelForm";
+import { FinalReportEntry, updateFinalReportSection } from "./localStroage";
 
 interface ElectricityFuelSelectionProps {
   title: string;
@@ -55,18 +56,30 @@ const ElectricityFuelSelection: React.FC<ElectricityFuelSelectionProps> = ({
   const [useMarketBased, setUseMarketBased] = useState<null | boolean>(null);
 
   const handleAddSource = async (newSources: ElectricitySource[]) => {
+    let totalCO2 = 0, totalCH4 = 0, totalN2O = 0;
+  
     const updated = await Promise.all(
       newSources.map(async (source) => {
         try {
           const res = await axios.get(`${import.meta.env.VITE_API_URL}/electricity`, {
-            params: source,
+            params: {
+              ...source,
+              totalElecLoc: 0,
+              totalElecMark: 0,
+              totalScope2Loc: 0,
+              totalScope2Mark: 0,
+            },
           });
-
+  
+          totalCO2 += res.data.CO2 || 0;
+          totalCH4 += res.data.CH4 || 0;
+          totalN2O += res.data.N2O || 0;
+  
           return {
             ...source,
-            co2: res.data.co2,
-            ch4: res.data.ch4,
-            n2o: res.data.n2o,
+            co2: res.data.CO2,
+            ch4: res.data.CH4,
+            n2o: res.data.N2O,
           };
         } catch (err) {
           console.error("Fetch error:", err);
@@ -74,8 +87,13 @@ const ElectricityFuelSelection: React.FC<ElectricityFuelSelectionProps> = ({
         }
       })
     );
-
+  
     setSources((prev) => [...prev, ...updated]);
+  
+    const total = totalCO2 + totalCH4 + totalN2O;
+    const key = useMarketBased ? "mElectricity" : "lElectricity";
+  
+    updateFinalReportSection(key, { co2e: total } as FinalReportEntry);
   };
 
   return (

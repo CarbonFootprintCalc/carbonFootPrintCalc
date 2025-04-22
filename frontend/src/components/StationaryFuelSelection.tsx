@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import AddSourceForm from "./StationaryFuelForm";
 import axios from "axios";
+import { updateFinalReportSection, updateScope1Summary } from "./localStroage";
 
 interface ScopeSectionProps {
   title: string;
@@ -87,8 +88,8 @@ const unitOptions: Record<string, string[]> = {
   "Natural Gas": ["Cubic Meters", "MCF", "MMBtu"],
   "Coal and Coke": ["Metric Tons", "Short Tons", "Kilograms", "MMBtu"],
   "Miscellaneous Solid Fuels": ["Metric Tons", "Short Tons", "Kilograms", "MMBtu"],
-  "Petroleum Products": ["Gallons", "Liters", "Barrels", "Kilograms", "MMBtu"],
-  "Miscellaneous Liquid Fuels": ["Gallons", "Liters", "Barrels", "Kilograms", "MMBtu"],
+  "Petroleum Products": ["Gallons", "Liters", "Barrels", "MMBtu"],
+  "Miscellaneous Liquid Fuels": ["Gallons", "Liters", "Barrels", "MMBtu"],
   "Miscellaneous Gaseous Fuels": ["Cubic Meters", "MCF", "MMBtu"],
 };
 
@@ -176,14 +177,8 @@ const StationaryFuelSelection: React.FC<ScopeSectionProps> = ({ title, descripti
 
     setSources((prev) => [...prev, ...updated]);
 
-    localStorage.setItem(
-      "stationaryFuelCalculations",
-      JSON.stringify({ co2e: totalCO2e })
-    );
-    console.log(
-      "just wrote stationaryFuelCalculations:",
-      localStorage.getItem("stationaryFuelCalculations")
-    );
+    updateFinalReportSection("stationaryCombustion", { co2e: totalCO2e });
+    updateScope1Summary();
   };
 
   return (
