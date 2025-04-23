@@ -54,7 +54,6 @@ const SteamSelection: React.FC<SteamSelectionProps> = ({
   const handleAddSource = async (newSources: SteamSource[]) => {
     let totalLoc = 0;
     let totalMark = 0;
-
   
     const report = getFinalReport();
   
@@ -72,14 +71,14 @@ const SteamSelection: React.FC<SteamSelectionProps> = ({
           Mn2o,
         } = source;
   
-        const isAlternate = !!fuelType; // 有 fuelType 就是 alternate method
+        const isAlternate = !!fuelType;
   
         try {
           const res = await axios.get(`${import.meta.env.VITE_API_URL}/steam`, {
             params: {
               steamPurchased,
-              fuelType: isAlternate ? fuelType : "", // 必须手动设 ""，不然 spring 会报错
-              boilerEfficiency,
+              fuelType: isAlternate ? fuelType : "",
+              boilerEfficiency: boilerEfficiency ?? undefined, // safe fallback
               Lco2: isAlternate ? undefined : Lco2,
               Lch4: isAlternate ? undefined : Lch4,
               Ln2o: isAlternate ? undefined : Ln2o,
@@ -96,10 +95,12 @@ const SteamSelection: React.FC<SteamSelectionProps> = ({
           const {
             finalLco2, finalLch4, finalLn2o,
             finalMco2, finalMch4, finalMn2o,
+            calculatedSteamLoc,
+            calculatedSteamMark,
           } = res.data;
   
-          totalLoc += finalLco2 + finalLch4 + finalLn2o;
-          totalMark += finalMco2 + finalMch4 + finalMn2o;
+          totalLoc = calculatedSteamLoc;
+          totalMark = calculatedSteamMark;
   
           return {
             ...source,
@@ -107,7 +108,7 @@ const SteamSelection: React.FC<SteamSelectionProps> = ({
             finalMco2, finalMch4, finalMn2o,
           };
         } catch (err) {
-          console.error("Fetch error:", err);
+          console.error("Steam fetch error:", err);
           return {
             ...source,
             finalLco2: 0, finalLch4: 0, finalLn2o: 0,
@@ -129,6 +130,7 @@ const SteamSelection: React.FC<SteamSelectionProps> = ({
     updateFinalLocationEmissions();
     updateFinalMarketEmissions();
   };
+  
   
   
 

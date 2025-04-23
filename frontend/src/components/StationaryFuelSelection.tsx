@@ -120,46 +120,48 @@ const StationaryFuelSelection: React.FC<ScopeSectionProps> = ({ title, descripti
   ) => {
     let totalCO2e = 0;
     let totalStationary = 0;
+    let totalScope = 0;
     const updated: Source[] = [];
-
+  
     for (const source of newSources) {
       try {
-        const quantity =
-          typeof source.quantity === "string"
-            ? Number(source.quantity) || 0
-            : source.quantity;
-
-        const response = await axios.get<Emissions>(
-
-          `${API_BASE}/stationary-combustion`,
-          {
-            params: {
-              quantity,
-              fuelType: source.fuelType,
-              unit: source.unit,
-              totalCO2e,
-              totalStationary,
-              totalScope,
-            },
-          }
-        );
-
+        const quantity = typeof source.quantity === "string" ? Number(source.quantity) || 0 : source.quantity;
+  
+        const response = await axios.get(`${API_BASE}/stationary-combustion`, {
+          params: {
+            quantity,
+            fuelType: source.fuelType,
+            unit: source.unit,
+            totalCO2e,
+            totalStationary,
+            totalScope,
+          },
+        });
+  
         const {
           CO2,
           CH4,
           N2O,
           calculatedTotal,
           calculatedStationary,
+          calculatedScope1,
         } = response.data;
-
+  
         totalCO2e = calculatedTotal;
         totalStationary = calculatedStationary;
-        setTotalScope((prev) => prev + CO2 + CH4 + N2O);
-
+        totalScope = calculatedScope1;
+  
         updated.push({
           ...source,
-          emissions: { CO2, CH4, N2O, calculatedTotal, calculatedStationary },
+          emissions: {
+            CO2,
+            CH4,
+            N2O,
+            calculatedTotal,
+            calculatedStationary,
+          },
         });
+  
       } catch (err) {
         console.error("Error fetching emissions data:", err);
         updated.push({
@@ -174,12 +176,15 @@ const StationaryFuelSelection: React.FC<ScopeSectionProps> = ({ title, descripti
         });
       }
     }
-
+  
     setSources((prev) => [...prev, ...updated]);
+  
 
-    updateFinalReportSection("stationaryCombustion", { co2e: totalCO2e });
+    updateFinalReportSection("stationaryCombustion", { co2e: totalStationary });
+  
     updateScope1Summary();
   };
+  
 
   return (
     <div className="mt-8 p-4 border border-gray-300 rounded-lg shadow-sm bg-white w-[900px] mx-auto">

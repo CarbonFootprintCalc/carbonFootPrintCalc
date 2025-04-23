@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import { useTheme } from "../context/ThemeContext";
 import { getFinalReport } from "../components/localStroage";
+import { handleDownloadPDF } from "../components/handleDownloadPDF";
 
 interface FinalReportEntry {
     co2e?: number; // co2-e value, combined unit for all carbon emissions
@@ -13,7 +14,7 @@ interface FinalReportData {
     // scope 1
     stationaryCombustion?: FinalReportEntry;
     mobileSources?: FinalReportEntry;
-    refridgeration?: FinalReportEntry;
+    refrigeration?: FinalReportEntry;
     fireSuppression?: FinalReportEntry;
     purchasedGases?: FinalReportEntry;
     scope1Summary?: FinalReportEntry;
@@ -69,7 +70,7 @@ const FinalReportPage: React.FC = () => {
         <div className={isDarkMode ? "dark" : ""}>
             <div className="w-full min-h-screen transition-colors duration-300 dark:bg-gray-900 bg-white">
                 <NavBar />
-
+                <div id="report-content">
                 <main className="pt-20 px-4 flex flex-col items-center justify-center">
                     <h2 className="text-2xl font-bold text-center mb-8 dark:text-white">
                         Final Carbon Emissions Report
@@ -119,7 +120,7 @@ const FinalReportPage: React.FC = () => {
                                         <td className="border p-2">Stationary Combustion</td>
                                         <td className="border p-2">
                                         {reportData.stationaryCombustion !== undefined
-                                            ? reportData.stationaryCombustion.co2e?.toFixed(2)
+                                            ? reportData.stationaryCombustion.co2e?.toFixed(6)
                                             : "N/A"}
                                         </td>
                                     </tr>
@@ -129,7 +130,7 @@ const FinalReportPage: React.FC = () => {
                                         <td className="border p-2">Mobile Sources</td>
                                         <td className="border p-2">
                                             {reportData.mobileSources !== undefined
-                                            ? Number(reportData.mobileSources.co2e).toFixed(2)
+                                            ? Number(reportData.mobileSources.co2e).toFixed(6)
                                             : "N/A"}
                                         </td>
                                     </tr>
@@ -138,8 +139,8 @@ const FinalReportPage: React.FC = () => {
                                     <tr>
                                         <td className="border p-2">Refrigeration / AC Equipment Use</td>
                                         <td className="border p-2">
-                                            {reportData.refridgeration !== undefined
-                                            ? Number(reportData.refridgeration.co2e).toFixed(2)
+                                            {reportData.refrigeration !== undefined
+                                            ? Number(reportData.refrigeration.co2e).toFixed(6)
                                             : "N/A"}
                                         </td>
                                     </tr>
@@ -149,7 +150,7 @@ const FinalReportPage: React.FC = () => {
                                         <td className="border p-2">Fire Suppression</td>
                                         <td className="border p-2">
                                             {reportData.fireSuppression !== undefined
-                                            ? Number(reportData.fireSuppression.co2e).toFixed(2)
+                                            ? Number(reportData.fireSuppression.co2e).toFixed(6)
                                             : "N/A"}
                                         </td>
                                     </tr>
@@ -159,7 +160,7 @@ const FinalReportPage: React.FC = () => {
                                         <td className="border p-2">Purchased Gases</td>
                                         <td className="border p-2">
                                             {reportData.purchasedGases !== undefined
-                                            ? Number(reportData.purchasedGases.co2e).toFixed(2)
+                                            ? Number(reportData.purchasedGases.co2e).toFixed(6)
                                             : "N/A"}
                                         </td>
                                     </tr>
@@ -170,14 +171,45 @@ const FinalReportPage: React.FC = () => {
                                         <td className="border p-2"><strong>Scope 1 Summary</strong></td>
                                         <td className="border p-2"><strong>
                                             {reportData.scope1Summary !== undefined
-                                            ? Number(reportData.scope1Summary.co2e).toFixed(2)
+                                            ? Number(reportData.scope1Summary.co2e).toFixed(6)
                                             : "N/A"}
                                         </strong></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
+                        <div className="w-full max-w-3xl mb-8 flex justify-end"> 
+                            {/* clear scope1 */}
+                            
+                        <button
+                            onClick={() => {
+                            const keysToClear: (keyof FinalReportData)[] = [
+                                "stationaryCombustion",
+                                "mobileSources",
+                                "refrigeration",
+                                "fireSuppression",
+                                "purchasedGases",
+                                "scope1Summary",
+                                "scope1LocScope2Combined",
+                                "scope1MarkScope2Combined",
+                                "finalLocationEmissions",
+                                "finalMarketEmissions",
+                            ];
 
+                            const current = getFinalReport();
+                            for (const key of keysToClear) {
+                                delete current[key];
+                            }
+                            localStorage.setItem("finalReportData", JSON.stringify(current));
+                            setReportData({ ...current });
+                            }}
+                            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
+                        >
+                            Clear Scope 1 Section
+                        </button>
+                        </div>   
+                        
+                                                
                         {/* Scope 2 (Location-based) Table */}
                         <div className="w-full max-w-3xl mb-8">
                             <h3 className="text-xl font-bold mb-4 dark:text-white">Scope 1 & Scope 2 Summary</h3>
@@ -195,7 +227,7 @@ const FinalReportPage: React.FC = () => {
                                         <td className="border p-2">Purchased and Consumed Electricity</td>
                                         <td className="border p-2">
                                             {reportData.lElectricity !== undefined
-                                                ? Number(reportData.lElectricity.co2e).toFixed(2)
+                                                ? Number(reportData.lElectricity.co2e).toFixed(6)
                                                 : "N/A"}
                                         </td>
                                     </tr>
@@ -205,7 +237,7 @@ const FinalReportPage: React.FC = () => {
                                         <td className="border p-2">Purchased and Consumed Steam</td>
                                         <td className="border p-2">
                                             {reportData.lSteam !== undefined
-                                                ? Number(reportData.lSteam.co2e).toFixed(2)
+                                                ? Number(reportData.lSteam.co2e).toFixed(6)
                                                 : "N/A"}
                                         </td>
                                     </tr>
@@ -215,7 +247,7 @@ const FinalReportPage: React.FC = () => {
                                         <td className="border p-2"><strong>Location-Based Scope 2 Summary</strong></td>
                                         <td className="border p-2"><strong>
                                             {reportData.lScope2Summary !== undefined
-                                                ? Number(reportData.lScope2Summary.co2e).toFixed(2)
+                                                ? Number(reportData.lScope2Summary.co2e).toFixed(6)
                                                 : "N/A"}
                                         </strong></td>
                                     </tr>
@@ -242,7 +274,7 @@ const FinalReportPage: React.FC = () => {
                                         <td className="border p-2">Purchased and Consumed Electricity</td>
                                         <td className="border p-2">
                                             {reportData.mElectricity !== undefined
-                                                ? Number(reportData.mElectricity.co2e).toFixed(2)
+                                                ? Number(reportData.mElectricity.co2e).toFixed(6)
                                                 : "N/A"}
                                         </td>
                                     </tr>
@@ -252,7 +284,7 @@ const FinalReportPage: React.FC = () => {
                                         <td className="border p-2">Purchased and Consumed Steam</td>
                                         <td className="border p-2">
                                             {reportData.mSteam !== undefined
-                                                ? Number(reportData.mSteam.co2e).toFixed(2)
+                                                ? Number(reportData.mSteam.co2e).toFixed(6)
                                                 : "N/A"}
                                         </td>
                                     </tr>
@@ -262,7 +294,7 @@ const FinalReportPage: React.FC = () => {
                                         <td className="border p-2"><strong>Market-Based Scope 2 Summary</strong></td>
                                         <td className="border p-2"><strong>
                                             {reportData.mScope2Summary !== undefined
-                                                ? Number(reportData.mScope2Summary.co2e).toFixed(2)
+                                                ? Number(reportData.mScope2Summary.co2e).toFixed(6)
                                                 : "N/A"}
                                         </strong></td>
                                     </tr>
@@ -289,7 +321,7 @@ const FinalReportPage: React.FC = () => {
                                         <td className="border p-2">Total Scope 1 & Location-Based Scope 2</td>
                                         <td className="border p-2">
                                             {reportData.scope1LocScope2Combined !== undefined
-                                                ? Number(reportData.scope1LocScope2Combined.co2e).toFixed(2)
+                                                ? Number(reportData.scope1LocScope2Combined.co2e).toFixed(6)
                                                 : "N/A"}
                                         </td>
                                     </tr>
@@ -299,13 +331,41 @@ const FinalReportPage: React.FC = () => {
                                         <td className="border p-2 ">Total Scope 1 & Market-Based Scope 2</td>
                                         <td className="border p-2">
                                             {reportData.scope1MarkScope2Combined !== undefined
-                                                ? Number(reportData.scope1MarkScope2Combined.co2e).toFixed(2)
+                                                ? Number(reportData.scope1MarkScope2Combined.co2e).toFixed(6)
                                                 : "N/A"}
                                         </td>
                                     </tr>       
                                 </tbody>
                             </table>
                         </div>
+{/* Clear Scope 2 Cache Button */}
+<div className="w-full max-w-3xl mb-8 flex justify-end">
+  <button
+    onClick={() => {
+      const current = getFinalReport();
+      const keysToClear: (keyof FinalReportData)[] = [
+        "lElectricity",
+        "lSteam",
+        "lScope2Summary",
+        "mElectricity",
+        "mSteam",
+        "mScope2Summary",
+        "scope1LocScope2Combined",
+        "scope1MarkScope2Combined",
+        "finalLocationEmissions",
+        "finalMarketEmissions",
+      ];
+      for (const key of keysToClear) {
+        delete current[key];
+      }
+      localStorage.setItem("finalReportData", JSON.stringify(current));
+      setReportData({ ...current });
+    }}
+    className="px-4 py-2 mt-2 bg-red-600 text-white font-semibold rounded hover:bg-red-700 transition"
+  >
+    Clear Scope 2 Data
+  </button>
+</div>
 
 
                         {/* Scope 3 Emissions */}
@@ -325,7 +385,7 @@ const FinalReportPage: React.FC = () => {
                                         <td className="border p-2">Business Travel</td>
                                         <td className="border p-2">
                                             {reportData.businessTravel !== undefined
-                                                ? Number(reportData.businessTravel.co2e).toFixed(2)
+                                                ? Number(reportData.businessTravel.co2e).toFixed(6)
                                                 : "N/A"}
                                         </td>
                                     </tr>
@@ -335,13 +395,39 @@ const FinalReportPage: React.FC = () => {
                                         <td className="border p-2"><strong>Scope 3 Summary</strong></td>
                                         <td className="border p-2"><strong>
                                             {reportData.scope3Summary !== undefined
-                                                ? Number(reportData.scope3Summary.co2e).toFixed(2)
+                                                ? Number(reportData.scope3Summary.co2e).toFixed(6)
                                                 : "N/A"}
                                         </strong></td>
                                     </tr>       
                                 </tbody>
                             </table>
                         </div>
+                        {/* Clear Scope 3 Cache Button */}
+{/* Clear Scope 3 Cache Button */}
+<div className="w-full max-w-3xl mb-8 flex justify-end">
+  <button
+    onClick={() => {
+      const current = getFinalReport();
+      const keysToClear: (keyof FinalReportData)[] = [
+        "businessTravel",
+        "scope3Summary",
+        "finalLocationEmissions",
+        "finalMarketEmissions",
+      ];
+      for (const key of keysToClear) {
+        delete current[key];
+      }
+      localStorage.setItem("finalReportData", JSON.stringify(current));
+      setReportData({ ...current });
+    }}
+    className="px-4 py-2 mt-2 bg-red-600 text-white font-semibold rounded hover:bg-red-700 transition"
+  >
+    Clear Scope 3 Data
+  </button>
+</div>
+
+
+                        
 
                         {/* Final Report */}
 
@@ -361,7 +447,7 @@ const FinalReportPage: React.FC = () => {
                                         <td className="border p-2"><strong>Final Location-Based Emissions</strong></td>
                                         <td className="border p-2"><strong>
                                             {reportData.finalLocationEmissions !== undefined
-                                                ? Number(reportData.finalLocationEmissions.co2e).toFixed(2)
+                                                ? Number(reportData.finalLocationEmissions.co2e).toFixed(6)
                                                 : "N/A"}
                                         </strong></td>
                                     </tr>       
@@ -369,27 +455,40 @@ const FinalReportPage: React.FC = () => {
                                         <td className="border p-2"><strong>Final Market-Based Emissions</strong></td>
                                         <td className="border p-2"><strong>
                                             {reportData.finalMarketEmissions !== undefined
-                                                ? Number(reportData.finalMarketEmissions.co2e).toFixed(2)
+                                                ? Number(reportData.finalMarketEmissions.co2e).toFixed(6)
                                                 : "N/A"}
                                         </strong></td>
                                     </tr>       
                                 </tbody>
                             </table>
                         </div>
+{/* Clear Final Report Cache Button */}
+{/* Clear All Report Data */}
+<div className="w-full max-w-3xl mb-8 flex justify-end">
+  <button
+    onClick={() => {
+      localStorage.removeItem("finalReportData");
+      setReportData({});
+    }}
+    className="px-4 py-2 mt-2 bg-red-700 text-white font-semibold rounded hover:bg-red-800 transition"
+  >
+    Clear All Report Data
+  </button>
+</div>
+
+      
 
                         </>
                     )}
 
                     {/* Placeholder download link for PDF report */}
                     <div className="mt-4">
-                        <a 
-                            href="/download-final-report.pdf"
-                            target="_blank"
-                            rel="noopener rereferrer"
-                            className="px-6 py-2 bg-blue-500 text-white font-bold rounded hover:bg-blue-600 transition"
-                        >
-                            Download PDF Report
-                        </a>
+                    <button
+                        onClick={handleDownloadPDF}
+                        className="px-6 py-2 bg-blue-500 text-white font-bold rounded hover:bg-blue-600 transition"
+                    >
+                        Download PDF Report
+                    </button>
                     </div>
 
                     {/* Navigation Buttons */}
@@ -408,6 +507,7 @@ const FinalReportPage: React.FC = () => {
                         </button>
                     </div>
                 </main>
+                </div>
             </div>
         </div>
     )

@@ -56,7 +56,7 @@ const ElectricityFuelSelection: React.FC<ElectricityFuelSelectionProps> = ({
   const [useMarketBased, setUseMarketBased] = useState<null | boolean>(null);
 
   const handleAddSource = async (newSources: ElectricitySource[]) => {
-    let totalCO2 = 0, totalCH4 = 0, totalN2O = 0;
+    let totalLoc = 0, totalMark = 0;
   
     const updated = await Promise.all(
       newSources.map(async (source) => {
@@ -71,15 +71,22 @@ const ElectricityFuelSelection: React.FC<ElectricityFuelSelectionProps> = ({
             },
           });
   
-          totalCO2 += res.data.CO2 || 0;
-          totalCH4 += res.data.CH4 || 0;
-          totalN2O += res.data.N2O || 0;
+          const {
+            CO2,
+            CH4,
+            N2O,
+            calculatedElecLoc,
+            calculatedElecMark,
+          } = res.data;
+  
+          totalLoc += calculatedElecLoc ?? 0;
+          totalMark += calculatedElecMark ?? 0;
   
           return {
             ...source,
-            co2: res.data.CO2,
-            ch4: res.data.CH4,
-            n2o: res.data.N2O,
+            co2: CO2,
+            ch4: CH4,
+            n2o: N2O,
           };
         } catch (err) {
           console.error("Fetch error:", err);
@@ -90,11 +97,13 @@ const ElectricityFuelSelection: React.FC<ElectricityFuelSelectionProps> = ({
   
     setSources((prev) => [...prev, ...updated]);
   
-    const total = totalCO2 + totalCH4 + totalN2O;
-    const key = useMarketBased ? "mElectricity" : "lElectricity";
-  
-    updateFinalReportSection(key, { co2e: total } as FinalReportEntry);
+    if (useMarketBased) {
+      updateFinalReportSection("mElectricity", { co2e: totalMark });
+    } else {
+      updateFinalReportSection("lElectricity", { co2e: totalLoc });
+    }
   };
+  
 
   return (
     <div className="mt-8 p-4 border rounded-lg shadow-sm bg-white w-[1400px] mx-auto">

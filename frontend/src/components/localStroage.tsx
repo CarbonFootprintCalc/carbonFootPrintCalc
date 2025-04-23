@@ -6,7 +6,7 @@ export interface FinalReportEntry {
 export interface FinalReportData {
   stationaryCombustion?: FinalReportEntry;
   mobileSources?: FinalReportEntry;
-  refridgeration?: FinalReportEntry;
+  refrigeration?: FinalReportEntry;
   fireSuppression?: FinalReportEntry;
   purchasedGases?: FinalReportEntry;
   scope1Summary?: FinalReportEntry;
@@ -48,7 +48,7 @@ export interface FinalReportData {
     const keys: (keyof FinalReportData)[] = [
       "stationaryCombustion",
       "mobileSources",
-      "refridgeration",
+      "refrigeration",
       "fireSuppression",
       "purchasedGases",
     ];
@@ -124,9 +124,9 @@ export interface FinalReportData {
     const report = getFinalReport();
     const scope1 = report.scope1Summary?.co2e || 0;
     const scope2Loc = report.lScope2Summary?.co2e || 0;
-  
+    const scope3 = report.scope3Summary?.co2e || 0;
     updateFinalReportSection("finalLocationEmissions", {
-      co2e: scope1 + scope2Loc,
+      co2e: scope1 + scope2Loc + scope3,
     });
   }
 
@@ -134,9 +134,9 @@ export interface FinalReportData {
     const report = getFinalReport();
     const scope1 = report.scope1Summary?.co2e || 0;
     const scope2Mark = report.mScope2Summary?.co2e || 0;
-  
+    const scope3 = report.scope3Summary?.co2e || 0;
     updateFinalReportSection("finalMarketEmissions", {
-      co2e: scope1 + scope2Mark,
+      co2e: scope1 + scope2Mark + scope3,
     });
   }
   

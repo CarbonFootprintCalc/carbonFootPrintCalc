@@ -68,6 +68,9 @@ const BusinessTravelSelection: React.FC<ScopeSectionProps> = ({
     const totalBusiTra = report.businessTravel?.co2e || 0;
     const totalScope = report.scope3Summary?.co2e || 0;
   
+    let latestBusinessTravel = 0;
+    let latestScope3 = 0;
+  
     const updatedSources = await Promise.all(
       processedTravels.map(async (travel) => {
         try {
@@ -81,11 +84,16 @@ const BusinessTravelSelection: React.FC<ScopeSectionProps> = ({
             },
           });
   
-          const { CO2, CH4, N2O } = response.data;
+          const {
+            CO2,
+            CH4,
+            N2O,
+            calculatedBusiTra,
+            calculatedScope3,
+          } = response.data;
   
-          // 更新 scope 3 中的两个字段
-          updateFinalReportSection("businessTravel", { co2e: CO2 });
-          updateFinalReportSection("scope3Summary", { co2e: CO2 + CH4 + N2O });
+          latestBusinessTravel = calculatedBusiTra;
+          latestScope3 = calculatedScope3;
   
           return {
             ...travel,
@@ -101,8 +109,12 @@ const BusinessTravelSelection: React.FC<ScopeSectionProps> = ({
       })
     );
   
+    updateFinalReportSection("businessTravel", { co2e: latestBusinessTravel });
+    updateFinalReportSection("scope3Summary", { co2e: latestScope3 });
+  
     setSources((prev) => [...prev, ...updatedSources]);
   };
+  
 
   const vehicleOptions = vehicleOptionsMap[title] ?? [];
   const unitLabel = unitLabelMap[title] ?? "Miles";
