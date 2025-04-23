@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import FireSuppressionFuelForm from "./FireSuppressionFuelForm";
 import axios from "axios";
-import { updateFinalReportSection, updateScope1Summary } from "./localStroage";
+import { updateFinalLocationEmissions, updateFinalMarketEmissions, updateFinalReportSection, updateScope1Summary } from "./localStroage";
 
 interface FireSuppressionFuelSelectionProps {
   title: string;
@@ -78,9 +78,11 @@ const FireSuppressionFuelSelection: React.FC<FireSuppressionFuelSelectionProps> 
   
 
     updateFinalReportSection("fireSuppression", { co2e: totalFireSupp });
-  
+
 
     updateScope1Summary();
+    updateFinalLocationEmissions();
+    updateFinalMarketEmissions();
   };
   
   return (

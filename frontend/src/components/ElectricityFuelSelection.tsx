@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import ElectricityFuelForm from "./ElectricityFuelForm";
-import { FinalReportEntry, updateFinalReportSection } from "./localStroage";
+import { FinalReportEntry, updateFinalLocationEmissions, updateFinalMarketEmissions, updateFinalReportSection, updateScope2SummaryLocation, updateScope2SummaryMarket } from "./localStroage";
 
 interface ElectricityFuelSelectionProps {
   title: string;
@@ -99,9 +99,14 @@ const ElectricityFuelSelection: React.FC<ElectricityFuelSelectionProps> = ({
   
     if (useMarketBased) {
       updateFinalReportSection("mElectricity", { co2e: totalMark });
+      updateScope2SummaryMarket();
+      updateFinalMarketEmissions();
     } else {
       updateFinalReportSection("lElectricity", { co2e: totalLoc });
+      updateScope2SummaryLocation();
+      updateFinalLocationEmissions();
     }
+    
   };
   
 

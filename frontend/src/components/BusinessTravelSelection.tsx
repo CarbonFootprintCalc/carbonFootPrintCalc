@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import BusinessTravelForm from "./BusinessTravelForm";
-import { getFinalReport, updateFinalReportSection } from "./localStroage";
+import { getFinalReport, updateFinalLocationEmissions, updateFinalMarketEmissions, updateFinalReportSection } from "./localStroage";
 
 interface ScopeSectionProps {
   title: string;
@@ -111,6 +111,8 @@ const BusinessTravelSelection: React.FC<ScopeSectionProps> = ({
   
     updateFinalReportSection("businessTravel", { co2e: latestBusinessTravel });
     updateFinalReportSection("scope3Summary", { co2e: latestScope3 });
+    updateFinalLocationEmissions();
+    updateFinalMarketEmissions(); 
   
     setSources((prev) => [...prev, ...updatedSources]);
   };

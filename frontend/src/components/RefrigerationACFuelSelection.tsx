@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import RefrigerationACFuelForm from "./RefrigerationACFuelForm";
 import axios from "axios";
-import { updateFinalReportSection, updateScope1Summary } from "./localStroage";
+import { updateFinalLocationEmissions, updateFinalMarketEmissions, updateFinalReportSection, updateScope1Summary } from "./localStroage";
 
 interface RefrigerationACFuelSelectionProps {
   title: string;
@@ -132,6 +132,8 @@ const RefrigerationACFuelSelection: React.FC<
     updateFinalReportSection("refrigeration", { co2e: totalRefAC });
   
     updateScope1Summary();
+    updateFinalLocationEmissions();
+    updateFinalMarketEmissions();
   };
   
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PurchaseGasForm from "./PurchaseGasFuelForm";
 import axios from "axios";
-import { updateFinalReportSection, updateScope1Summary } from "./localStroage";
+import { updateFinalLocationEmissions, updateFinalMarketEmissions, updateFinalReportSection, updateScope1Summary } from "./localStroage";
 
 interface PurchaseGasFuelSelectionProps {
   title: string;
@@ -102,6 +102,8 @@ const handleAddSource = async (newSources: PurchaseGasSource[]) => {
   updateFinalReportSection("purchasedGases", { co2e: totalPurchGas });
 
   updateScope1Summary();
+  updateFinalLocationEmissions();
+  updateFinalMarketEmissions();
 };
 
   

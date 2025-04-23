@@ -476,7 +476,19 @@ const FinalReportPage: React.FC = () => {
   </button>
 </div>
 
-      
+      {/* Clear Organization Info Cache */}
+<div className="w-full max-w-3xl mb-8 flex justify-end">
+  <button
+    onClick={() => {
+      localStorage.removeItem("organizationInfo");
+      window.location.reload(); 
+    }}
+    className="px-4 py-2 mt-2 bg-red-700 text-white font-semibold rounded hover:bg-red-800 transition"
+  >
+    Clear Organization Info
+  </button>
+</div>
+
 
                         </>
                     )}

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import MobileSourcesForm from "./MobileSourcesForm";
 import axios from "axios";
-import { updateFinalReportSection, updateScope1Summary } from "./localStroage";
+import { updateFinalLocationEmissions, updateFinalMarketEmissions, updateFinalReportSection, updateScope1Summary } from "./localStroage";
 
 interface MobileSourcesSelectionProps {
   title: string;
@@ -144,6 +144,8 @@ const MobileSourcesSelection: React.FC<MobileSourcesSelectionProps> = ({
     updateFinalReportSection("mobileSources", { co2e: totalMobile });
   
     updateScope1Summary();
+    updateFinalLocationEmissions();
+    updateFinalMarketEmissions();
   };
 
   return (
